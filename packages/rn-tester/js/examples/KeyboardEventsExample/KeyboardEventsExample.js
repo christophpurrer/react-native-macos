@@ -13,7 +13,7 @@
 const React = require('react');
 const ReactNative = require('react-native');
 import {Platform} from 'react-native';
-const {Button, PlatformColor, StyleSheet, Text, View} = ReactNative;
+const {Button, PlatformColor, StyleSheet, Text, TextInput, View} = ReactNative;
 
 import type {KeyEvent} from 'react-native/Libraries/Types/CoreEventTypes';
 
@@ -63,6 +63,13 @@ class KeyEventExample extends React.Component<{}, State> {
                 validKeysUp={['j', 'k', 'l']}
                 onKeyUp={this.onKeyUpEvent}
                 onPress={() => {}}
+              />
+              <TextInput
+                placeholder={'Text input'}
+                validKeysDown={['ArrowUp', 'ArrowDown', 'Enter']}
+                onKeyDown={this.onKeyDownEvent}
+                validKeysUp={['Escape']}
+                onKeyUp={this.onKeyUpEvent}
               />
             </View>
           ) : null}

@@ -32,7 +32,7 @@
 {
   RCTAssertParam(bridge);
 
-  if (self = [super initWithFrame:CGRectZero]) {
+  if (self = [super initWithEventDispatcher:bridge.eventDispatcher]) { // TODO(OSS Candidate ISS#2710739)
     _bridge = bridge;
     _eventDispatcher = bridge.eventDispatcher;
   }
@@ -42,7 +42,7 @@
 
 RCT_NOT_IMPLEMENTED(- (instancetype)init)
 RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)decoder)
-RCT_NOT_IMPLEMENTED(- (instancetype)initWithFrame:(CGRect)frame)
+// TODO(OSS Candidate ISS#2710739): remove RCT_NOT_IMPLEMENTED(- (instancetype)initWithFrame:(CGRect)frame)
 
 - (RCTUIView<RCTBackedTextInputViewProtocol> *)backedTextInputView // TODO(macOS ISS#3536887)
 {
@@ -596,6 +596,10 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithFrame:(CGRect)frame)
                                       key:@"Escape"
                                eventCount:_nativeEventCount];
   [self textInputDidEndEditing];
+}
+
+- (BOOL)textInputShouldHandleKeyEvent:(NSEvent *)event {
+  return ![self handleKeyboardEvent:event];
 }
 #endif // ]TODO(macOS GH#774)
 

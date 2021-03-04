@@ -43,6 +43,7 @@
 @property (nonatomic, assign) BOOL pinchGestureEnabled;
 #else // [TODO(macOS GH#774)
 + (BOOL)isCompatibleWithResponsiveScrolling;
+@property (nonatomic, assign, getter=isInverted) BOOL inverted;
 @property (nonatomic, assign, getter=isScrollEnabled) BOOL scrollEnabled;
 @property (nonatomic, strong) NSPanGestureRecognizer *panGestureRecognizer;
 #endif // ]TODO(macOS GH#774)
@@ -104,6 +105,11 @@
 + (BOOL)isCompatibleWithResponsiveScrolling
 {
   return YES;
+}
+
+- (BOOL)isFlipped
+{
+  return !self.inverted;
 }
 
 - (void)scrollWheel:(NSEvent *)theEvent
@@ -548,6 +554,12 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
 - (void)setAccessibilityLabel:(NSString *)accessibilityLabel
 {
   [_scrollView setAccessibilityLabel:accessibilityLabel];
+}
+
+- (void)setInverted:(BOOL)inverted
+{
+  _inverted = inverted;
+  _scrollView.inverted = inverted;
 }
 #endif // ]TODO(macOS GH#774)
 
@@ -1200,14 +1212,14 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidScrollToTop, onScrollToTop)
           RCTUIView *subview = self.contentView.subviews[ii]; // TODO(OSS Candidate ISS#2710739) use property instead of ivar for mac and TODO(macOS ISS#3536887)
           BOOL hasNewView = NO;
           if (horz) {
-            CGFloat leftInset = self.inverted ? self->_scrollView.contentInset.right : self->_scrollView.contentInset.left;
+            CGFloat leftInset = self.inverted ? self->_scrollView.contentInset.left : self->_scrollView.contentInset.right;
             CGFloat x = self->_scrollView.contentOffset.x + leftInset;
-            hasNewView = subview.frame.origin.x > x;
+            hasNewView = subview.frame.origin.x >= x;
           } else {
             CGFloat bottomInset =
-                self.inverted ? self->_scrollView.contentInset.top : self->_scrollView.contentInset.bottom;
+                self.inverted ? self->_scrollView.contentInset.bottom : self->_scrollView.contentInset.top;
             CGFloat y = self->_scrollView.contentOffset.y + bottomInset;
-            hasNewView = subview.frame.origin.y > y;
+            hasNewView = subview.frame.origin.y >= y;
           }
           if (hasNewView || ii == self.contentView.subviews.count - 1) { // TODO(OSS Candidate ISS#2710739) use property instead of ivar for mac
             self->_prevFirstVisibleFrame = subview.frame;

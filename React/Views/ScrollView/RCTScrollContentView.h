@@ -11,4 +11,8 @@
 
 @interface RCTScrollContentView : RCTView
 
+#if TARGET_OS_OSX // [TODO(macOS ISS#2323203)
+@property (nonatomic, assign, getter=isInverted) BOOL inverted;
+#endif // ]TODO(macOS ISS#2323203)
+
 @end

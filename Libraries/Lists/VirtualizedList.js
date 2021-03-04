@@ -961,7 +961,7 @@ class VirtualizedList extends React.PureComponent<Props, State> {
       this.props;
     const {data, horizontal} = this.props;
     const isVirtualizationDisabled = this._isVirtualizationDisabled();
-    const inversionStyle = this.props.inverted
+    const inversionStyle = this.props.inverted && Platform.OS !== 'macos' // TODO(macOS ISS#2323203)
       ? horizontalOrDefault(this.props.horizontal)
         ? styles.horizontallyInverted
         : styles.verticallyInverted

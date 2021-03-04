@@ -1760,6 +1760,7 @@ class ScrollView extends React.Component<Props, State> {
             : this.props.removeClippedSubviews
         }
         key={this.state.contentKey} // TODO(macOS GH#774)
+        inverted={this.props.inverted} // TODO(macOS GH#774)
         collapsable={false}>
         {children}
       </NativeDirectionalScrollContentView>

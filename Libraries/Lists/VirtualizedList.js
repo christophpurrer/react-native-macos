@@ -365,6 +365,7 @@ let _keylessItemComponentName: string = '';
 type State = {
   first: number,
   last: number,
+  contentKey: number, // TODO(macOS GH#774)
   selectedRowIndex: number, // TODO(macOS GH#774)
   ...
 };
@@ -800,6 +801,7 @@ class VirtualizedList extends React.PureComponent<Props, State> {
           (this.props.initialScrollIndex || 0) +
             initialNumToRenderOrDefault(this.props.initialNumToRender),
         ) - 1,
+      contentKey: 1, // TODO(macOS GH#774)
       selectedRowIndex: this.props.initialSelectedIndex || -1, // TODO(macOS GH#774)
     };
 
@@ -862,6 +864,7 @@ class VirtualizedList extends React.PureComponent<Props, State> {
         Math.min(prevState.first, getItemCount(data) - 1 - maxToRenderPerBatch),
       ),
       last: Math.max(0, Math.min(prevState.last, getItemCount(data) - 1)),
+      contentKey: prevState.contentKey,
       selectedRowIndex: Math.max(
         -1, // Used to indicate no row is selected
         Math.min(prevState.selectedRowIndex, getItemCount(data)),
@@ -979,11 +982,13 @@ class VirtualizedList extends React.PureComponent<Props, State> {
       this.props;
     const {data, horizontal} = this.props;
     const isVirtualizationDisabled = this._isVirtualizationDisabled();
-    const inversionStyle = this.props.inverted
-      ? horizontalOrDefault(this.props.horizontal)
-        ? styles.horizontallyInverted
-        : styles.verticallyInverted
-      : null;
+    // macOS natively supports inverted lists, thus not needing an inversion style
+    const inversionStyle =
+      this.props.inverted && Platform.OS !== 'macos' // TODO(macOS GH#774)
+        ? horizontalOrDefault(this.props.horizontal)
+          ? styles.horizontallyInverted
+          : styles.verticallyInverted
+        : null;
     const cells = [];
     const stickyIndicesFromProps = new Set(this.props.stickyHeaderIndices);
     const stickyHeaderIndices = [];
@@ -1330,6 +1335,7 @@ class VirtualizedList extends React.PureComponent<Props, State> {
     // [TODO(macOS GH#774)
     const preferredScrollerStyleDidChangeHandler =
       this.props.onPreferredScrollerStyleDidChange;
+    const invertedDidChange = this.props.onInvertedDidChange;
 
     const keyboardNavigationProps = {
       focusable: true,
@@ -1354,6 +1360,7 @@ class VirtualizedList extends React.PureComponent<Props, State> {
           {...props}
           // [TODO(macOS GH#774)
           {...(props.enableSelectionOnKeyPress && keyboardNavigationProps)}
+          onInvertedDidChange={invertedDidChange}
           onPreferredScrollerStyleDidChange={
             preferredScrollerStyleDidChangeHandler
           } // TODO(macOS GH#774)]
@@ -1377,6 +1384,7 @@ class VirtualizedList extends React.PureComponent<Props, State> {
           {...props}
           // [TODO(macOS GH#774)
           {...(props.enableSelectionOnKeyPress && keyboardNavigationProps)}
+          onInvertedDidChange={invertedDidChange}
           onPreferredScrollerStyleDidChange={
             preferredScrollerStyleDidChangeHandler
           } // TODO(macOS GH#774)]

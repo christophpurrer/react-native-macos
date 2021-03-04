@@ -71,6 +71,11 @@ type DirectEventProps = $ReadOnly<{|
   onDoubleClick?: ?(event: SyntheticEvent<{}>) => mixed, // TODO(macOS GH#774)
 
   /**
+   * This event is fired when the scrollView's inverted property changes.
+   */
+  onInvertedDidChange?: ?() => mixed, // TODO(macOS GH#774)
+
+  /**
    * This event is fired when the system's preferred scroller style changes.
    * The `preferredScrollerStyle` key will be `legacy` or `overlay`.
    */

@@ -320,12 +320,43 @@ static RCTUIColor *defaultPlaceholderColor() // TODO(OSS Candidate ISS#2710739)
 {
   return [super selectedRange];
 }
+
+- (NSArray *)readablePasteboardTypes
+{
+  NSArray *types = [super readablePasteboardTypes];
+  // TODO: Optionally support files/images with a prop?
+  return [types arrayByAddingObjectsFromArray:@[NSFilenamesPboardType, NSPasteboardTypePNG, NSPasteboardTypeTIFF]];
+}
+
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)draggingInfo
+{
+  NSDragOperation dragOperation = [self.textInputDelegate textInputDraggingEntered:draggingInfo];
+  NSDragOperation superOperation = [super draggingEntered:draggingInfo];
+  // The delegate's operation should take precedence.
+  return dragOperation != NSDragOperationNone ? dragOperation : superOperation;
+}
+
+- (void)draggingExited:(id<NSDraggingInfo>)draggingInfo
+{
+  [self.textInputDelegate textInputDraggingExited:draggingInfo];
+  [super draggingExited:draggingInfo];
+}
+
+- (BOOL)performDragOperation:(id<NSDraggingInfo>)draggingInfo
+{
+  if ([self.textInputDelegate textInputShouldHandleDragOperation:draggingInfo]) {
+    return [super performDragOperation:draggingInfo];
+  }
+  return YES;
+}
 #endif // ]TODO(macOS GH#774)
 
 - (void)paste:(id)sender
 {
-  [super paste:sender];
-  _textWasPasted = YES;
+  if ([self.textInputDelegate textInputShouldHandlePaste:self]) {
+    [super paste:sender];
+    _textWasPasted = YES;
+  }
 }
 
 // Turn off scroll animation to fix flaky scrolling.

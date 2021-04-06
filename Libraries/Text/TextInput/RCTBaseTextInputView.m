@@ -589,6 +589,31 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)decoder)
   return YES;
 }
 
+- (NSDragOperation)textInputDraggingEntered:(id<NSDraggingInfo>)draggingInfo
+{
+  if ([draggingInfo.draggingPasteboard availableTypeFromArray:self.registeredDraggedTypes]) {
+    return [self draggingEntered:draggingInfo];
+  }
+  return NSDragOperationNone;
+}
+
+- (void)textInputDraggingExited:(id<NSDraggingInfo>)draggingInfo
+{
+  if ([draggingInfo.draggingPasteboard availableTypeFromArray:self.registeredDraggedTypes]) {
+    [self draggingExited:draggingInfo];
+  }
+}
+
+- (BOOL)textInputShouldHandleDragOperation:(id<NSDraggingInfo>)draggingInfo
+{
+  if ([draggingInfo.draggingPasteboard availableTypeFromArray:self.registeredDraggedTypes]) {
+    [self performDragOperation:draggingInfo];
+    return NO;
+  }
+
+  return YES;
+}
+
 - (void)textInputDidCancel {
   [_eventDispatcher sendTextEventWithType:RCTTextEventTypeKeyPress
                                  reactTag:self.reactTag
@@ -602,6 +627,22 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)decoder)
   return ![self handleKeyboardEvent:event];
 }
 #endif // ]TODO(macOS GH#774)
+
+// [TODO(OSS Candidate ISS#2710739)
+- (BOOL)textInputShouldHandlePaste:(__unused id)sender
+{
+  NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+  NSPasteboardType fileType = [pasteboard availableTypeFromArray:@[NSFilenamesPboardType, NSPasteboardTypePNG, NSPasteboardTypeTIFF]];
+
+  // If there's a fileType that is of interest, notify JS. Also blocks notifying JS if it's a text paste
+  if (_onPaste && fileType != nil) {
+    _onPaste([self dataTransferInfoFromPasteboard:pasteboard]);
+  }
+
+  // Only allow pasting text.
+  return fileType == nil;
+}
+// ]TODO(OSS Candidate ISS#2710739)
 
 - (void)updateLocalData
 {

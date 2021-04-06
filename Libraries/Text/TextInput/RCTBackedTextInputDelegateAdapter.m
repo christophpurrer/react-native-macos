@@ -213,14 +213,18 @@ static void *TextFieldSelectionObservingContext = &TextFieldSelectionObservingCo
     }
     //paste
   } else if (commandSelector == @selector(paste:)) {
-    _backedTextInputView.textWasPasted = YES;
-    //escape
+    id<RCTBackedTextInputDelegate> textInputDelegate = [_backedTextInputView textInputDelegate];
+    if (textInputDelegate != nil && ![textInputDelegate textInputShouldHandlePaste:_backedTextInputView]) {
+      commandHandled = YES;
+    } else {
+      _backedTextInputView.textWasPasted = YES;
+      //escape
+    }
   } else if (commandSelector == @selector(cancelOperation:)) {
     [textInputDelegate textInputDidCancel];
     [[_backedTextInputView window] makeFirstResponder:nil];
     commandHandled = YES;
-}
-
+  }
   return commandHandled;
 }
 

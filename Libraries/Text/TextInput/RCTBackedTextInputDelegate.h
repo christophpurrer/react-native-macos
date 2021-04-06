@@ -43,9 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 #if TARGET_OS_OSX // [TODO(macOS GH#774)
 - (BOOL)textInputShouldHandleDeleteForward:(id<RCTBackedTextInputViewProtocol>)sender; // Return `YES` to have the deleteForward event handled normally. Return `NO` to disallow it and handle it yourself.
 - (BOOL)textInputShouldHandleKeyEvent:(NSEvent *)event; // Return `YES` to have the key event handled normally. Return `NO` to disallow it and handle it yourself.
+- (NSDragOperation)textInputDraggingEntered:(id<NSDraggingInfo>)draggingInfo;
+- (void)textInputDraggingExited:(id<NSDraggingInfo>)draggingInfo;
+- (BOOL)textInputShouldHandleDragOperation:(id<NSDraggingInfo>)draggingInfo;
 
 - (void)textInputDidCancel;  // Handle `Escape` key press.
 #endif // ]TODO(macOS GH#774)
+- (BOOL)textInputShouldHandlePaste:(id<RCTBackedTextInputViewProtocol>)sender; // Return `YES` to have the paste event handled normally. Return `NO` to disallow it and handle it yourself. TODO(OSS Candidate ISS#2710739)
 
 @optional
 - (void)scrollViewDidScroll:(RCTUIScrollView *)scrollView; // TODO(macOS GH#774)

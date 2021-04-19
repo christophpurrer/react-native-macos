@@ -164,6 +164,7 @@ class TouchableBounce extends React.Component<Props, State> {
           !this.props.disabled
         }
         focusable={this.props.focusable !== false && !this.props.disabled}
+        cursor={this.props.cursor}
         tooltip={this.props.tooltip}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}

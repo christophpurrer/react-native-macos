@@ -11,6 +11,10 @@
 #import <React/RCTFont.h>
 #import <React/RCTLog.h>
 
+#if TARGET_OS_OSX // TODO(macOS ISS#2323203)
+#import <React/RCTCursor.h>
+#endif // TODO(macOS ISS#2323203)
+
 NSString *const RCTTextAttributesIsHighlightedAttributeName = @"RCTTextAttributesIsHighlightedAttributeName";
 NSString *const RCTTextAttributesFontSmoothingAttributeName = @"RCTTextAttributesFontSmoothingAttributeName"; // TODO(OSS Candidate ISS#2710739)
 NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttributeName";
@@ -44,7 +48,9 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
     _textTransform = RCTTextTransformUndefined;
     // [TODO(macOS GH#774)
     _foregroundColor = [RCTTextAttributes defaultForegroundColor];
-    // ]TODO(macOS GH#774)
+#if TARGET_OS_OSX // TODO(macOS ISS#2323203)
+    _cursor = RCTCursorAuto;
+#endif // TODO(macOS ISS#2323203)
   }
 
   return self;
@@ -93,6 +99,10 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
   _tag = textAttributes->_tag ?: _tag;
   _layoutDirection = textAttributes->_layoutDirection != UIUserInterfaceLayoutDirectionLeftToRight ? textAttributes->_layoutDirection : _layoutDirection;
   _textTransform = textAttributes->_textTransform != RCTTextTransformUndefined ? textAttributes->_textTransform : _textTransform;
+
+#if TARGET_OS_OSX // TODO(macOS ISS#2323203)
+  _cursor = textAttributes->_cursor != RCTCursorAuto ? textAttributes->_cursor : _cursor;
+#endif // TODO(macOS ISS#2323203)
 }
 
 - (NSParagraphStyle *)effectiveParagraphStyle
@@ -109,27 +119,27 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
         alignment = NSTextAlignmentRight;
       }
     }
-    
+
     paragraphStyle.alignment = alignment;
     isParagraphStyleUsed = YES;
   }
-  
+
   if (_baseWritingDirection != NSWritingDirectionNatural) {
     paragraphStyle.baseWritingDirection = _baseWritingDirection;
     isParagraphStyleUsed = YES;
   }
-  
+
   if (!isnan(_lineHeight)) {
     CGFloat lineHeight = _lineHeight * self.effectiveFontSizeMultiplier;
     paragraphStyle.minimumLineHeight = lineHeight;
     paragraphStyle.maximumLineHeight = lineHeight;
     isParagraphStyleUsed = YES;
   }
-  
+
   if (isParagraphStyleUsed) {
     return [paragraphStyle copy];
   }
-  
+
   return nil;
 }
 
@@ -209,6 +219,11 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
     attributes[RCTTextAttributesTagAttributeName] = _tag;
   }
 
+#if TARGET_OS_OSX // TODO(macOS ISS#2323203)
+  if (_cursor != RCTCursorAuto) {
+    attributes[NSCursorAttributeName] = [RCTConvert NSCursor:_cursor];
+  }
+#endif // TODO(macOS ISS#2323203)
   return [attributes copy];
 }
 

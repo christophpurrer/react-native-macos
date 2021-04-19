@@ -37,6 +37,7 @@ const ReactNativeViewViewConfigMacOS = {
   validAttributes: {
     acceptsFirstMouse: true,
     accessibilityTraits: true,
+    cursor: true,
     draggedTypes: true,
     enableFocusRing: true,
     onBlur: true,

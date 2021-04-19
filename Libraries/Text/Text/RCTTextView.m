@@ -85,6 +85,11 @@
 }
 
 #if TARGET_OS_OSX // [TODO(macOS GH#774)
+- (void)setCursor:(RCTCursor)cursor
+{
+    // This is required because the RCTTextViewManager inherits from RCTViewManager which has a cursor prop.
+}
+
 - (NSView *)hitTest:(NSPoint)point
 {
   // We will forward mouse events to the NSTextView ourselves.

@@ -335,6 +335,7 @@ class TouchableHighlight extends React.Component<Props, State> {
         }
         focusable={this.props.focusable !== false && !this.props.disabled}
         tooltip={this.props.tooltip}
+        cursor={this.props.cursor}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
         onDragEnter={this.props.onDragEnter}

@@ -1245,4 +1245,29 @@ exports.examples = [
       );
     },
   },
+  {
+    title: 'Cursor',
+    render: function(): React.Node {
+      return (
+        <View>
+          <Text style={{cursor: 'pointer'}} selectable={true}>
+            This text has pointer cursor.
+          </Text>
+        </View>
+      );
+    },
+  },
+  {
+    title: 'Cursor virtual text',
+    render: function(): React.Node {
+      return (
+        <View>
+          <Text selectable={true}>
+            This text has regular cursor. <Text style={{cursor: 'pointer'}}>This text has pointer cursor.</Text>
+          </Text>
+        </View>
+      );
+    },
+  },
 ];
+

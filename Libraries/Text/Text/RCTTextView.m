@@ -69,6 +69,7 @@
     // The NSTextView is responsible for drawing text and managing selection.
     _textView = [[NSTextView alloc] initWithFrame:self.bounds];
     _textView.delegate = self;
+    _textView.usesFontPanel = NO;
     _textView.drawsBackground = NO;
     _textView.editable = NO;
     _textView.selectable = NO;
@@ -458,7 +459,15 @@
 }
 #else // [TODO(macOS GH#774)
 
-- (NSMenu *)textView:(NSTextView *)view menu:(NSMenu *)menu forEvent:(NSEvent *)event atIndex:(NSUInteger)charIndex {
+- (NSMenu *)textView:(NSTextView *)view menu:(NSMenu *)menu forEvent:(NSEvent *)event atIndex:(NSUInteger)charIndex
+{
+  // Remove items not applicable for readonly text.
+  for (NSMenuItem *item in menu.itemArray) {
+    if (item.action == @selector(cut:) || item.action == @selector(paste:) || [RCTTextView item:item hasSubmenuItemWithAction:@selector(checkSpelling:)] || [RCTTextView item:item hasSubmenuItemWithAction:@selector(orderFrontSubstitutionsPanel:)]) {
+      item.hidden = YES;
+    }
+  }
+
   if (_additionalMenuItems.count > 0) {
     [menu insertItem:[NSMenuItem separatorItem] atIndex:0];
     for (NSMenuItem* item in [_additionalMenuItems reverseObjectEnumerator]) {
@@ -469,6 +478,19 @@
   [self.touchHandler willShowMenuWithEvent:event];
 
   return menu;
+}
+
++ (BOOL)item:(NSMenuItem *)item hasSubmenuItemWithAction:(SEL)action
+{
+  if (!item.hasSubmenu) {
+    return NO;
+  }
+  for (NSMenuItem *submenuItem in item.submenu.itemArray) {
+    if (submenuItem.action == action) {
+      return YES;
+    }
+  }
+  return NO;
 }
 
 - (void)textDidEndEditing:(NSNotification *)notification

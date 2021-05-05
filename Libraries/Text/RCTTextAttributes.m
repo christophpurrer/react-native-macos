@@ -103,6 +103,7 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
 
 #if TARGET_OS_OSX // TODO(macOS ISS#2323203)
   _cursor = textAttributes->_cursor != RCTCursorAuto ? textAttributes->_cursor : _cursor;
+  _href = textAttributes->_href ?: _href;
 #endif // TODO(macOS ISS#2323203)
 }
 
@@ -223,6 +224,9 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
 #if TARGET_OS_OSX // TODO(macOS ISS#2323203)
   if (_cursor != RCTCursorAuto) {
     attributes[NSCursorAttributeName] = [RCTConvert NSCursor:_cursor];
+  }
+  if (_href) {
+    attributes[NSLinkAttributeName] = [RCTConvert NSURL:_href];
   }
 #endif // TODO(macOS ISS#2323203)
   return [attributes copy];

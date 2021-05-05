@@ -92,6 +92,7 @@
     _textView.delegate = self;
     _textView.usesFontPanel = NO;
     _textView.drawsBackground = NO;
+    _textView.linkTextAttributes = @{};
     _textView.editable = NO;
     _textView.selectable = NO;
     _textView.verticallyResizable = NO;
@@ -113,9 +114,12 @@
 
 - (NSView *)hitTest:(NSPoint)point
 {
-  // We will forward mouse events to the NSTextView ourselves.
+  // We will forward mouse click events to the NSTextView ourselves to prevent NSTextView from swallowing events that may be handled in JS (e.g. long press).
   NSView *hitView = [super hitTest:point];
-  return (hitView && hitView == _textView) ? self : hitView;
+  NSEventType eventType = NSApp.currentEvent.type;
+  BOOL isMouseClickEvent = NSEvent.pressedMouseButtons > 0;
+  BOOL isMouseMoveEvent = !isMouseClickEvent && (eventType == NSEventTypeMouseMoved || eventType == NSEventTypeMouseEntered || eventType == NSEventTypeMouseExited || eventType == NSEventTypeCursorUpdate);
+  return (hitView && hitView == _textView && !isMouseMoveEvent) ? self : hitView;
 }
 
 - (void)mouseDown:(NSEvent *)event

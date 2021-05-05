@@ -64,6 +64,7 @@ extern NSString *const RCTTextAttributesTagAttributeName;
 
 #if TARGET_OS_OSX // TODO(macOS ISS#2323203)
 @property (nonatomic, assign) RCTCursor cursor;
+@property (nonatomic, copy, nullable) NSString *href;
 #endif // TODO(macOS ISS#2323203)
 
 #pragma mark - Inheritance

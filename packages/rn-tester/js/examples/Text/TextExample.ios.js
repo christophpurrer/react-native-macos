@@ -1269,5 +1269,29 @@ exports.examples = [
       );
     },
   },
+  {
+    title: 'Hyperlink',
+    render: function(): React.Node {
+      return (
+        <View>
+          <Text style={{textDecorationLine: 'underline', color: 'blue'}} href="https://reactnative.dev/" selectable={true}>
+            This text is a hyperlink.
+          </Text>
+        </View>
+      );
+    },
+  },
+  {
+    title: 'Hyperlink virtual text',
+    render: function(): React.Node {
+      return (
+        <View>
+          <Text selectable={true}>
+            This is regular text. <Text style={{textDecorationLine: 'underline', color: 'blue'}} href="https://reactnative.dev/">This text is hyperlink.</Text>
+          </Text>
+        </View>
+      );
+    },
+  },
 ];
 

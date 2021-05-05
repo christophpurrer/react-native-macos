@@ -8,6 +8,7 @@
  * @format
  */
 
+import Linking from '../Linking/Linking';
 import * as PressabilityDebug from '../Pressability/PressabilityDebug';
 import usePressability from '../Pressability/usePressability';
 import StyleSheet from '../StyleSheet/StyleSheet';
@@ -31,6 +32,7 @@ const Text: React.AbstractComponent<
     accessible,
     allowFontScaling,
     ellipsizeMode,
+    href,
     onLongPress,
     onPress,
     onPressIn,
@@ -49,7 +51,7 @@ const Text: React.AbstractComponent<
   const [isHighlighted, setHighlighted] = useState(false);
 
   const isPressable =
-    (onPress != null ||
+    (props.href != null || onPress != null ||
       onLongPress != null ||
       onStartShouldSetResponder != null) &&
     restProps.disabled !== true;
@@ -62,7 +64,16 @@ const Text: React.AbstractComponent<
             disabled: !isPressable,
             pressRectOffset: pressRetentionOffset,
             onLongPress,
-            onPress,
+            onPress(event) {
+              onPress?.(event);
+              if (
+                href != null &&
+                event.defaultPrevented != null &&
+                event.nativeEvent.button === 0
+              ) {
+                Linking.openURL(href);
+              }
+            },
             onPressIn(event) {
               setHighlighted(!suppressHighlighting);
               onPressIn?.(event);
@@ -77,6 +88,7 @@ const Text: React.AbstractComponent<
           }
         : null,
     [
+      href,
       initialized,
       isPressable,
       pressRetentionOffset,
@@ -140,6 +152,11 @@ const Text: React.AbstractComponent<
       : processColor(restProps.selectionColor);
 
   let style = restProps.style;
+  if (href != null) {
+      style = StyleSheet.compose(restProps.style, {
+        cursor: 'pointer',
+      });
+  }
   if (__DEV__) {
     if (PressabilityDebug.isEnabled() && onPress != null) {
       style = StyleSheet.compose(restProps.style, {
@@ -162,6 +179,7 @@ const Text: React.AbstractComponent<
     <NativeVirtualText
       {...restProps}
       {...eventHandlersForText}
+      href={href}
       isHighlighted={isHighlighted}
       isPressable={isPressable}
       numberOfLines={numberOfLines}

@@ -26,6 +26,27 @@
 #import <React/RCTRootContentView.h>
 #import <React/RCTTouchHandler.h>
 
+@interface RCTUnfocusableTextView : NSTextView
+@end
+
+@implementation RCTUnfocusableTextView
+
+- (BOOL)canBecomeKeyView
+{
+    return NO;
+}
+
+- (BOOL)resignFirstResponder
+{
+  // Don't relinquish first responder while selecting text.
+  if (self.selectable && NSRunLoop.currentRunLoop.currentMode == NSEventTrackingRunLoopMode) {
+    return NO;
+  }
+  return [super resignFirstResponder];
+}
+
+@end
+
 @interface RCTTextView () <NSTextViewDelegate>
 @end
 #endif
@@ -67,7 +88,7 @@
     // Fix blurry text on non-retina displays.
     self.canDrawSubviewsIntoLayer = YES;
     // The NSTextView is responsible for drawing text and managing selection.
-    _textView = [[NSTextView alloc] initWithFrame:self.bounds];
+    _textView = [[RCTUnfocusableTextView alloc] initWithFrame:self.bounds];
     _textView.delegate = self;
     _textView.usesFontPanel = NO;
     _textView.drawsBackground = NO;

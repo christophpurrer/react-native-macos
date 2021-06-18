@@ -184,10 +184,10 @@
 #if DEBUG // TODO(macOS GH#774) description is a debug-only feature
 - (NSString *)description
 {
-  // [TODO(macOS GH#774): we shouldn't make assumptions on what super's description is. Just append additional content.
-  NSString *stringToAppend = [NSString stringWithFormat:@" reactTag: %@; text: %@", self.reactTag, _textStorage.string];
-  return [[super description] stringByAppendingString:stringToAppend];
-  // TODO(macOS GH#774)]
+  NSString *superDescription = super.description;
+  NSRange replacementRange = [superDescription rangeOfString:@">"];
+  NSString *replacement = [NSString stringWithFormat:@"; reactTag: %@; text: %@>", self.reactTag, _textStorage.string];
+  return [superDescription stringByReplacingCharactersInRange:replacementRange withString:replacement];
 }
 #endif // TODO(macOS GH#774)
 

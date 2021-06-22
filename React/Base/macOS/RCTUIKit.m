@@ -410,6 +410,12 @@ static RCTUIView *RCTUIViewCommonInit(RCTUIView *self)
   self.needsDisplay = YES;
 }
 
+- (void)setNeedsUpdateConstraints:(BOOL)flag
+{
+  // Since we don't rely on autolayout, skip the super implementation that
+  // traverses up the tree and posts notifications.
+}
+
 @synthesize clipsToBounds = _clipsToBounds;
 
 @synthesize backgroundColor = _backgroundColor;

@@ -829,11 +829,28 @@ UIImage *__nullable RCTImageFromLocalBundleAssetURL(NSURL *imageURL)
   return RCTImageFromLocalAssetURL(bundleImageUrl);
 }
 
+#if TARGET_OS_OSX // [TODO(macOS ISS#2323203)
+static NSCache<NSURL *, UIImage *> *RCTLocalImageCache()
+{
+  static NSCache *imageCache;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    imageCache = [NSCache new];
+  });
+  return imageCache;
+}
+#endif // ]TODO(macOS ISS#2323203)
+
 UIImage *__nullable RCTImageFromLocalAssetURL(NSURL *imageURL)
 {
   NSString *imageName = RCTBundlePathForURL(imageURL);
 #if TARGET_OS_OSX // [TODO(macOS GH#774)
   NSURL *bundleImageURL = nil;
+
+  UIImage *cachedImage = [RCTLocalImageCache() objectForKey:imageURL];
+  if (cachedImage) {
+    return cachedImage;
+  }
 #endif // ]TODO(macOS GH#774)
 
   NSBundle *bundle = nil;
@@ -911,6 +928,13 @@ UIImage *__nullable RCTImageFromLocalAssetURL(NSURL *imageURL)
       }
     }
   }
+
+#if TARGET_OS_OSX // [TODO(macOS ISS#2323203)
+  if (image) {
+    [RCTLocalImageCache() setObject:image forKey:imageURL];
+  }
+#endif // ]TODO(macOS ISS#2323203)
+
   return image;
 }
 

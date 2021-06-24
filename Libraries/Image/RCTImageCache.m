@@ -18,7 +18,11 @@
 
 #import <React/RCTImageUtils.h>
 
+#if !TARGET_OS_OSX // [TODO(macOS GH#774)
 static const NSUInteger RCTMaxCachableDecodedImageSizeInBytes = 2097152; // 2 MB
+#else
+static const NSUInteger RCTMaxCachableDecodedImageSizeInBytes = 10485760 * 2; // 20 MB
+#endif // ]TODO(macOS GH#774)
 
 static NSString *RCTCacheKeyForImage(NSString *imageTag, CGSize size, CGFloat scale,
                                      RCTResizeMode resizeMode)
@@ -38,7 +42,11 @@ static NSString *RCTCacheKeyForImage(NSString *imageTag, CGSize size, CGFloat sc
 {
   if (self = [super init]) {
     _decodedImageCache = [NSCache new];
+#if !TARGET_OS_OSX // [TODO(macOS GH#774)
     _decodedImageCache.totalCostLimit = 20 * 1024 * 1024; // 20 MB
+#else
+    _decodedImageCache.totalCostLimit = 100 * 1024 * 1024; // 100 MB
+#endif // ]TODO(macOS GH#774)
     _cacheStaleTimes = [NSMutableDictionary new];
 
 #if !TARGET_OS_OSX // TODO(macOS GH#774)

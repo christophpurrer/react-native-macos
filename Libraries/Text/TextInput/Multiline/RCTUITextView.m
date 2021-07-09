@@ -354,8 +354,8 @@ static RCTUIColor *defaultPlaceholderColor() // TODO(OSS Candidate ISS#2710739)
 - (void)paste:(id)sender
 {
   if ([self.textInputDelegate textInputShouldHandlePaste:self]) {
-    [super paste:sender];
     _textWasPasted = YES;
+    [super paste:sender];
   }
 }
 

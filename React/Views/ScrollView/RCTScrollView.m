@@ -928,7 +928,9 @@ RCT_SCROLL_EVENT_HANDLER(scrollViewDidScrollToTop, onScrollToTop)
 - (void)scrollViewDidScroll:(RCTCustomScrollView *)scrollView // TODO(macOS GH#774)
 {
   NSTimeInterval now = CACurrentMediaTime();
-  [self updateClippedSubviews];
+  // [TODO(macOS ISS#2323203) ARCHON_MACOS: Removed calling `updateClippedSubviews` to improve
+  // scroll performance since we do not use `removeClippedSubviews`.
+  // [self updateClippedSubviews]; ]TODO(macOS ISS#2323203)
   /**
    * TODO: this logic looks wrong, and it may be because it is. Currently, if _scrollEventThrottle
    * is set to zero (the default), the "didScroll" event is only sent once per scroll, instead of repeatedly

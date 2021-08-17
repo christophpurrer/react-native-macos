@@ -323,9 +323,10 @@ static RCTUIColor *defaultPlaceholderColor() // TODO(OSS Candidate ISS#2710739)
 
 - (NSArray *)readablePasteboardTypes
 {
-  NSArray *types = [super readablePasteboardTypes];
+  // Not calling super because it includes many rich formatting types that we want to ignore
+  // in favor of relying on font info enforced from JS.
   // TODO: Optionally support files/images with a prop?
-  return [types arrayByAddingObjectsFromArray:@[NSFilenamesPboardType, NSPasteboardTypePNG, NSPasteboardTypeTIFF]];
+  return @[NSFilenamesPboardType, NSPasteboardTypeString, NSPasteboardTypePNG, NSPasteboardTypeTIFF];
 }
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)draggingInfo

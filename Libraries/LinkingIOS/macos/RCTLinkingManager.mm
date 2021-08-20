@@ -76,11 +76,7 @@ RCT_EXPORT_MODULE()
 
 - (void)handleOpenURLNotification:(NSNotification *)notification
 {
-    // foreground top level window, need to grab it like this, because [NSApp mainWindow] returns nil when the app is hidden
-    // and another app is maximized
     [NSApp activateIgnoringOtherApps:YES];
-    NSWindow *lastWindow = [[NSApp windows] lastObject];
-    [lastWindow makeKeyAndOrderFront:nil];
 
     [self sendEventWithName:@"url" body:notification.userInfo];
 }

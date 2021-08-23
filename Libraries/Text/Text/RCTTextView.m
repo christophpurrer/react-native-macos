@@ -143,7 +143,7 @@
 
     // Start selection if we're still selectable and hit-testable.
     if (self.selectable && [contentView hitTest:point] == self) {
-      [self.touchHandler cancelTouchWithEvent:event];
+      [[RCTTouchHandler touchHandlerForView:self] cancelTouchWithEvent:event];
       [self.window makeFirstResponder:_textView];
       [_textView mouseDown:event];
     }
@@ -167,18 +167,6 @@
   [_textView rightMouseDown:event];
 }
 
-- (RCTTouchHandler *)touchHandler
-{
-  NSView *rootView = self.superview;
-  while (rootView != nil) {
-    if ([rootView isKindOfClass:[RCTRootContentView class]]) {
-      return [(RCTRootContentView*)rootView touchHandler];
-    }
-    rootView = rootView.superview;
-  }
-
-  return nil;
-}
 #endif // ]TODO(macOS GH#774)
 
 #if DEBUG // TODO(macOS GH#774) description is a debug-only feature
@@ -501,7 +489,7 @@
     }
   }
 
-  [self.touchHandler willShowMenuWithEvent:event];
+  [[RCTTouchHandler touchHandlerForView:self] willShowMenuWithEvent:event];
 
   return menu;
 }

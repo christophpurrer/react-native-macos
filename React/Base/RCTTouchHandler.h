@@ -20,8 +20,11 @@
 
 - (void)cancel;
 #if TARGET_OS_OSX // [TODO(macOS GH#774)
-- (void)cancelTouchWithEvent:(NSEvent*)event;
-- (void)willShowMenuWithEvent:(NSEvent*)event;
++ (instancetype)touchHandlerForEvent:(NSEvent *)event;
++ (instancetype)touchHandlerForView:(NSView *)view;
+
+- (void)cancelTouchWithEvent:(NSEvent *)event;
+- (void)willShowMenuWithEvent:(NSEvent *)event;
 #endif // ]TODO(macOS GH#774)
 
 @end

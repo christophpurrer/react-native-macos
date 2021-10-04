@@ -162,10 +162,13 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)decoder)
 #endif // ]TODO(macOS GH#774)
     NSAttributedString *oldAttributedText = [self.backedTextInputView.attributedText copy];
     NSInteger oldTextLength = oldAttributedText.string.length;
+    NSInteger oldSelectionStart = selection.location;
+    NSInteger oldSelectionEnd = selection.location + selection.length;
 
     [self.backedTextInputView.undoManager registerUndoWithTarget:self handler:^(RCTBaseTextInputView *strongSelf) {
       strongSelf.attributedText = oldAttributedText;
       [strongSelf textInputDidChange];
+      [strongSelf setSelectionStart:oldSelectionStart selectionEnd:oldSelectionEnd];
     }];
 
     self.backedTextInputView.attributedText = attributedText;
@@ -259,7 +262,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)decoder)
 #else // [TODO(macOS GH#774)
   NSInteger startPosition = MIN(start, end);
   NSInteger endPosition = MAX(start, end);
-  [self.backedTextInputView setSelectedTextRange:NSMakeRange(startPosition, endPosition - startPosition) notifyDelegate:NO];
+  [self.backedTextInputView setSelectedTextRange:NSMakeRange(startPosition, endPosition - startPosition) notifyDelegate:YES];
 #endif // ]TODO(macOS GH#774)
 }
 
@@ -568,13 +571,20 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)decoder)
     return;
   }
 
-  RCTTextSelection *selection = self.selection;
+  // Run this async to match iOS order of events where we get the onChange first and then onSelectionChange.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    if (!_onSelectionChange) {
+      return;
+    }
 
-  _onSelectionChange(@{
-    @"selection": @{
-      @"start": @(selection.start),
-      @"end": @(selection.end),
-    },
+    RCTTextSelection *selection = self.selection;
+
+    _onSelectionChange(@{
+      @"selection": @{
+        @"start": @(selection.start),
+        @"end": @(selection.end),
+      },
+    });
   });
 }
 

@@ -150,6 +150,10 @@ RCT_EXPORT_METHOD(setTextAndSelection : (nonnull NSNumber *)viewTag
     if (eventLag != 0) {
       return;
     }
+    if (!value) {
+      [view setSelectionStart:start selectionEnd:end];
+      return;
+    }
     RCTExecuteOnUIManagerQueue(^{
       RCTBaseTextInputShadowView *shadowView = (RCTBaseTextInputShadowView *)[self.bridge.uiManager shadowViewForReactTag:viewTag];
       if (value) {

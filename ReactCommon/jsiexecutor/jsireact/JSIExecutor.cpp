@@ -244,8 +244,10 @@ void JSIExecutor::callFunction(
   // by value.
   auto errorProducer = [=] {
     std::stringstream ss;
-    ss << "moduleID: " << moduleId << " methodID: " << methodId
-       << " arguments: " << folly::toJson(arguments);
+    ss << "moduleID: " << moduleId << " methodID: " << methodId;
+    // ARCHON_PERF - arguments was getting copied here every call and causing
+    // churn on the heap especially in case of large model updates plumbed to JS.
+    // << " arguments: " << folly::toJson(arguments);
     return ss.str();
   };
 

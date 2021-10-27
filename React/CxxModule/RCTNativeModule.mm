@@ -173,6 +173,7 @@ static MethodCallResult invokeInner(
     BridgeNativeModulePerfLogger::syncMethodCallArgConversionEnd(moduleName, methodName);
   }
 
+  RCT_PROFILE_BEGIN_EVENT(RCTProfileTagAlways, @"[RCTNativeModule invokeInner]", @{@"method": [NSString stringWithUTF8String:method.JSMethodName]});
   @try {
     if (context == Sync) {
       BridgeNativeModulePerfLogger::syncMethodCallExecutionStart(moduleName, methodName);
@@ -214,6 +215,8 @@ static MethodCallResult invokeInner(
 #else
     RCTFatalException(exception);
 #endif
+  } @finally {
+    RCT_PROFILE_END_EVENT(RCTProfileTagAlways, @"");
   }
 
   return folly::none;

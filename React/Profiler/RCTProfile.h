@@ -58,6 +58,23 @@ RCT_EXTERN void RCTProfileInit(RCTBridge *);
 RCT_EXTERN void RCTProfileEnd(RCTBridge *, void (^)(NSString *));
 
 /**
+ * ARCHON_TRACING: Route the RCT_PROFILE_BEGIN_EVENT hooks to our loom tracing.
+ */
+#ifdef WITH_FBSYSTRACE
+RCT_EXTERN BOOL _RCTLoomIsProfiling(void);
+RCT_EXTERN BOOL _RCTLoomBeginEvent(
+    NSString *name,
+    const char *file,
+    size_t line,
+    NSDictionary<NSString *, NSString *> *args);
+RCT_EXTERN void _RCTLoomEndEvent();
+#else
+#define _RCTLoomIsProfiling(...) NO
+#define _RCTLoomBeginEvent(...) NO
+#define _RCTLoomEndEvent(...)
+#endif
+
+/**
  * Collects the initial event information for the event and returns a reference ID
  */
 RCT_EXTERN void _RCTProfileBeginEvent(
@@ -67,7 +84,11 @@ RCT_EXTERN void _RCTProfileBeginEvent(
     NSString *name,
     NSDictionary<NSString *, NSString *> *args);
 #define RCT_PROFILE_BEGIN_EVENT(tag, name, args)                      \
+  BOOL __loomEventStarted = NO;                                       \
   do {                                                                \
+    if (_RCTLoomIsProfiling()) {                                      \
+      __loomEventStarted = _RCTLoomBeginEvent(name, __FILE__, __LINE__, args); \
+    }                                                                 \
     if (RCTProfileIsProfiling()) {                                    \
       NSThread *__calleeThread = [NSThread currentThread];            \
       NSTimeInterval __time = CACurrentMediaTime();                   \
@@ -86,9 +107,11 @@ RCT_EXTERN void _RCTProfileEndEvent(
     NSTimeInterval time,
     uint64_t tag,
     NSString *category);
-
 #define RCT_PROFILE_END_EVENT(tag, category)                                    \
   do {                                                                          \
+    if (__loomEventStarted) {                                                   \
+      _RCTLoomEndEvent();                                                       \
+    }                                                                           \
     if (RCTProfileIsProfiling()) {                                              \
       NSThread *__calleeThread = [NSThread currentThread];                      \
       NSString *__threadName = RCTCurrentThreadName();                          \

@@ -193,15 +193,15 @@ void RCTProfileTrampolineStart(id self, SEL cmd)
    * This call might be during dealloc, so we shouldn't retain the object in the
    * block.
    */
-  Class klass = [self class];
-  RCT_PROFILE_BEGIN_EVENT(
-      RCTProfileTagAlways, ([NSString stringWithFormat:@"-[%s %s]", class_getName(klass), sel_getName(cmd)]), nil);
+  // Class klass = [self class];
+  // RCT_PROFILE_BEGIN_EVENT(
+  //     RCTProfileTagAlways, ([NSString stringWithFormat:@"-[%s %s]", class_getName(klass), sel_getName(cmd)]), nil);
 }
 
 RCT_EXTERN void RCTProfileTrampolineEnd(void);
 void RCTProfileTrampolineEnd(void)
 {
-  RCT_PROFILE_END_EVENT(RCTProfileTagAlways, @"objc_call,modules,auto");
+  // RCT_PROFILE_END_EVENT(RCTProfileTagAlways, @"objc_call,modules,auto");
 }
 
 static RCTUIView *(*originalCreateView)(RCTComponentData *, SEL, NSNumber *, NSNumber *); // TODO(macOS GH#774)

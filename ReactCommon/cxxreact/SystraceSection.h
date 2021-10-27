@@ -24,18 +24,15 @@ namespace react {
  * of defined symbols.
  */
 #ifdef WITH_FBSYSTRACE
-struct ConcreteSystraceSection {
- public:
-  template <typename... ConvertsToStringPiece>
-  explicit ConcreteSystraceSection(
-      const char *name,
-      ConvertsToStringPiece &&...args)
-      : m_section(TRACE_TAG_REACT_CXX_BRIDGE, name, args...) {}
 
- private:
-  fbsystrace::FbSystraceSection m_section;
-};
-using SystraceSection = ConcreteSystraceSection;
+// ARCHON_TRACING: Allow providing an fbsystrace implementation that can
+// short-circuit out quickly and can throttle too frequent events so we can get
+// useful traces even if rendering etc. is spinning. For throttling we'll need
+// file/line info so we use a macro.
+#define SystraceSection                                         \
+  static constexpr const char systraceSectionFile[] = __FILE__; \
+  fbsystrace::FbSystraceSection<systraceSectionFile, __LINE__>
+
 #else
 struct DummySystraceSection {
  public:

@@ -190,8 +190,10 @@ void CxxNativeModule::invoke(
   // stack.  I'm told that will be possible in the future.  TODO
   // mhorowitz #7128529: convert C++ exceptions to Java
 
+  const auto& moduleName = name_;
+  SystraceSection s("CxxMethodCallQueue", "module", moduleName, "method", method.name);
   messageQueueThread_->runOnQueue(
-      [method, params = std::move(params), first, second, callId]() {
+      [method, params = std::move(params), first, second, callId, moduleName]() {
 #ifdef WITH_FBSYSTRACE
         if (callId != -1) {
           fbsystrace_end_async_flow(TRACE_TAG_REACT_APPS, "native", callId);
@@ -199,7 +201,7 @@ void CxxNativeModule::invoke(
 #else
         (void)(callId);
 #endif
-        SystraceSection s(method.name.c_str());
+        SystraceSection s("CxxMethodCallDispatch", "module", moduleName, "method", method.name);
         try {
 #ifdef _WIN32
           crashpad::exception_handler::dumpAndCrashIfThrows([&]() {

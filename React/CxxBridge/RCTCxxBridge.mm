@@ -854,16 +854,19 @@ struct RCTInstanceCallback : public InstanceCallback {
 
 - (void)registerExtraModules
 {
+  NSArray<id<RCTBridgeModule>> *appExtraModules = nil;
+  NSMutableArray<id<RCTBridgeModule>> *extraModules = [NSMutableArray new];
+
+  {
   RCT_PROFILE_BEGIN_EVENT(RCTProfileTagAlways, @"-[RCTCxxBridge initModulesWithDispatchGroup:] extraModules", nil);
 
-  NSArray<id<RCTBridgeModule>> *appExtraModules = nil;
   if ([self.delegate respondsToSelector:@selector(extraModulesForBridge:)]) {
     appExtraModules = [self.delegate extraModulesForBridge:_parentBridge];
   } else if (self.moduleProvider) {
     appExtraModules = self.moduleProvider();
   }
 
-  NSMutableArray<id<RCTBridgeModule>> *extraModules = [NSMutableArray new];
+
 
   // Prevent TurboModules from appearing the the NativeModule system
   for (id<RCTBridgeModule> module in appExtraModules) {
@@ -873,6 +876,7 @@ struct RCTInstanceCallback : public InstanceCallback {
   }
 
   RCT_PROFILE_END_EVENT(RCTProfileTagAlways, @"");
+  }
 
   RCT_PROFILE_BEGIN_EVENT(
       RCTProfileTagAlways, @"-[RCTCxxBridge initModulesWithDispatchGroup:] preinitialized moduleData", nil);

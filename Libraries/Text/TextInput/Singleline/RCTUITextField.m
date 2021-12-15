@@ -127,6 +127,13 @@
 #endif // ]TODO(macOS GH#774)
 }
 
+#if TARGET_OS_OSX // [TODO(macOS ISS#2323203)
+- (BOOL)hasMarkedText
+{
+  return ((NSTextView *)self.currentEditor).hasMarkedText;
+}
+#endif // ]TODO(macOS ISS#2323203)
+  
 #pragma mark - Accessibility
 
 #if !TARGET_OS_OSX // [TODO(macOS GH#774)

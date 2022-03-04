@@ -14,6 +14,7 @@
 #import <React/RCTUtils.h>
 #import <React/UIView+React.h>
 
+#import <React/RCTViewKeyboardEvent.h>
 #import <React/RCTInputAccessoryView.h>
 #import <React/RCTInputAccessoryViewContent.h>
 #import <React/RCTTextAttributes.h>
@@ -433,6 +434,36 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)decoder)
   }
 }
 #endif // ]TODO(macOS GH#774)
+
+- (void)submitOnKeyDownIfNeeded:(NSEvent *)event
+{
+  NSDictionary *currentKeyboardEvent = [RCTViewKeyboardEvent bodyFromEvent:event];
+  BOOL shouldSubmit = NO;
+  for (NSDictionary *submitKeyEvent in _submitKeyEvents) {
+    if (
+      [submitKeyEvent[@"key"] isEqualToString:currentKeyboardEvent[@"key"]] &&
+      submitKeyEvent[@"altKey"] == [currentKeyboardEvent[@"altKey"] boolValue] &&
+      submitKeyEvent[@"shiftKey"] == [currentKeyboardEvent[@"shiftKey"] boolValue] &&
+      submitKeyEvent[@"ctrlKey"] == [currentKeyboardEvent[@"ctrlKey"] boolValue] &&
+      submitKeyEvent[@"metaKey"] == [currentKeyboardEvent[@"metaKey"] boolValue] &&
+      submitKeyEvent[@"functionKey"] == [currentKeyboardEvent[@"functionKey"] boolValue]
+    ) {
+      shouldSubmit = YES;
+      break;
+    }
+  }
+
+  if (shouldSubmit) {
+    if (_onSubmitEditing) {
+      _onSubmitEditing(@{});
+    }
+
+    if (_clearTextOnSubmit) {
+      self.backedTextInputView.attributedText = [NSAttributedString new];
+      [self.backedTextInputView.textInputDelegate textInputDidChange];
+    }
+  }
+}
 
 - (BOOL)textInputShouldReturn
 {

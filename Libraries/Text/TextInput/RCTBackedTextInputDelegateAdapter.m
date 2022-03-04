@@ -14,6 +14,16 @@
 
 static void *TextFieldSelectionObservingContext = &TextFieldSelectionObservingContext;
 
+@implementation RCTBackedTextFieldDelegateAdapterUtility
++ (BOOL)isShiftOrOptionKeyDown
+{
+    NSEvent* event = [NSApp currentEvent];
+    auto isShiftKeyDown = (event.modifierFlags & NSEventModifierFlagShift) == NSEventModifierFlagShift;
+    auto isOptionKeyDown = (event.modifierFlags & NSEventModifierFlagOption) == NSEventModifierFlagOption;
+    return isShiftKeyDown || isOptionKeyDown;
+}
+@end
+
 @interface RCTBackedTextFieldDelegateAdapter ()
 #if !TARGET_OS_OSX // [TODO(macOS GH#774)
 <UITextFieldDelegate>
@@ -191,11 +201,17 @@ static void *TextFieldSelectionObservingContext = &TextFieldSelectionObservingCo
   BOOL commandHandled = NO;
   // enter/return
   if (commandSelector == @selector(insertNewline:) || commandSelector == @selector(insertNewlineIgnoringFieldEditor:)) {
-    [self textFieldDidEndEditingOnExit];
-    if ([textInputDelegate textInputShouldReturn]) {
-      [[_backedTextInputView window] makeFirstResponder:nil];
+  #if TARGET_OS_OSX // [TODO(macOS Candidate GH#774)
+    if (![RCTBackedTextFieldDelegateAdapterUtility isShiftOrOptionKeyDown]) {
+  #endif // ]TODO(macOS Candidate GH#774)
+      [self textFieldDidEndEditingOnExit];
+      if ([[_backedTextInputView textInputDelegate] textInputShouldReturn]) {
+        [[_backedTextInputView window] makeFirstResponder:nil];
+      }
+      commandHandled = YES;
+  #if TARGET_OS_OSX // [TODO(macOS Candidate GH#774)
     }
-    commandHandled = YES;
+  #endif // ]TODO(macOS Candidate GH#774)
     //backspace
   } else if (commandSelector == @selector(deleteBackward:)) {
     if (textInputDelegate != nil && ![textInputDelegate textInputShouldHandleDeleteBackward:_backedTextInputView]) {
@@ -412,10 +428,16 @@ static void *TextFieldSelectionObservingContext = &TextFieldSelectionObservingCo
   id<RCTBackedTextInputDelegate> textInputDelegate = [_backedTextInputView textInputDelegate];
   // enter/return
   if ((commandSelector == @selector(insertNewline:) || commandSelector == @selector(insertNewlineIgnoringFieldEditor:))) {
-    if (textInputDelegate.textInputShouldReturn) {
-      [_backedTextInputView.window makeFirstResponder:nil];
+  #if TARGET_OS_OSX // [TODO(macOS Candidate ISS#2710739)
+    if (![RCTBackedTextFieldDelegateAdapterUtility isShiftOrOptionKeyDown]) {
+  #endif // ]TODO(macOS Candidate ISS#2710739)
+      if (textInputDelegate.textInputShouldReturn) {
+        [_backedTextInputView.window makeFirstResponder:nil];
+      }
       commandHandled = YES;
+  #if TARGET_OS_OSX // [TODO(macOS Candidate ISS#2710739)
     }
+  #endif // ]TODO(macOS Candidate ISS#2710739)
   // tab
   } else if (commandSelector == @selector(insertTab:) ) {
     [_backedTextInputView.window selectNextKeyView:nil];

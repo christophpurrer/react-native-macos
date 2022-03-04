@@ -386,10 +386,10 @@ static RCTUIColor *defaultPlaceholderColor() // TODO(OSS Candidate ISS#2710739)
 - (void)drawRect:(NSRect)dirtyRect
 {
   [super drawRect:dirtyRect];
-  
+
   if (self.text.length == 0 && self.placeholder) {
     NSAttributedString *attributedPlaceholderString = self.placeholderTextAttributedString;
-    
+
     if (attributedPlaceholderString) {
       NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:attributedPlaceholderString];
       NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:self.textContainer.containerSize];
@@ -398,7 +398,7 @@ static RCTUIColor *defaultPlaceholderColor() // TODO(OSS Candidate ISS#2710739)
       textContainer.lineFragmentPadding = self.textContainer.lineFragmentPadding;
       [layoutManager addTextContainer:textContainer];
       [textStorage addLayoutManager:layoutManager];
-      
+
       NSRange glyphRange = [layoutManager glyphRangeForTextContainer:textContainer];
       [layoutManager drawGlyphsForGlyphRange:glyphRange atPoint:self.textContainerOrigin];
     }
@@ -552,9 +552,21 @@ static RCTUIColor *defaultPlaceholderColor() // TODO(OSS Candidate ISS#2710739)
 }
 #else
 - (void)keyDown:(NSEvent *)event {
-  // If hasMarkedText is true then an IME is open, so don't send event to JS.
-  if (self.hasMarkedText || [self.textInputDelegate textInputShouldHandleKeyEvent:event]) {
+  // If has marked text, handle by native and return
+  // Do this check before textInputShouldHandleKeyEvent as that one attempts to send the event to JS
+  BOOL hasMarkedText = self.hasMarkedText;
+  if (hasMarkedText) {
     [super keyDown:event];
+    return;
+  }
+
+  // textInputShouldHandleKeyEvent represents if native should handle the event instead of JS.
+  // textInputShouldHandleKeyEvent also sends keyDown even to JS internally, so we only call this once
+  BOOL keyDownHandledByNative = [self.textInputDelegate textInputShouldHandleKeyEvent:event];
+
+  if (keyDownHandledByNative) {
+    [super keyDown:event];
+    [self.textInputDelegate submitOnKeyDownIfNeeded:event];
   }
 }
 

@@ -49,6 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock onGrammarCheckChange;
 #endif // TODO(macOS GH#774)
 
+@property (nonatomic, assign) BOOL clearTextOnSubmit;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onSubmitEditing;
+@property (nonatomic, copy) NSArray<NSDictionary *> *submitKeyEvents;
+
 @property (nonatomic, assign) NSInteger mostRecentEventCount;
 @property (nonatomic, assign, readonly) NSInteger nativeEventCount;
 @property (nonatomic, assign) BOOL autoFocus;

@@ -78,6 +78,12 @@ RCT_EXPORT_VIEW_PROPERTY(clearTextOnSubmit, BOOL);
 RCT_EXPORT_VIEW_PROPERTY(onSubmitEditing, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(submitKeyEvents, NSArray<NSDictionary *>);
 
+#if TARGET_OS_OSX // TODO(macOS ISS#2323203)
+RCT_EXPORT_VIEW_PROPERTY(onAutoCorrectToggle, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onSpellCheckToggle, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onGrammarCheckToggle, RCTBubblingEventBlock);
+#endif // TODO(macOS ISS#2323203)
+
 RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onKeyPressSync, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onChangeSync, RCTDirectEventBlock)

@@ -465,6 +465,27 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)decoder)
   }
 }
 
+- (void)automaticSpellingCorrectionDidChange:(BOOL)enabled
+{
+  if (_onAutoCorrectToggle) {
+    _onAutoCorrectToggle(@{@"enabled": [NSNumber numberWithBool:enabled]});
+  }
+}
+
+- (void)continuousSpellCheckingDidChange:(BOOL)enabled
+{
+  if (_onSpellCheckToggle) {
+    _onSpellCheckToggle(@{@"enabled": [NSNumber numberWithBool:enabled]});
+  }
+}
+
+- (void)grammarCheckingDidChange:(BOOL)enabled
+{
+  if (_onGrammarCheckToggle) {
+    _onGrammarCheckToggle(@{@"enabled": [NSNumber numberWithBool:enabled]});
+  }
+}
+
 - (BOOL)textInputShouldReturn
 {
   // We send `submit` event here, in `textInputShouldReturn`

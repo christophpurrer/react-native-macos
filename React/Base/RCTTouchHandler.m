@@ -39,6 +39,10 @@
   NSMutableArray<NSMutableDictionary *> *_reactTouches;
   NSMutableArray<RCTPlatformView *> *_touchViews; // TODO(macOS GH#774)
 
+#if TARGET_OS_OSX // TODO(macOS GH#774)
+  NSEvent* _lastRightMouseDown;
+#endif  
+
   __weak RCTUIView *_cachedRootView; // TODO(macOS GH#774)
 
   uint16_t _coalescingKey;
@@ -105,6 +109,16 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)coder)
 #endif // ]TODO(macOS GH#774)
 
     RCTAssert(![_nativeTouches containsObject:touch], @"Touch is already recorded. This is a critical bug.");
+#if TARGET_OS_OSX // TODO(macOS ISS#2323203)
+    if (_lastRightMouseDown != NULL && [_nativeTouches containsObject:_lastRightMouseDown]) {
+      [self willShowMenuWithEvent:_lastRightMouseDown];
+      _lastRightMouseDown = NULL;
+    }
+
+    if (touch.type == NSEventTypeRightMouseDown) {
+       _lastRightMouseDown = touch;
+    }
+#endif
 
     // Find closest React-managed touchable view
     
@@ -193,6 +207,11 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)coder)
     if (index == NSNotFound) {
       continue;
     }
+#if TARGET_OS_OSX
+    if (_lastRightMouseDown != NULL && _lastRightMouseDown.eventNumber == touch.eventNumber) {
+      _lastRightMouseDown = NULL;
+    }
+#endif    
 
     [_touchViews removeObjectAtIndex:index];
     [_nativeTouches removeObjectAtIndex:index];

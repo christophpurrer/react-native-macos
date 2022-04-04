@@ -13,6 +13,10 @@
 #import <React/RCTBackedTextInputDelegateAdapter.h>
 #import <React/RCTTextAttributes.h>
 
+#if TARGET_OS_OSX // TODO(macOS ISS#2323203)
+#import <React/RCTTouchHandler.h>
+#endif
+
 @implementation RCTUITextView
 {
 #if !TARGET_OS_OSX // TODO(macOS GH#774)
@@ -109,6 +113,19 @@ static RCTUIColor *defaultPlaceholderColor() // TODO(OSS Candidate ISS#2710739)
 
   return accessibilityLabel;
 }
+
+#pragma mark - Context menu
+
+#if TARGET_OS_OSX // [TODO(macOS ISS#2323203)
+- (NSMenu *)menuForEvent:(NSEvent *)event
+{
+  NSMenu *menu = [super menuForEvent:event];
+  if (menu) {
+    [[RCTTouchHandler touchHandlerForView:self] willShowMenuWithEvent:event];
+  }
+  return menu;
+}
+#endif // ]TODO(macOS ISS#2323203)
 
 #pragma mark - Properties
 

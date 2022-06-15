@@ -479,36 +479,21 @@
 
 - (NSMenu *)textView:(NSTextView *)view menu:(NSMenu *)menu forEvent:(NSEvent *)event atIndex:(NSUInteger)charIndex
 {
-  // Remove items not applicable for readonly text.
-  for (NSMenuItem *item in menu.itemArray) {
-    if (item.action == @selector(cut:) || item.action == @selector(paste:) || [RCTTextView item:item hasSubmenuItemWithAction:@selector(checkSpelling:)] || [RCTTextView item:item hasSubmenuItemWithAction:@selector(orderFrontSubstitutionsPanel:)]) {
-      item.hidden = YES;
-    }
-  }
+  [[RCTTouchHandler touchHandlerForView:self] willShowMenuWithEvent:event];
 
+  RCTHideMenuItemsWithFilterPredicate(menu, ^bool(NSMenuItem *item) {
+    // Remove items not applicable for readonly text.
+    return (item.action == @selector(cut:) || item.action == @selector(paste:) || RCTMenuItemHasSubmenuItemWithAction(item, @selector(checkSpelling:)) || RCTMenuItemHasSubmenuItemWithAction(item, @selector(orderFrontSubstitutionsPanel:)));
+  });
+  
   if (_additionalMenuItems.count > 0) {
     [menu insertItem:[NSMenuItem separatorItem] atIndex:0];
     for (NSMenuItem* item in [_additionalMenuItems reverseObjectEnumerator]) {
       [menu insertItem:item atIndex:0];
     }
   }
-
-  [[RCTTouchHandler touchHandlerForView:self] willShowMenuWithEvent:event];
-
+  
   return menu;
-}
-
-+ (BOOL)item:(NSMenuItem *)item hasSubmenuItemWithAction:(SEL)action
-{
-  if (!item.hasSubmenu) {
-    return NO;
-  }
-  for (NSMenuItem *submenuItem in item.submenu.itemArray) {
-    if (submenuItem.action == action) {
-      return YES;
-    }
-  }
-  return NO;
 }
 
 - (void)textDidEndEditing:(NSNotification *)notification

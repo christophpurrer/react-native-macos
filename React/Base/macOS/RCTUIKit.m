@@ -455,6 +455,15 @@ static RCTUIView *RCTUIViewCommonInit(RCTUIView *self)
   }
 }
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+  if (self = [super initWithFrame:frame]) {
+    self.scrollEnabled = YES;
+  }
+  
+  return self;
+}
+
 // UIScrollView properties missing from NSScrollView
 - (CGPoint)contentOffset
 {
@@ -546,6 +555,16 @@ static RCTUIView *RCTUIViewCommonInit(RCTUIView *self)
 - (void)setAlwaysBounceVertical:(BOOL)alwaysBounceVertical
 {
   self.verticalScrollElasticity = alwaysBounceVertical ? NSScrollElasticityAllowed : NSScrollElasticityNone;
+}
+
+- (void)scrollWheel:(NSEvent *)theEvent
+{
+  if (self.isScrollEnabled == NO) {
+    [[self nextResponder] scrollWheel:theEvent];
+    return;
+  }
+  
+  [super scrollWheel:theEvent];
 }
 
 @end

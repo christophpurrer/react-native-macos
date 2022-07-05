@@ -44,7 +44,6 @@
 #else // [TODO(macOS GH#774)
 + (BOOL)isCompatibleWithResponsiveScrolling;
 @property (nonatomic, assign, getter=isInverted) BOOL inverted;
-@property (nonatomic, assign, getter=isScrollEnabled) BOOL scrollEnabled;
 @property (nonatomic, strong) NSPanGestureRecognizer *panGestureRecognizer;
 #endif // ]TODO(macOS GH#774)
 @end
@@ -114,7 +113,7 @@
 
 - (void)scrollWheel:(NSEvent *)theEvent
 {
-  if (!self.scrollEnabled) {
+  if (!self.isScrollEnabled) {
     [[self nextResponder] scrollWheel:theEvent];
     return;
   }

@@ -99,6 +99,15 @@
   }
 }
 
+- (void)setScrollEnabled:(BOOL)scrollEnabled
+{
+  _scrollView.scrollEnabled = scrollEnabled;
+}
+
+- (BOOL)scrollEnabled
+{
+  return _scrollView.isScrollEnabled;
+}
 #endif // ]TODO(macOS GH#774)
 
 #pragma mark - UIScrollViewDelegate

@@ -427,6 +427,7 @@ CGPathRef UIBezierPathCreateCGPathRef(UIBezierPath *path);
 @property (nonatomic, assign) BOOL alwaysBounceVertical;
 // macOS specific properties
 @property (nonatomic, assign) BOOL enableFocusRing;
+@property (nonatomic, assign, getter=isScrollEnabled) BOOL scrollEnabled;
 
 @end
 

@@ -48,9 +48,10 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
     _textTransform = RCTTextTransformUndefined;
     // [TODO(macOS GH#774)
     _foregroundColor = [RCTTextAttributes defaultForegroundColor];
-#if TARGET_OS_OSX // TODO(macOS ISS#2323203)
+    // ]TODO(macOS GH#774)
+#if TARGET_OS_OSX // TODO(macOS GH#774)
     _cursor = RCTCursorAuto;
-#endif // TODO(macOS ISS#2323203)
+#endif // TODO(macOS GH#774)
   }
 
   return self;

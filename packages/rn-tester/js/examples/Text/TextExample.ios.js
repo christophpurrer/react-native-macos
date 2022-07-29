@@ -1234,7 +1234,7 @@ exports.examples = [
   },
   {
     title: 'Text components inheriting color from parent',
-    render: function (): React.Node {
+    render: function(): React.Node {
       return (
         <View style={{marginTop: 10, marginBottom: 10}}>
           <Text style={{color: 'red'}}>

@@ -1334,7 +1334,7 @@ function InternalTextInput(props: Props): React.Node {
         onContentSizeChange={props.onContentSizeChange}
         onFocus={_onFocus}
         onKeyDown={props.onKeyDown} // TODO(macOS GH#774)
-        onKeyUp={props.onKeyUp} // TODO(macOS GH#774)        
+        onKeyUp={props.onKeyUp} // TODO(macOS GH#774)
         onScroll={_onScroll}
         onSelectionChange={_onSelectionChange}
         onSelectionChangeShouldSetResponder={emptyFunctionThatReturnsTrue}
@@ -1426,9 +1426,6 @@ const ExportedForwardRef: React.AbstractComponent<
     />
   );
 });
-
-ExportedForwardRef.propTypes =
-  require('deprecated-react-native-prop-types').TextInputPropTypes;
 
 // $FlowFixMe[prop-missing]
 ExportedForwardRef.State = {

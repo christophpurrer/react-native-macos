@@ -412,6 +412,13 @@ static RCTUIView *RCTUIViewCommonInit(RCTUIView *self)
 
 @synthesize clipsToBounds = _clipsToBounds;
 
+- (void)setNeedsUpdateConstraints:(BOOL)flag
+{
+  NSLog(@"setNeedsUpdateConstraints");
+  // Since we use Yoga instead of autolayout, skip this expensive super
+  // implementation that traverses up the tree and posts notifications.
+}
+
 @synthesize backgroundColor = _backgroundColor;
 
 - (void)setBackgroundColor:(NSColor *)backgroundColor

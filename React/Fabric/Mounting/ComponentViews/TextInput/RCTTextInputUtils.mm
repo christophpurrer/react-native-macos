@@ -26,209 +26,216 @@ void RCTCopyBackedTextInput(
   toTextInput.placeholder = fromTextInput.placeholder;
   toTextInput.placeholderColor = fromTextInput.placeholderColor;
   toTextInput.textContainerInset = fromTextInput.textContainerInset;
-  toTextInput.inputAccessoryView = fromTextInput.inputAccessoryView;
+//  toTextInput.inputAccessoryView = fromTextInput.inputAccessoryView;
   toTextInput.textInputDelegate = fromTextInput.textInputDelegate;
   toTextInput.placeholderColor = fromTextInput.placeholderColor;
   toTextInput.defaultTextAttributes = fromTextInput.defaultTextAttributes;
-  toTextInput.autocapitalizationType = fromTextInput.autocapitalizationType;
-  toTextInput.autocorrectionType = fromTextInput.autocorrectionType;
+//  toTextInput.autocapitalizationType = fromTextInput.autocapitalizationType;
+//  toTextInput.autocorrectionType = fromTextInput.autocorrectionType;
   toTextInput.contextMenuHidden = fromTextInput.contextMenuHidden;
   toTextInput.editable = fromTextInput.editable;
   toTextInput.enablesReturnKeyAutomatically = fromTextInput.enablesReturnKeyAutomatically;
-  toTextInput.keyboardAppearance = fromTextInput.keyboardAppearance;
-  toTextInput.spellCheckingType = fromTextInput.spellCheckingType;
+//  toTextInput.keyboardAppearance = fromTextInput.keyboardAppearance;
+//  toTextInput.spellCheckingType = fromTextInput.spellCheckingType;
   toTextInput.caretHidden = fromTextInput.caretHidden;
-  toTextInput.clearButtonMode = fromTextInput.clearButtonMode;
+//  toTextInput.clearButtonMode = fromTextInput.clearButtonMode;
   toTextInput.scrollEnabled = fromTextInput.scrollEnabled;
-  toTextInput.secureTextEntry = fromTextInput.secureTextEntry;
-  toTextInput.keyboardType = fromTextInput.keyboardType;
-  toTextInput.textContentType = fromTextInput.textContentType;
+//  toTextInput.secureTextEntry = fromTextInput.secureTextEntry;
+//  toTextInput.keyboardType = fromTextInput.keyboardType;
+//  toTextInput.textContentType = fromTextInput.textContentType;
 
-  if (@available(iOS 12.0, *)) {
-    toTextInput.passwordRules = fromTextInput.passwordRules;
-  }
-
-  [toTextInput setSelectedTextRange:fromTextInput.selectedTextRange notifyDelegate:NO];
+//  if (@available(iOS 12.0, *)) {
+//    toTextInput.passwordRules = fromTextInput.passwordRules;
+//  }
+//
+//  [toTextInput setSelectedTextRange:fromTextInput.selectedTextRange notifyDelegate:NO];
 }
 
 UITextAutocorrectionType RCTUITextAutocorrectionTypeFromOptionalBool(facebook::butter::optional<bool> autoCorrect)
 {
-  return autoCorrect.has_value() ? (*autoCorrect ? UITextAutocorrectionTypeYes : UITextAutocorrectionTypeNo)
-                                 : UITextAutocorrectionTypeDefault;
+//  return autoCorrect.has_value() ? (*autoCorrect ? UITextAutocorrectionTypeYes : UITextAutocorrectionTypeNo)
+//                                 : UITextAutocorrectionTypeDefault;
+    return 0;
 }
 
 UITextAutocapitalizationType RCTUITextAutocapitalizationTypeFromAutocapitalizationType(
     AutocapitalizationType autocapitalizationType)
 {
-  switch (autocapitalizationType) {
-    case AutocapitalizationType::None:
-      return UITextAutocapitalizationTypeNone;
-    case AutocapitalizationType::Words:
-      return UITextAutocapitalizationTypeWords;
-    case AutocapitalizationType::Sentences:
-      return UITextAutocapitalizationTypeSentences;
-    case AutocapitalizationType::Characters:
-      return UITextAutocapitalizationTypeAllCharacters;
-  }
+//  switch (autocapitalizationType) {
+//    case AutocapitalizationType::None:
+//      return UITextAutocapitalizationTypeNone;
+//    case AutocapitalizationType::Words:
+//      return UITextAutocapitalizationTypeWords;
+//    case AutocapitalizationType::Sentences:
+//      return UITextAutocapitalizationTypeSentences;
+//    case AutocapitalizationType::Characters:
+//      return UITextAutocapitalizationTypeAllCharacters;
+//  }
+    return 0;
 }
 
 UIKeyboardAppearance RCTUIKeyboardAppearanceFromKeyboardAppearance(KeyboardAppearance keyboardAppearance)
 {
-  switch (keyboardAppearance) {
-    case KeyboardAppearance::Default:
-      return UIKeyboardAppearanceDefault;
-    case KeyboardAppearance::Light:
-      return UIKeyboardAppearanceLight;
-    case KeyboardAppearance::Dark:
-      return UIKeyboardAppearanceDark;
-  }
+//  switch (keyboardAppearance) {
+//    case KeyboardAppearance::Default:
+//      return UIKeyboardAppearanceDefault;
+//    case KeyboardAppearance::Light:
+//      return UIKeyboardAppearanceLight;
+//    case KeyboardAppearance::Dark:
+//      return UIKeyboardAppearanceDark;
+//  }
+    return 0;
 }
 
 UITextSpellCheckingType RCTUITextSpellCheckingTypeFromOptionalBool(facebook::butter::optional<bool> spellCheck)
 {
-  return spellCheck.has_value() ? (*spellCheck ? UITextSpellCheckingTypeYes : UITextSpellCheckingTypeNo)
-                                : UITextSpellCheckingTypeDefault;
+//  return spellCheck.has_value() ? (*spellCheck ? UITextSpellCheckingTypeYes : UITextSpellCheckingTypeNo)
+//                                : UITextSpellCheckingTypeDefault;
+    return 0;
 }
 
 UITextFieldViewMode RCTUITextFieldViewModeFromTextInputAccessoryVisibilityMode(
     facebook::react::TextInputAccessoryVisibilityMode mode)
 {
-  switch (mode) {
-    case TextInputAccessoryVisibilityMode::Never:
-      return UITextFieldViewModeNever;
-    case TextInputAccessoryVisibilityMode::WhileEditing:
-      return UITextFieldViewModeWhileEditing;
-    case TextInputAccessoryVisibilityMode::UnlessEditing:
-      return UITextFieldViewModeUnlessEditing;
-    case TextInputAccessoryVisibilityMode::Always:
-      return UITextFieldViewModeAlways;
-  }
+//  switch (mode) {
+//    case TextInputAccessoryVisibilityMode::Never:
+//      return UITextFieldViewModeNever;
+//    case TextInputAccessoryVisibilityMode::WhileEditing:
+//      return UITextFieldViewModeWhileEditing;
+//    case TextInputAccessoryVisibilityMode::UnlessEditing:
+//      return UITextFieldViewModeUnlessEditing;
+//    case TextInputAccessoryVisibilityMode::Always:
+//      return UITextFieldViewModeAlways;
+//  }
+    return 0;
 }
 
 UIKeyboardType RCTUIKeyboardTypeFromKeyboardType(KeyboardType keyboardType)
 {
-  switch (keyboardType) {
-    // Universal
-    case KeyboardType::Default:
-      return UIKeyboardTypeDefault;
-    case KeyboardType::EmailAddress:
-      return UIKeyboardTypeEmailAddress;
-    case KeyboardType::Numeric:
-      return UIKeyboardTypeDecimalPad;
-    case KeyboardType::PhonePad:
-      return UIKeyboardTypePhonePad;
-    case KeyboardType::NumberPad:
-      return UIKeyboardTypeNumberPad;
-    case KeyboardType::DecimalPad:
-      return UIKeyboardTypeDecimalPad;
-    // iOS-only
-    case KeyboardType::ASCIICapable:
-      return UIKeyboardTypeASCIICapable;
-    case KeyboardType::NumbersAndPunctuation:
-      return UIKeyboardTypeNumbersAndPunctuation;
-    case KeyboardType::URL:
-      return UIKeyboardTypeURL;
-    case KeyboardType::NamePhonePad:
-      return UIKeyboardTypeNamePhonePad;
-    case KeyboardType::Twitter:
-      return UIKeyboardTypeTwitter;
-    case KeyboardType::WebSearch:
-      return UIKeyboardTypeWebSearch;
-    case KeyboardType::ASCIICapableNumberPad:
-      return UIKeyboardTypeASCIICapableNumberPad;
-    // Android-only
-    case KeyboardType::VisiblePassword:
-      return UIKeyboardTypeDefault;
-  }
+//  switch (keyboardType) {
+//    // Universal
+//    case KeyboardType::Default:
+//      return UIKeyboardTypeDefault;
+//    case KeyboardType::EmailAddress:
+//      return UIKeyboardTypeEmailAddress;
+//    case KeyboardType::Numeric:
+//      return UIKeyboardTypeDecimalPad;
+//    case KeyboardType::PhonePad:
+//      return UIKeyboardTypePhonePad;
+//    case KeyboardType::NumberPad:
+//      return UIKeyboardTypeNumberPad;
+//    case KeyboardType::DecimalPad:
+//      return UIKeyboardTypeDecimalPad;
+//    // iOS-only
+//    case KeyboardType::ASCIICapable:
+//      return UIKeyboardTypeASCIICapable;
+//    case KeyboardType::NumbersAndPunctuation:
+//      return UIKeyboardTypeNumbersAndPunctuation;
+//    case KeyboardType::URL:
+//      return UIKeyboardTypeURL;
+//    case KeyboardType::NamePhonePad:
+//      return UIKeyboardTypeNamePhonePad;
+//    case KeyboardType::Twitter:
+//      return UIKeyboardTypeTwitter;
+//    case KeyboardType::WebSearch:
+//      return UIKeyboardTypeWebSearch;
+//    case KeyboardType::ASCIICapableNumberPad:
+//      return UIKeyboardTypeASCIICapableNumberPad;
+//    // Android-only
+//    case KeyboardType::VisiblePassword:
+//      return UIKeyboardTypeDefault;
+//  }
+    return 0;
 }
 
 UIReturnKeyType RCTUIReturnKeyTypeFromReturnKeyType(ReturnKeyType returnKeyType)
 {
-  switch (returnKeyType) {
-    case ReturnKeyType::Default:
-      return UIReturnKeyDefault;
-    case ReturnKeyType::Done:
-      return UIReturnKeyDone;
-    case ReturnKeyType::Go:
-      return UIReturnKeyGo;
-    case ReturnKeyType::Next:
-      return UIReturnKeyNext;
-    case ReturnKeyType::Search:
-      return UIReturnKeySearch;
-    case ReturnKeyType::Send:
-      return UIReturnKeySend;
-    // iOS-only
-    case ReturnKeyType::EmergencyCall:
-      return UIReturnKeyEmergencyCall;
-    case ReturnKeyType::Google:
-      return UIReturnKeyGoogle;
-    case ReturnKeyType::Join:
-      return UIReturnKeyJoin;
-    case ReturnKeyType::Route:
-      return UIReturnKeyRoute;
-    case ReturnKeyType::Yahoo:
-      return UIReturnKeyYahoo;
-    case ReturnKeyType::Continue:
-      return UIReturnKeyContinue;
-    // Android-only
-    case ReturnKeyType::None:
-    case ReturnKeyType::Previous:
-      return UIReturnKeyDefault;
-  }
+//  switch (returnKeyType) {
+//    case ReturnKeyType::Default:
+//      return UIReturnKeyDefault;
+//    case ReturnKeyType::Done:
+//      return UIReturnKeyDone;
+//    case ReturnKeyType::Go:
+//      return UIReturnKeyGo;
+//    case ReturnKeyType::Next:
+//      return UIReturnKeyNext;
+//    case ReturnKeyType::Search:
+//      return UIReturnKeySearch;
+//    case ReturnKeyType::Send:
+//      return UIReturnKeySend;
+//    // iOS-only
+//    case ReturnKeyType::EmergencyCall:
+//      return UIReturnKeyEmergencyCall;
+//    case ReturnKeyType::Google:
+//      return UIReturnKeyGoogle;
+//    case ReturnKeyType::Join:
+//      return UIReturnKeyJoin;
+//    case ReturnKeyType::Route:
+//      return UIReturnKeyRoute;
+//    case ReturnKeyType::Yahoo:
+//      return UIReturnKeyYahoo;
+//    case ReturnKeyType::Continue:
+//      return UIReturnKeyContinue;
+//    // Android-only
+//    case ReturnKeyType::None:
+//    case ReturnKeyType::Previous:
+//      return UIReturnKeyDefault;
+//  }
+    return 0;
 }
 
-API_AVAILABLE(ios(10.0))
-UITextContentType RCTUITextContentTypeFromString(std::string const &contentType)
-{
-  static dispatch_once_t onceToken;
-  static NSDictionary<NSString *, NSString *> *contentTypeMap;
-
-  dispatch_once(&onceToken, ^{
-    NSMutableDictionary<NSString *, NSString *> *mutableContentTypeMap = [@{
-      @"" : @"",
-      @"none" : @"",
-      @"URL" : UITextContentTypeURL,
-      @"addressCity" : UITextContentTypeAddressCity,
-      @"addressCityAndState" : UITextContentTypeAddressCityAndState,
-      @"addressState" : UITextContentTypeAddressState,
-      @"countryName" : UITextContentTypeCountryName,
-      @"creditCardNumber" : UITextContentTypeCreditCardNumber,
-      @"emailAddress" : UITextContentTypeEmailAddress,
-      @"familyName" : UITextContentTypeFamilyName,
-      @"fullStreetAddress" : UITextContentTypeFullStreetAddress,
-      @"givenName" : UITextContentTypeGivenName,
-      @"jobTitle" : UITextContentTypeJobTitle,
-      @"location" : UITextContentTypeLocation,
-      @"middleName" : UITextContentTypeMiddleName,
-      @"name" : UITextContentTypeName,
-      @"namePrefix" : UITextContentTypeNamePrefix,
-      @"nameSuffix" : UITextContentTypeNameSuffix,
-      @"nickname" : UITextContentTypeNickname,
-      @"organizationName" : UITextContentTypeOrganizationName,
-      @"postalCode" : UITextContentTypePostalCode,
-      @"streetAddressLine1" : UITextContentTypeStreetAddressLine1,
-      @"streetAddressLine2" : UITextContentTypeStreetAddressLine2,
-      @"sublocality" : UITextContentTypeSublocality,
-      @"telephoneNumber" : UITextContentTypeTelephoneNumber,
-      @"username" : UITextContentTypeUsername,
-      @"password" : UITextContentTypePassword,
-    } mutableCopy];
-
-    if (@available(iOS 12.0, *)) {
-      [mutableContentTypeMap addEntriesFromDictionary:@{
-        @"newPassword" : UITextContentTypeNewPassword,
-        @"oneTimeCode" : UITextContentTypeOneTimeCode
-      }];
-    }
-
-    contentTypeMap = [mutableContentTypeMap copy];
-  });
-
-  return contentTypeMap[RCTNSStringFromString(contentType)] ?: @"";
-}
-
-API_AVAILABLE(ios(12.0))
-UITextInputPasswordRules *RCTUITextInputPasswordRulesFromString(std::string const &passwordRules)
-{
-  return [UITextInputPasswordRules passwordRulesWithDescriptor:RCTNSStringFromStringNilIfEmpty(passwordRules)];
-}
+//API_AVAILABLE(ios(10.0))
+//UITextContentType RCTUITextContentTypeFromString(std::string const &contentType)
+//{
+//  static dispatch_once_t onceToken;
+//  static NSDictionary<NSString *, NSString *> *contentTypeMap;
+//
+//  dispatch_once(&onceToken, ^{
+//    NSMutableDictionary<NSString *, NSString *> *mutableContentTypeMap = [@{
+//      @"" : @"",
+//      @"none" : @"",
+//      @"URL" : UITextContentTypeURL,
+//      @"addressCity" : UITextContentTypeAddressCity,
+//      @"addressCityAndState" : UITextContentTypeAddressCityAndState,
+//      @"addressState" : UITextContentTypeAddressState,
+//      @"countryName" : UITextContentTypeCountryName,
+//      @"creditCardNumber" : UITextContentTypeCreditCardNumber,
+//      @"emailAddress" : UITextContentTypeEmailAddress,
+//      @"familyName" : UITextContentTypeFamilyName,
+//      @"fullStreetAddress" : UITextContentTypeFullStreetAddress,
+//      @"givenName" : UITextContentTypeGivenName,
+//      @"jobTitle" : UITextContentTypeJobTitle,
+//      @"location" : UITextContentTypeLocation,
+//      @"middleName" : UITextContentTypeMiddleName,
+//      @"name" : UITextContentTypeName,
+//      @"namePrefix" : UITextContentTypeNamePrefix,
+//      @"nameSuffix" : UITextContentTypeNameSuffix,
+//      @"nickname" : UITextContentTypeNickname,
+//      @"organizationName" : UITextContentTypeOrganizationName,
+//      @"postalCode" : UITextContentTypePostalCode,
+//      @"streetAddressLine1" : UITextContentTypeStreetAddressLine1,
+//      @"streetAddressLine2" : UITextContentTypeStreetAddressLine2,
+//      @"sublocality" : UITextContentTypeSublocality,
+//      @"telephoneNumber" : UITextContentTypeTelephoneNumber,
+//      @"username" : UITextContentTypeUsername,
+//      @"password" : UITextContentTypePassword,
+//    } mutableCopy];
+//
+//    if (@available(iOS 12.0, *)) {
+//      [mutableContentTypeMap addEntriesFromDictionary:@{
+//        @"newPassword" : UITextContentTypeNewPassword,
+//        @"oneTimeCode" : UITextContentTypeOneTimeCode
+//      }];
+//    }
+//
+//    contentTypeMap = [mutableContentTypeMap copy];
+//  });
+//
+//  return contentTypeMap[RCTNSStringFromString(contentType)] ?: @"";
+//}
+//
+//API_AVAILABLE(ios(12.0))
+//UITextInputPasswordRules *RCTUITextInputPasswordRulesFromString(std::string const &passwordRules)
+//{
+//  return [UITextInputPasswordRules passwordRulesWithDescriptor:RCTNSStringFromStringNilIfEmpty(passwordRules)];
+//}

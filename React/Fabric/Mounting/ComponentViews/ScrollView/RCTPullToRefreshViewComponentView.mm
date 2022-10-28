@@ -24,7 +24,7 @@ using namespace facebook::react;
 @end
 
 @implementation RCTPullToRefreshViewComponentView {
-  UIRefreshControl *_refreshControl;
+//  UIRefreshControl *_refreshControl;
   RCTScrollViewComponentView *_scrollViewComponentView;
 }
 
@@ -39,10 +39,10 @@ using namespace facebook::react;
     static auto const defaultProps = std::make_shared<PullToRefreshViewProps const>();
     _props = defaultProps;
 
-    _refreshControl = [UIRefreshControl new];
-    [_refreshControl addTarget:self
-                        action:@selector(handleUIControlEventValueChanged)
-              forControlEvents:UIControlEventValueChanged];
+//    _refreshControl = [UIRefreshControl new];
+//    [_refreshControl addTarget:self
+//                        action:@selector(handleUIControlEventValueChanged)
+//              forControlEvents:UIControlEventValueChanged];
   }
 
   return self;
@@ -61,11 +61,11 @@ using namespace facebook::react;
   auto const &newConcreteProps = *std::static_pointer_cast<PullToRefreshViewProps const>(props);
 
   if (newConcreteProps.refreshing != oldConcreteProps.refreshing) {
-    if (newConcreteProps.refreshing) {
-      [_refreshControl beginRefreshing];
-    } else {
-      [_refreshControl endRefreshing];
-    }
+//    if (newConcreteProps.refreshing) {
+//      [_refreshControl beginRefreshing];
+//    } else {
+//      [_refreshControl endRefreshing];
+//    }
   }
 
   BOOL needsUpdateTitle = NO;
@@ -97,7 +97,7 @@ using namespace facebook::react;
   auto const &concreteProps = *std::static_pointer_cast<PullToRefreshViewProps const>(_props);
 
   if (concreteProps.title.empty()) {
-    _refreshControl.attributedTitle = nil;
+//    _refreshControl.attributedTitle = nil;
     return;
   }
 
@@ -106,8 +106,8 @@ using namespace facebook::react;
     attributes[NSForegroundColorAttributeName] = RCTUIColorFromSharedColor(concreteProps.titleColor);
   }
 
-  _refreshControl.attributedTitle =
-      [[NSAttributedString alloc] initWithString:RCTNSStringFromString(concreteProps.title) attributes:attributes];
+//  _refreshControl.attributedTitle =
+//      [[NSAttributedString alloc] initWithString:RCTNSStringFromString(concreteProps.title) attributes:attributes];
 }
 
 #pragma mark - Attaching & Detaching
@@ -132,9 +132,9 @@ using namespace facebook::react;
     return;
   }
 
-  if (@available(macOS 13.0, *)) {
-    _scrollViewComponentView.scrollView.refreshControl = _refreshControl;
-  }
+//  if (@available(macOS 13.0, *)) {
+//    _scrollViewComponentView.scrollView.refreshControl = _refreshControl;
+//  }
 }
 
 - (void)_detach
@@ -146,9 +146,9 @@ using namespace facebook::react;
   // iOS requires to end refreshing before unmounting.
   [_refreshControl endRefreshing];
 
-  if (@available(macOS 13.0, *)) {
-    _scrollViewComponentView.scrollView.refreshControl = nil;
-  }
+//  if (@available(macOS 13.0, *)) {
+//    _scrollViewComponentView.scrollView.refreshControl = nil;
+//  }
   _scrollViewComponentView = nil;
 }
 
@@ -161,11 +161,11 @@ using namespace facebook::react;
 
 - (void)setNativeRefreshing:(BOOL)refreshing
 {
-  if (refreshing) {
-    [_refreshControl beginRefreshing];
-  } else {
-    [_refreshControl endRefreshing];
-  }
+//  if (refreshing) {
+//    [_refreshControl beginRefreshing];
+//  } else {
+//    [_refreshControl endRefreshing];
+//  }
 }
 
 #pragma mark - RCTRefreshableProtocol

@@ -50,10 +50,10 @@ using namespace facebook::react;
 
     _sliderView = [[UISlider alloc] initWithFrame:self.bounds];
 
-    [_sliderView addTarget:self action:@selector(onChange:) forControlEvents:UIControlEventValueChanged];
-    [_sliderView addTarget:self
-                    action:@selector(sliderTouchEnd:)
-          forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside | UIControlEventTouchCancel)];
+//    [_sliderView addTarget:self action:@selector(onChange:) forControlEvents:UIControlEventValueChanged];
+//    [_sliderView addTarget:self
+//                    action:@selector(sliderTouchEnd:)
+//          forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside | UIControlEventTouchCancel)];
 
     _sliderView.value = (float)defaultProps->value;
 
@@ -81,12 +81,12 @@ using namespace facebook::react;
 
   // Tint colors will be taken care of when props are set again - we just
   // need to make sure that image properties are reset here
-  [_sliderView setMinimumTrackImage:nil forState:UIControlStateNormal];
-  [_sliderView setMaximumTrackImage:nil forState:UIControlStateNormal];
-
-  if (_thumbImage) {
-    [_sliderView setThumbImage:nil forState:UIControlStateNormal];
-  }
+//  [_sliderView setMinimumTrackImage:nil forState:UIControlStateNormal];
+//  [_sliderView setMaximumTrackImage:nil forState:UIControlStateNormal];
+//
+//  if (_thumbImage) {
+//    [_sliderView setThumbImage:nil forState:UIControlStateNormal];
+//  }
 
   _trackImage = nil;
   _minimumTrackImage = nil;
@@ -133,7 +133,7 @@ using namespace facebook::react;
 
   // `thumbTintColor`
   if (oldSliderProps.thumbTintColor != newSliderProps.thumbTintColor) {
-    _sliderView.thumbTintColor = RCTUIColorFromSharedColor(newSliderProps.thumbTintColor);
+//    _sliderView.thumbTintColor = RCTUIColorFromSharedColor(newSliderProps.thumbTintColor);
   }
 
   // `minimumTrackTintColor`
@@ -230,48 +230,48 @@ using namespace facebook::react;
 
 - (void)setTrackImage:(UIImage *)trackImage
 {
-  if ([trackImage isEqual:_trackImage]) {
-    return;
-  }
-
-  _trackImage = trackImage;
-  _minimumTrackImage = nil;
-  _maximumTrackImage = nil;
-  CGFloat width = trackImage.size.width / 2;
-  UIImage *minimumTrackImage = [trackImage resizableImageWithCapInsets:(UIEdgeInsets){0, width, 0, width}
-                                                          resizingMode:UIImageResizingModeStretch];
-  UIImage *maximumTrackImage = [trackImage resizableImageWithCapInsets:(UIEdgeInsets){0, width, 0, width}
-                                                          resizingMode:UIImageResizingModeStretch];
-  [_sliderView setMinimumTrackImage:minimumTrackImage forState:UIControlStateNormal];
-  [_sliderView setMaximumTrackImage:maximumTrackImage forState:UIControlStateNormal];
+//  if ([trackImage isEqual:_trackImage]) {
+//    return;
+//  }
+//
+//  _trackImage = trackImage;
+//  _minimumTrackImage = nil;
+//  _maximumTrackImage = nil;
+//  CGFloat width = trackImage.size.width / 2;
+//  UIImage *minimumTrackImage = [trackImage resizableImageWithCapInsets:(UIEdgeInsets){0, width, 0, width}
+//                                                          resizingMode:UIImageResizingModeStretch];
+//  UIImage *maximumTrackImage = [trackImage resizableImageWithCapInsets:(UIEdgeInsets){0, width, 0, width}
+//                                                          resizingMode:UIImageResizingModeStretch];
+//  [_sliderView setMinimumTrackImage:minimumTrackImage forState:UIControlStateNormal];
+//  [_sliderView setMaximumTrackImage:maximumTrackImage forState:UIControlStateNormal];
 }
 
 - (void)setMinimumTrackImage:(UIImage *)minimumTrackImage
 {
-  if ([minimumTrackImage isEqual:_minimumTrackImage] && _trackImage == nil) {
-    return;
-  }
-
-  _trackImage = nil;
-  _minimumTrackImage = minimumTrackImage;
-  _minimumTrackImage =
-      [_minimumTrackImage resizableImageWithCapInsets:(UIEdgeInsets){0, _minimumTrackImage.size.width, 0, 0}
-                                         resizingMode:UIImageResizingModeStretch];
-  [_sliderView setMinimumTrackImage:_minimumTrackImage forState:UIControlStateNormal];
+//  if ([minimumTrackImage isEqual:_minimumTrackImage] && _trackImage == nil) {
+//    return;
+//  }
+//
+//  _trackImage = nil;
+//  _minimumTrackImage = minimumTrackImage;
+//  _minimumTrackImage =
+//      [_minimumTrackImage resizableImageWithCapInsets:(UIEdgeInsets){0, _minimumTrackImage.size.width, 0, 0}
+//                                         resizingMode:UIImageResizingModeStretch];
+//  [_sliderView setMinimumTrackImage:_minimumTrackImage forState:UIControlStateNormal];
 }
 
 - (void)setMaximumTrackImage:(UIImage *)maximumTrackImage
 {
-  if ([maximumTrackImage isEqual:_maximumTrackImage] && _trackImage == nil) {
-    return;
-  }
-
-  _trackImage = nil;
-  _maximumTrackImage = maximumTrackImage;
-  _maximumTrackImage =
-      [_maximumTrackImage resizableImageWithCapInsets:(UIEdgeInsets){0, 0, 0, _maximumTrackImage.size.width}
-                                         resizingMode:UIImageResizingModeStretch];
-  [_sliderView setMaximumTrackImage:_maximumTrackImage forState:UIControlStateNormal];
+//  if ([maximumTrackImage isEqual:_maximumTrackImage] && _trackImage == nil) {
+//    return;
+//  }
+//
+//  _trackImage = nil;
+//  _maximumTrackImage = maximumTrackImage;
+//  _maximumTrackImage =
+//      [_maximumTrackImage resizableImageWithCapInsets:(UIEdgeInsets){0, 0, 0, _maximumTrackImage.size.width}
+//                                         resizingMode:UIImageResizingModeStretch];
+//  [_sliderView setMaximumTrackImage:_maximumTrackImage forState:UIControlStateNormal];
 }
 
 - (void)setThumbImage:(UIImage *)thumbImage
@@ -281,7 +281,7 @@ using namespace facebook::react;
   }
 
   _thumbImage = thumbImage;
-  [_sliderView setThumbImage:thumbImage forState:UIControlStateNormal];
+//  [_sliderView setThumbImage:thumbImage forState:UIControlStateNormal];
 }
 
 - (void)onChange:(UISlider *)sender

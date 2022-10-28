@@ -36,8 +36,8 @@ using namespace facebook::react;
     _label.numberOfLines = 0;
     _label.textAlignment = NSTextAlignmentCenter;
     _label.textColor = [UIColor whiteColor];
-    _label.allowsDefaultTighteningForTruncation = YES;
-    _label.adjustsFontSizeToFitWidth = YES;
+//    _label.allowsDefaultTighteningForTruncation = YES;
+//    _label.adjustsFontSizeToFitWidth = YES;
 
     self.contentView = _label;
   }

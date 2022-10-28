@@ -37,7 +37,7 @@ using namespace facebook::react;
     static auto const defaultProps = std::make_shared<ViewProps const>();
     _props = defaultProps;
     _reactSubviews = [NSMutableArray new];
-    self.multipleTouchEnabled = YES;
+//    self.multipleTouchEnabled = YES;
   }
   return self;
 }
@@ -286,71 +286,71 @@ using namespace facebook::react;
     self.nativeId = RCTNSStringFromStringNilIfEmpty(newViewProps.nativeId);
   }
 
-  // `accessible`
-  if (oldViewProps.accessible != newViewProps.accessible) {
-    self.accessibilityElement.isAccessibilityElement = newViewProps.accessible;
-  }
-
-  // `accessibilityLabel`
-  if (oldViewProps.accessibilityLabel != newViewProps.accessibilityLabel) {
-    self.accessibilityElement.accessibilityLabel = RCTNSStringFromStringNilIfEmpty(newViewProps.accessibilityLabel);
-  }
-
-  // `accessibilityHint`
-  if (oldViewProps.accessibilityHint != newViewProps.accessibilityHint) {
-    self.accessibilityElement.accessibilityHint = RCTNSStringFromStringNilIfEmpty(newViewProps.accessibilityHint);
-  }
-
-  // `accessibilityViewIsModal`
-  if (oldViewProps.accessibilityViewIsModal != newViewProps.accessibilityViewIsModal) {
-    self.accessibilityElement.accessibilityViewIsModal = newViewProps.accessibilityViewIsModal;
-  }
-
-  // `accessibilityElementsHidden`
-  if (oldViewProps.accessibilityElementsHidden != newViewProps.accessibilityElementsHidden) {
-    self.accessibilityElement.accessibilityElementsHidden = newViewProps.accessibilityElementsHidden;
-  }
-
-  // `accessibilityTraits`
-  if (oldViewProps.accessibilityTraits != newViewProps.accessibilityTraits) {
-    self.accessibilityElement.accessibilityTraits =
-        RCTUIAccessibilityTraitsFromAccessibilityTraits(newViewProps.accessibilityTraits);
-  }
-
-  // `accessibilityState`
-  if (oldViewProps.accessibilityState != newViewProps.accessibilityState) {
-    self.accessibilityTraits &= ~(UIAccessibilityTraitNotEnabled | UIAccessibilityTraitSelected);
-    if (newViewProps.accessibilityState.selected) {
-      self.accessibilityTraits |= UIAccessibilityTraitSelected;
-    }
-    if (newViewProps.accessibilityState.disabled) {
-      self.accessibilityTraits |= UIAccessibilityTraitNotEnabled;
-    }
-  }
-
-  // `accessibilityIgnoresInvertColors`
-  if (oldViewProps.accessibilityIgnoresInvertColors != newViewProps.accessibilityIgnoresInvertColors) {
-    self.accessibilityIgnoresInvertColors = newViewProps.accessibilityIgnoresInvertColors;
-  }
-
-  // `accessibilityValue`
-  if (oldViewProps.accessibilityValue != newViewProps.accessibilityValue) {
-    if (newViewProps.accessibilityValue.text.hasValue()) {
-      self.accessibilityElement.accessibilityValue =
-          RCTNSStringFromStringNilIfEmpty(newViewProps.accessibilityValue.text.value());
-    } else if (
-        newViewProps.accessibilityValue.now.hasValue() && newViewProps.accessibilityValue.min.hasValue() &&
-        newViewProps.accessibilityValue.max.hasValue()) {
-      CGFloat val = (CGFloat)(newViewProps.accessibilityValue.now.value()) /
-          (newViewProps.accessibilityValue.max.value() - newViewProps.accessibilityValue.min.value());
-      self.accessibilityElement.accessibilityValue =
-          [NSNumberFormatter localizedStringFromNumber:@(val) numberStyle:NSNumberFormatterPercentStyle];
-      ;
-    } else {
-      self.accessibilityElement.accessibilityValue = nil;
-    }
-  }
-
+//  // `accessible`
+//  if (oldViewProps.accessible != newViewProps.accessible) {
+//    self.accessibilityElement.isAccessibilityElement = newViewProps.accessible;
+//  }
+//
+//  // `accessibilityLabel`
+//  if (oldViewProps.accessibilityLabel != newViewProps.accessibilityLabel) {
+//    self.accessibilityElement.accessibilityLabel = RCTNSStringFromStringNilIfEmpty(newViewProps.accessibilityLabel);
+//  }
+//
+//  // `accessibilityHint`
+//  if (oldViewProps.accessibilityHint != newViewProps.accessibilityHint) {
+//    self.accessibilityElement.accessibilityHint = RCTNSStringFromStringNilIfEmpty(newViewProps.accessibilityHint);
+//  }
+//
+//  // `accessibilityViewIsModal`
+//  if (oldViewProps.accessibilityViewIsModal != newViewProps.accessibilityViewIsModal) {
+//    self.accessibilityElement.accessibilityViewIsModal = newViewProps.accessibilityViewIsModal;
+//  }
+//
+//  // `accessibilityElementsHidden`
+//  if (oldViewProps.accessibilityElementsHidden != newViewProps.accessibilityElementsHidden) {
+//    self.accessibilityElement.accessibilityElementsHidden = newViewProps.accessibilityElementsHidden;
+//  }
+//
+//  // `accessibilityTraits`
+//  if (oldViewProps.accessibilityTraits != newViewProps.accessibilityTraits) {
+//    self.accessibilityElement.accessibilityTraits =
+//        RCTUIAccessibilityTraitsFromAccessibilityTraits(newViewProps.accessibilityTraits);
+//  }
+//
+//  // `accessibilityState`
+//  if (oldViewProps.accessibilityState != newViewProps.accessibilityState) {
+//    self.accessibilityTraits &= ~(UIAccessibilityTraitNotEnabled | UIAccessibilityTraitSelected);
+//    if (newViewProps.accessibilityState.selected) {
+//      self.accessibilityTraits |= UIAccessibilityTraitSelected;
+//    }
+//    if (newViewProps.accessibilityState.disabled) {
+//      self.accessibilityTraits |= UIAccessibilityTraitNotEnabled;
+//    }
+//  }
+//
+//  // `accessibilityIgnoresInvertColors`
+//  if (oldViewProps.accessibilityIgnoresInvertColors != newViewProps.accessibilityIgnoresInvertColors) {
+//    self.accessibilityIgnoresInvertColors = newViewProps.accessibilityIgnoresInvertColors;
+//  }
+//
+//  // `accessibilityValue`
+//  if (oldViewProps.accessibilityValue != newViewProps.accessibilityValue) {
+//    if (newViewProps.accessibilityValue.text.hasValue()) {
+//      self.accessibilityElement.accessibilityValue =
+//          RCTNSStringFromStringNilIfEmpty(newViewProps.accessibilityValue.text.value());
+//    } else if (
+//        newViewProps.accessibilityValue.now.hasValue() && newViewProps.accessibilityValue.min.hasValue() &&
+//        newViewProps.accessibilityValue.max.hasValue()) {
+//      CGFloat val = (CGFloat)(newViewProps.accessibilityValue.now.value()) /
+//          (newViewProps.accessibilityValue.max.value() - newViewProps.accessibilityValue.min.value());
+//      self.accessibilityElement.accessibilityValue =
+//          [NSNumberFormatter localizedStringFromNumber:@(val) numberStyle:NSNumberFormatterPercentStyle];
+//      ;
+//    } else {
+//      self.accessibilityElement.accessibilityValue = nil;
+//    }
+//  }
+//
   // `testId`
   if (oldViewProps.testId != newViewProps.testId) {
     self.accessibilityIdentifier = RCTNSStringFromString(newViewProps.testId);
@@ -445,7 +445,8 @@ using namespace facebook::react;
   //   * Taking `layer.zIndex` field into an account is not required because
   //     lists of `ShadowView`s are already sorted based on `zIndex` prop.
 
-  if (!self.userInteractionEnabled || self.hidden || self.alpha < 0.01) {
+//  if (!self.userInteractionEnabled || self.hidden || self.alpha < 0.01) {
+    if (!self.userInteractionEnabled || self.hidden) {
     return nil;
   }
 
@@ -593,7 +594,7 @@ static RCTBorderStyle RCTBorderStyleFromBorderStyle(BorderStyle borderStyle)
 
 #if TARGET_OS_OSX // [TODO(macOS GH#774)
   CGFloat scaleFactor = self.window.backingScaleFactor;
-  if (scaleFactor == 0.0 && RCTRunningInTestEnvironment()) {
+  if (scaleFactor == 0.0) {
     // When running in the test environment the view is not on screen.
     // Use a scaleFactor of 1 so that the test results are machine independent.
     scaleFactor = 1;
@@ -624,8 +625,8 @@ static RCTBorderStyle RCTBorderStyleFromBorderStyle(BorderStyle borderStyle)
           CGPoint{imageCapInsets.left / imageSize.width, imageCapInsets.top / imageSize.height},
           CGSize{(CGFloat)1.0 / imageSize.width, (CGFloat)1.0 / imageSize.height}};
 
-      _borderLayer.contents = (id)image.CGImage;
-      _borderLayer.contentsScale = image.scale;
+//      _borderLayer.contents = (id)image.CGImage;
+//      _borderLayer.contentsScale = image.scale;
 
       BOOL isResizable = !UIEdgeInsetsEqualToEdgeInsets(image.capInsets, UIEdgeInsetsZero);
       if (isResizable) {
@@ -636,7 +637,7 @@ static RCTBorderStyle RCTBorderStyleFromBorderStyle(BorderStyle borderStyle)
     }
 
     // Stage 2.5. Custom Clipping Mask
-    CAShapeLayer *maskLayer = nil;
+//    CAShapeLayer *maskLayer = nil;
     CGFloat cornerRadius = 0;
     if (self.clipsToBounds) {
       if (borderMetrics.borderRadii.isUniform()) {
@@ -649,14 +650,14 @@ static RCTBorderStyle RCTBorderStyleFromBorderStyle(BorderStyle borderStyle)
             RCTGetCornerInsets(RCTCornerRadiiFromBorderRadii(borderMetrics.borderRadii), UIEdgeInsetsZero),
             nil);
 
-        maskLayer = [CAShapeLayer layer];
-        maskLayer.path = path;
+//        maskLayer = [CAShapeLayer layer];
+//        maskLayer.path = path;
         CGPathRelease(path);
       }
     }
 
     layer.cornerRadius = cornerRadius;
-    layer.mask = maskLayer;
+//    layer.mask = maskLayer;
   }
 }
 
@@ -700,13 +701,13 @@ static NSString *RCTRecursiveAccessibilityLabel(UIView *view)
   auto const &props = *std::static_pointer_cast<ViewProps const>(_props);
 
   // Handle Switch.
-  if ((self.accessibilityTraits & AccessibilityTraitSwitch) == AccessibilityTraitSwitch) {
-    if (props.accessibilityState.checked == AccessibilityState::Checked) {
-      return @"1";
-    } else if (props.accessibilityState.checked == AccessibilityState::Unchecked) {
-      return @"0";
-    }
-  }
+//  if ((self.accessibilityTraits & AccessibilityTraitSwitch) == AccessibilityTraitSwitch) {
+//    if (props.accessibilityState.checked == AccessibilityState::Checked) {
+//      return @"1";
+//    } else if (props.accessibilityState.checked == AccessibilityState::Unchecked) {
+//      return @"0";
+//    }
+//  }
 
   // Handle states which haven't already been handled.
   if (props.accessibilityState.checked == AccessibilityState::Checked) {

@@ -67,7 +67,7 @@ using namespace facebook::react;
     _props = defaultProps;
     auto &props = *defaultProps;
 
-    _backedTextInputView = props.traits.multiline ? [RCTUITextView new] : [RCTUITextField new];
+//    _backedTextInputView = props.traits.multiline ? [RCTUITextView new] : [RCTUITextField new];
     _backedTextInputView.textInputDelegate = self;
     _ignoreNextTextInputCall = NO;
     _comingFromJS = NO;
@@ -116,15 +116,15 @@ using namespace facebook::react;
     [self _setMultiline:newTextInputProps.traits.multiline];
   }
 
-  if (newTextInputProps.traits.autocapitalizationType != oldTextInputProps.traits.autocapitalizationType) {
-    _backedTextInputView.autocapitalizationType =
-        RCTUITextAutocapitalizationTypeFromAutocapitalizationType(newTextInputProps.traits.autocapitalizationType);
-  }
+//  if (newTextInputProps.traits.autocapitalizationType != oldTextInputProps.traits.autocapitalizationType) {
+//    _backedTextInputView.autocapitalizationType =
+//        RCTUITextAutocapitalizationTypeFromAutocapitalizationType(newTextInputProps.traits.autocapitalizationType);
+//  }
 
-  if (newTextInputProps.traits.autoCorrect != oldTextInputProps.traits.autoCorrect) {
-    _backedTextInputView.autocorrectionType =
-        RCTUITextAutocorrectionTypeFromOptionalBool(newTextInputProps.traits.autoCorrect);
-  }
+//  if (newTextInputProps.traits.autoCorrect != oldTextInputProps.traits.autoCorrect) {
+//    _backedTextInputView.autocorrectionType =
+//        RCTUITextAutocorrectionTypeFromOptionalBool(newTextInputProps.traits.autoCorrect);
+//  }
 
   if (newTextInputProps.traits.contextMenuHidden != oldTextInputProps.traits.contextMenuHidden) {
     _backedTextInputView.contextMenuHidden = newTextInputProps.traits.contextMenuHidden;
@@ -139,50 +139,50 @@ using namespace facebook::react;
     _backedTextInputView.enablesReturnKeyAutomatically = newTextInputProps.traits.enablesReturnKeyAutomatically;
   }
 
-  if (newTextInputProps.traits.keyboardAppearance != oldTextInputProps.traits.keyboardAppearance) {
-    _backedTextInputView.keyboardAppearance =
-        RCTUIKeyboardAppearanceFromKeyboardAppearance(newTextInputProps.traits.keyboardAppearance);
-  }
-
-  if (newTextInputProps.traits.spellCheck != oldTextInputProps.traits.spellCheck) {
-    _backedTextInputView.spellCheckingType =
-        RCTUITextSpellCheckingTypeFromOptionalBool(newTextInputProps.traits.spellCheck);
-  }
-
-  if (newTextInputProps.traits.caretHidden != oldTextInputProps.traits.caretHidden) {
-    _backedTextInputView.caretHidden = newTextInputProps.traits.caretHidden;
-  }
-
-  if (newTextInputProps.traits.clearButtonMode != oldTextInputProps.traits.clearButtonMode) {
-    _backedTextInputView.clearButtonMode =
-        RCTUITextFieldViewModeFromTextInputAccessoryVisibilityMode(newTextInputProps.traits.clearButtonMode);
-  }
-
+//  if (newTextInputProps.traits.keyboardAppearance != oldTextInputProps.traits.keyboardAppearance) {
+//    _backedTextInputView.keyboardAppearance =
+//        RCTUIKeyboardAppearanceFromKeyboardAppearance(newTextInputProps.traits.keyboardAppearance);
+//  }
+//
+//  if (newTextInputProps.traits.spellCheck != oldTextInputProps.traits.spellCheck) {
+//    _backedTextInputView.spellCheckingType =
+//        RCTUITextSpellCheckingTypeFromOptionalBool(newTextInputProps.traits.spellCheck);
+//  }
+//
+//  if (newTextInputProps.traits.caretHidden != oldTextInputProps.traits.caretHidden) {
+//    _backedTextInputView.caretHidden = newTextInputProps.traits.caretHidden;
+//  }
+//
+//  if (newTextInputProps.traits.clearButtonMode != oldTextInputProps.traits.clearButtonMode) {
+//    _backedTextInputView.clearButtonMode =
+//        RCTUITextFieldViewModeFromTextInputAccessoryVisibilityMode(newTextInputProps.traits.clearButtonMode);
+//  }
+//
   if (newTextInputProps.traits.scrollEnabled != oldTextInputProps.traits.scrollEnabled) {
     _backedTextInputView.scrollEnabled = newTextInputProps.traits.scrollEnabled;
   }
-
-  if (newTextInputProps.traits.secureTextEntry != oldTextInputProps.traits.secureTextEntry) {
-    _backedTextInputView.secureTextEntry = newTextInputProps.traits.secureTextEntry;
-  }
-
-  if (newTextInputProps.traits.keyboardType != oldTextInputProps.traits.keyboardType) {
-    _backedTextInputView.keyboardType = RCTUIKeyboardTypeFromKeyboardType(newTextInputProps.traits.keyboardType);
-  }
-
-  if (newTextInputProps.traits.returnKeyType != oldTextInputProps.traits.returnKeyType) {
-    _backedTextInputView.returnKeyType = RCTUIReturnKeyTypeFromReturnKeyType(newTextInputProps.traits.returnKeyType);
-  }
-
-  if (newTextInputProps.traits.textContentType != oldTextInputProps.traits.textContentType) {
-    _backedTextInputView.textContentType = RCTUITextContentTypeFromString(newTextInputProps.traits.textContentType);
-  }
+//
+//  if (newTextInputProps.traits.secureTextEntry != oldTextInputProps.traits.secureTextEntry) {
+//    _backedTextInputView.secureTextEntry = newTextInputProps.traits.secureTextEntry;
+//  }
+//
+//  if (newTextInputProps.traits.keyboardType != oldTextInputProps.traits.keyboardType) {
+//    _backedTextInputView.keyboardType = RCTUIKeyboardTypeFromKeyboardType(newTextInputProps.traits.keyboardType);
+//  }
+//
+//  if (newTextInputProps.traits.returnKeyType != oldTextInputProps.traits.returnKeyType) {
+//    _backedTextInputView.returnKeyType = RCTUIReturnKeyTypeFromReturnKeyType(newTextInputProps.traits.returnKeyType);
+//  }
+//
+//  if (newTextInputProps.traits.textContentType != oldTextInputProps.traits.textContentType) {
+//    _backedTextInputView.textContentType = RCTUITextContentTypeFromString(newTextInputProps.traits.textContentType);
+//  }
 
   if (newTextInputProps.traits.passwordRules != oldTextInputProps.traits.passwordRules) {
-    if (@available(iOS 12.0, *)) {
-      _backedTextInputView.passwordRules =
-          RCTUITextInputPasswordRulesFromString(newTextInputProps.traits.passwordRules);
-    }
+//    if (@available(iOS 12.0, *)) {
+//      _backedTextInputView.passwordRules =
+//          RCTUITextInputPasswordRulesFromString(newTextInputProps.traits.passwordRules);
+//    }
   }
 
   // Traits `blurOnSubmit`, `clearTextOnFocus`, and `selectTextOnFocus` were omitted intentially here
@@ -203,7 +203,7 @@ using namespace facebook::react;
   }
 
   if (newTextInputProps.selectionColor != oldTextInputProps.selectionColor) {
-    _backedTextInputView.tintColor = RCTUIColorFromSharedColor(newTextInputProps.selectionColor);
+//    _backedTextInputView.tintColor = RCTUIColorFromSharedColor(newTextInputProps.selectionColor);
   }
 
   if (newTextInputProps.inputAccessoryViewID != oldTextInputProps.inputAccessoryViewID) {
@@ -242,8 +242,8 @@ using namespace facebook::react;
 {
   [super updateLayoutMetrics:layoutMetrics oldLayoutMetrics:oldLayoutMetrics];
 
-  _backedTextInputView.frame =
-      UIEdgeInsetsInsetRect(self.bounds, RCTUIEdgeInsetsFromEdgeInsets(layoutMetrics.borderWidth));
+//  _backedTextInputView.frame =
+//      UIEdgeInsetsInsetRect(self.bounds, RCTUIEdgeInsetsFromEdgeInsets(layoutMetrics.borderWidth));
   _backedTextInputView.textContainerInset =
       RCTUIEdgeInsetsFromEdgeInsets(layoutMetrics.contentInsets - layoutMetrics.borderWidth);
 }
@@ -449,15 +449,15 @@ using namespace facebook::react;
     [self _updateState];
   }
 
-  UITextPosition *startPosition = [_backedTextInputView positionFromPosition:_backedTextInputView.beginningOfDocument
-                                                                      offset:start];
-  UITextPosition *endPosition = [_backedTextInputView positionFromPosition:_backedTextInputView.beginningOfDocument
-                                                                    offset:end];
-
-  if (startPosition && endPosition) {
-    UITextRange *range = [_backedTextInputView textRangeFromPosition:startPosition toPosition:endPosition];
-    [_backedTextInputView setSelectedTextRange:range notifyDelegate:NO];
-  }
+//  UITextPosition *startPosition = [_backedTextInputView positionFromPosition:_backedTextInputView.beginningOfDocument
+//                                                                      offset:start];
+//  UITextPosition *endPosition = [_backedTextInputView positionFromPosition:_backedTextInputView.beginningOfDocument
+//                                                                    offset:end];
+//
+//  if (startPosition && endPosition) {
+//    UITextRange *range = [_backedTextInputView textRangeFromPosition:startPosition toPosition:endPosition];
+//    [_backedTextInputView setSelectedTextRange:range notifyDelegate:NO];
+//  }
   _comingFromJS = NO;
 }
 
@@ -468,48 +468,48 @@ using namespace facebook::react;
   // InputAccessoryView component sets the inputAccessoryView when inputAccessoryViewID exists
   if (_backedTextInputView.inputAccessoryViewID) {
     if (_backedTextInputView.isFirstResponder) {
-      [_backedTextInputView reloadInputViews];
+//      [_backedTextInputView reloadInputViews];
     }
     return;
   }
 
-  UIKeyboardType keyboardType = _backedTextInputView.keyboardType;
-
-  // These keyboard types (all are number pads) don't have a "Done" button by default,
-  // so we create an `inputAccessoryView` with this button for them.
-  BOOL shouldHaveInputAccesoryView =
-      (keyboardType == UIKeyboardTypeNumberPad || keyboardType == UIKeyboardTypePhonePad ||
-       keyboardType == UIKeyboardTypeDecimalPad || keyboardType == UIKeyboardTypeASCIICapableNumberPad) &&
-      _backedTextInputView.returnKeyType == UIReturnKeyDone;
-
-  if ((_backedTextInputView.inputAccessoryView != nil) == shouldHaveInputAccesoryView) {
-    return;
-  }
-
-  if (shouldHaveInputAccesoryView) {
-    UIToolbar *toolbarView = [UIToolbar new];
-    [toolbarView sizeToFit];
-    UIBarButtonItem *flexibleSpace =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *doneButton =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                      target:self
-                                                      action:@selector(handleInputAccessoryDoneButton)];
-    toolbarView.items = @[ flexibleSpace, doneButton ];
-    _backedTextInputView.inputAccessoryView = toolbarView;
-  } else {
-    _backedTextInputView.inputAccessoryView = nil;
-  }
-
-  if (_backedTextInputView.isFirstResponder) {
-    [_backedTextInputView reloadInputViews];
-  }
+//  UIKeyboardType keyboardType = _backedTextInputView.keyboardType;
+//
+//  // These keyboard types (all are number pads) don't have a "Done" button by default,
+//  // so we create an `inputAccessoryView` with this button for them.
+//  BOOL shouldHaveInputAccesoryView =
+//      (keyboardType == UIKeyboardTypeNumberPad || keyboardType == UIKeyboardTypePhonePad ||
+//       keyboardType == UIKeyboardTypeDecimalPad || keyboardType == UIKeyboardTypeASCIICapableNumberPad) &&
+//      _backedTextInputView.returnKeyType == UIReturnKeyDone;
+//
+//  if ((_backedTextInputView.inputAccessoryView != nil) == shouldHaveInputAccesoryView) {
+//    return;
+//  }
+//
+//  if (shouldHaveInputAccesoryView) {
+//    UIToolbar *toolbarView = [UIToolbar new];
+//    [toolbarView sizeToFit];
+//    UIBarButtonItem *flexibleSpace =
+//        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+//    UIBarButtonItem *doneButton =
+//        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+//                                                      target:self
+//                                                      action:@selector(handleInputAccessoryDoneButton)];
+//    toolbarView.items = @[ flexibleSpace, doneButton ];
+//    _backedTextInputView.inputAccessoryView = toolbarView;
+//  } else {
+//    _backedTextInputView.inputAccessoryView = nil;
+//  }
+//
+//  if (_backedTextInputView.isFirstResponder) {
+//    [_backedTextInputView reloadInputViews];
+//  }
 }
 
 - (void)handleInputAccessoryDoneButton
 {
   if ([self textInputShouldReturn]) {
-    [_backedTextInputView endEditing:YES];
+//    [_backedTextInputView endEditing:YES];
   }
 }
 
@@ -556,58 +556,59 @@ using namespace facebook::react;
 
 - (AttributedString::Range)_selectionRange
 {
-  UITextRange *selectedTextRange = _backedTextInputView.selectedTextRange;
-  NSInteger start = [_backedTextInputView offsetFromPosition:_backedTextInputView.beginningOfDocument
-                                                  toPosition:selectedTextRange.start];
-  NSInteger end = [_backedTextInputView offsetFromPosition:_backedTextInputView.beginningOfDocument
-                                                toPosition:selectedTextRange.end];
-  return AttributedString::Range{(int)start, (int)(end - start)};
+//  UITextRange *selectedTextRange = _backedTextInputView.selectedTextRange;
+//  NSInteger start = [_backedTextInputView offsetFromPosition:_backedTextInputView.beginningOfDocument
+//                                                  toPosition:selectedTextRange.start];
+//  NSInteger end = [_backedTextInputView offsetFromPosition:_backedTextInputView.beginningOfDocument
+//                                                toPosition:selectedTextRange.end];
+//  return AttributedString::Range{(int)start, (int)(end - start)};
+    return AttributedString::Range{(int)1, (int)(1 - 0)};
 }
 
 - (void)_restoreTextSelection
 {
-  const auto selection = std::dynamic_pointer_cast<TextInputProps const>(_props)->selection.get_pointer();
-  if (selection == nullptr) {
-    return;
-  }
-  auto start = [_backedTextInputView positionFromPosition:_backedTextInputView.beginningOfDocument
-                                                   offset:selection->start];
-  auto end = [_backedTextInputView positionFromPosition:_backedTextInputView.beginningOfDocument offset:selection->end];
-  auto range = [_backedTextInputView textRangeFromPosition:start toPosition:end];
-  [_backedTextInputView setSelectedTextRange:range notifyDelegate:YES];
+//  const auto selection = std::dynamic_pointer_cast<TextInputProps const>(_props)->selection.get_pointer();
+//  if (selection == nullptr) {
+//    return;
+//  }
+//  auto start = [_backedTextInputView positionFromPosition:_backedTextInputView.beginningOfDocument
+//                                                   offset:selection->start];
+//  auto end = [_backedTextInputView positionFromPosition:_backedTextInputView.beginningOfDocument offset:selection->end];
+//  auto range = [_backedTextInputView textRangeFromPosition:start toPosition:end];
+//  [_backedTextInputView setSelectedTextRange:range notifyDelegate:YES];
 }
 
 - (void)_setAttributedString:(NSAttributedString *)attributedString
 {
-  if ([self _textOf:attributedString equals:_backedTextInputView.attributedText]) {
-    return;
-  }
-  UITextRange *selectedRange = _backedTextInputView.selectedTextRange;
-  NSInteger oldTextLength = _backedTextInputView.attributedText.string.length;
-  _backedTextInputView.attributedText = attributedString;
-  if (selectedRange.empty) {
-    // Maintaining a cursor position relative to the end of the old text.
-    NSInteger offsetStart = [_backedTextInputView offsetFromPosition:_backedTextInputView.beginningOfDocument
-                                                          toPosition:selectedRange.start];
-    NSInteger offsetFromEnd = oldTextLength - offsetStart;
-    NSInteger newOffset = attributedString.string.length - offsetFromEnd;
-    UITextPosition *position = [_backedTextInputView positionFromPosition:_backedTextInputView.beginningOfDocument
-                                                                   offset:newOffset];
-    [_backedTextInputView setSelectedTextRange:[_backedTextInputView textRangeFromPosition:position toPosition:position]
-                                notifyDelegate:YES];
-  }
-  [self _restoreTextSelection];
-  _lastStringStateWasUpdatedWith = attributedString;
+//  if ([self _textOf:attributedString equals:_backedTextInputView.attributedText]) {
+//    return;
+//  }
+//  UITextRange *selectedRange = _backedTextInputView.selectedTextRange;
+//  NSInteger oldTextLength = _backedTextInputView.attributedText.string.length;
+//  _backedTextInputView.attributedText = attributedString;
+//  if (selectedRange.empty) {
+//    // Maintaining a cursor position relative to the end of the old text.
+//    NSInteger offsetStart = [_backedTextInputView offsetFromPosition:_backedTextInputView.beginningOfDocument
+//                                                          toPosition:selectedRange.start];
+//    NSInteger offsetFromEnd = oldTextLength - offsetStart;
+//    NSInteger newOffset = attributedString.string.length - offsetFromEnd;
+//    UITextPosition *position = [_backedTextInputView positionFromPosition:_backedTextInputView.beginningOfDocument
+//                                                                   offset:newOffset];
+//    [_backedTextInputView setSelectedTextRange:[_backedTextInputView textRangeFromPosition:position toPosition:position]
+//                                notifyDelegate:YES];
+//  }
+//  [self _restoreTextSelection];
+//  _lastStringStateWasUpdatedWith = attributedString;
 }
 
 - (void)_setMultiline:(BOOL)multiline
 {
-  [_backedTextInputView removeFromSuperview];
-  UIView<RCTBackedTextInputViewProtocol> *backedTextInputView = multiline ? [RCTUITextView new] : [RCTUITextField new];
-  backedTextInputView.frame = _backedTextInputView.frame;
-  RCTCopyBackedTextInput(_backedTextInputView, backedTextInputView);
-  _backedTextInputView = backedTextInputView;
-  [self addSubview:_backedTextInputView];
+//  [_backedTextInputView removeFromSuperview];
+//  UIView<RCTBackedTextInputViewProtocol> *backedTextInputView = multiline ? [RCTUITextView new] : [RCTUITextField new];
+//  backedTextInputView.frame = _backedTextInputView.frame;
+//  RCTCopyBackedTextInput(_backedTextInputView, backedTextInputView);
+//  _backedTextInputView = backedTextInputView;
+//  [self addSubview:_backedTextInputView];
 }
 
 - (BOOL)_textOf:(NSAttributedString *)newText equals:(NSAttributedString *)oldText
@@ -621,25 +622,26 @@ using namespace facebook::react;
   // the user added an emoji, the system adds a font attribute for the emoji and stores the original font in
   // NSOriginalFont. Lastly, when entering a password, etc., there will be additional styling on the field as the native
   // text view handles showing the last character for a split second.
-  __block BOOL fontHasBeenUpdatedBySystem = false;
-  [oldText enumerateAttribute:@"NSOriginalFont"
-                      inRange:NSMakeRange(0, oldText.length)
-                      options:0
-                   usingBlock:^(id value, NSRange range, BOOL *stop) {
-                     if (value) {
-                       fontHasBeenUpdatedBySystem = true;
-                     }
-                   }];
-
-  BOOL shouldFallbackToBareTextComparison =
-      [_backedTextInputView.textInputMode.primaryLanguage isEqualToString:@"dictation"] ||
-      _backedTextInputView.markedTextRange || _backedTextInputView.isSecureTextEntry || fontHasBeenUpdatedBySystem;
-
-  if (shouldFallbackToBareTextComparison) {
-    return ([newText.string isEqualToString:oldText.string]);
-  } else {
-    return ([newText isEqualToAttributedString:oldText]);
-  }
+//  __block BOOL fontHasBeenUpdatedBySystem = false;
+//  [oldText enumerateAttribute:@"NSOriginalFont"
+//                      inRange:NSMakeRange(0, oldText.length)
+//                      options:0
+//                   usingBlock:^(id value, NSRange range, BOOL *stop) {
+//                     if (value) {
+//                       fontHasBeenUpdatedBySystem = true;
+//                     }
+//                   }];
+//
+//  BOOL shouldFallbackToBareTextComparison =
+//      [_backedTextInputView.textInputMode.primaryLanguage isEqualToString:@"dictation"] ||
+//      _backedTextInputView.markedTextRange || _backedTextInputView.isSecureTextEntry || fontHasBeenUpdatedBySystem;
+//
+//  if (shouldFallbackToBareTextComparison) {
+//    return ([newText.string isEqualToString:oldText.string]);
+//  } else {
+//    return ([newText isEqualToAttributedString:oldText]);
+//  }
+    return NO;
 }
 
 @end

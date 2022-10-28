@@ -34,7 +34,7 @@ using namespace facebook::react;
 
     _switchView = [[UISwitch alloc] initWithFrame:self.bounds];
 
-    [_switchView addTarget:self action:@selector(onChange:) forControlEvents:UIControlEventValueChanged];
+//    [_switchView addTarget:self action:@selector(onChange:) forControlEvents:UIControlEventValueChanged];
 
     self.contentView = _switchView;
   }
@@ -72,22 +72,22 @@ using namespace facebook::react;
     _switchView.enabled = !newSwitchProps.disabled;
   }
 
-  // `tintColor`
-  if (oldSwitchProps.tintColor != newSwitchProps.tintColor) {
-    _switchView.tintColor = RCTUIColorFromSharedColor(newSwitchProps.tintColor);
-  }
-
-  // `onTintColor
-  if (oldSwitchProps.onTintColor != newSwitchProps.onTintColor) {
-    _switchView.onTintColor = RCTUIColorFromSharedColor(newSwitchProps.onTintColor);
-  }
-
-  // `thumbTintColor`
-  if (oldSwitchProps.thumbTintColor != newSwitchProps.thumbTintColor) {
-    _switchView.thumbTintColor = RCTUIColorFromSharedColor(newSwitchProps.thumbTintColor);
-  }
-
-  [super updateProps:props oldProps:oldProps];
+//  // `tintColor`
+//  if (oldSwitchProps.tintColor != newSwitchProps.tintColor) {
+//    _switchView.tintColor = RCTUIColorFromSharedColor(newSwitchProps.tintColor);
+//  }
+//
+//  // `onTintColor
+//  if (oldSwitchProps.onTintColor != newSwitchProps.onTintColor) {
+//    _switchView.onTintColor = RCTUIColorFromSharedColor(newSwitchProps.onTintColor);
+//  }
+//
+//  // `thumbTintColor`
+//  if (oldSwitchProps.thumbTintColor != newSwitchProps.thumbTintColor) {
+//    _switchView.thumbTintColor = RCTUIColorFromSharedColor(newSwitchProps.thumbTintColor);
+//  }
+//
+//  [super updateProps:props oldProps:oldProps];
 }
 
 - (void)onChange:(UISwitch *)sender

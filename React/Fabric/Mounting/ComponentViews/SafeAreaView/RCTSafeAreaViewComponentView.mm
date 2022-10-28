@@ -39,12 +39,12 @@ using namespace facebook::react;
   return UIEdgeInsetsZero;
 }
 
-- (void)safeAreaInsetsDidChange
-{
-  [super safeAreaInsetsDidChange];
-
-  [self _updateStateIfNecessary];
-}
+//- (void)safeAreaInsetsDidChange
+//{
+//  [super safeAreaInsetsDidChange];
+//
+//  [self _updateStateIfNecessary];
+//}
 
 - (void)_updateStateIfNecessary
 {

@@ -84,49 +84,49 @@ static void UpdateActiveTouchWithUITouch(
     UIView *rootComponentView,
     CGPoint rootViewOriginOffset)
 {
-  CGPoint offsetPoint = [uiTouch locationInView:activeTouch.componentView];
-  CGPoint screenPoint = [uiTouch locationInView:uiTouch.window];
-  CGPoint pagePoint = [uiTouch locationInView:rootComponentView];
-  pagePoint = CGPointMake(pagePoint.x + rootViewOriginOffset.x, pagePoint.y + rootViewOriginOffset.y);
-
-  activeTouch.touch.offsetPoint = RCTPointFromCGPoint(offsetPoint);
-  activeTouch.touch.screenPoint = RCTPointFromCGPoint(screenPoint);
-  activeTouch.touch.pagePoint = RCTPointFromCGPoint(pagePoint);
-
-  activeTouch.touch.timestamp = uiTouch.timestamp;
-
-  if (RCTForceTouchAvailable()) {
-    activeTouch.touch.force = RCTZeroIfNaN(uiTouch.force / uiTouch.maximumPossibleForce);
-  }
+//  CGPoint offsetPoint = [uiTouch locationInView:activeTouch.componentView];
+//  CGPoint screenPoint = [uiTouch locationInView:uiTouch.window];
+//  CGPoint pagePoint = [uiTouch locationInView:rootComponentView];
+//  pagePoint = CGPointMake(pagePoint.x + rootViewOriginOffset.x, pagePoint.y + rootViewOriginOffset.y);
+//
+//  activeTouch.touch.offsetPoint = RCTPointFromCGPoint(offsetPoint);
+//  activeTouch.touch.screenPoint = RCTPointFromCGPoint(screenPoint);
+//  activeTouch.touch.pagePoint = RCTPointFromCGPoint(pagePoint);
+//
+//  activeTouch.touch.timestamp = uiTouch.timestamp;
+//
+//  if (RCTForceTouchAvailable()) {
+//    activeTouch.touch.force = RCTZeroIfNaN(uiTouch.force / uiTouch.maximumPossibleForce);
+//  }
 }
 
 static ActiveTouch CreateTouchWithUITouch(UITouch *uiTouch, UIView *rootComponentView, CGPoint rootViewOriginOffset)
 {
   ActiveTouch activeTouch = {};
 
-  // Find closest Fabric-managed touchable view
-  UIView *componentView = uiTouch.view;
-  while (componentView) {
-    if ([componentView respondsToSelector:@selector(touchEventEmitterAtPoint:)]) {
-      activeTouch.eventEmitter = [(id<RCTTouchableComponentViewProtocol>)componentView
-          touchEventEmitterAtPoint:[uiTouch locationInView:componentView]];
-      activeTouch.touch.target = (Tag)componentView.tag;
-      activeTouch.componentView = componentView;
-      break;
-    }
-    componentView = componentView.superview;
-  }
-
-  UpdateActiveTouchWithUITouch(activeTouch, uiTouch, rootComponentView, rootViewOriginOffset);
+//  // Find closest Fabric-managed touchable view
+//  UIView *componentView = uiTouch.view;
+//  while (componentView) {
+//    if ([componentView respondsToSelector:@selector(touchEventEmitterAtPoint:)]) {
+//      activeTouch.eventEmitter = [(id<RCTTouchableComponentViewProtocol>)componentView
+//          touchEventEmitterAtPoint:[uiTouch locationInView:componentView]];
+//      activeTouch.touch.target = (Tag)componentView.tag;
+//      activeTouch.componentView = componentView;
+//      break;
+//    }
+//    componentView = componentView.superview;
+//  }
+//
+//  UpdateActiveTouchWithUITouch(activeTouch, uiTouch, rootComponentView, rootViewOriginOffset);
   return activeTouch;
 }
 
 static BOOL AllTouchesAreCancelledOrEnded(NSSet<UITouch *> *touches)
 {
   for (UITouch *touch in touches) {
-    if (touch.phase == UITouchPhaseBegan || touch.phase == UITouchPhaseMoved || touch.phase == UITouchPhaseStationary) {
-      return NO;
-    }
+//    if (touch.phase == UITouchPhaseBegan || touch.phase == UITouchPhaseMoved || touch.phase == UITouchPhaseStationary) {
+//      return NO;
+//    }
   }
   return YES;
 }
@@ -134,9 +134,9 @@ static BOOL AllTouchesAreCancelledOrEnded(NSSet<UITouch *> *touches)
 static BOOL AnyTouchesChanged(NSSet<UITouch *> *touches)
 {
   for (UITouch *touch in touches) {
-    if (touch.phase == UITouchPhaseBegan || touch.phase == UITouchPhaseMoved) {
-      return YES;
-    }
+//    if (touch.phase == UITouchPhaseBegan || touch.phase == UITouchPhaseMoved) {
+//      return YES;
+//    }
   }
   return NO;
 }
@@ -176,9 +176,9 @@ struct PointerHasher {
     // to be used as a top level event delegated recognizer.
     // Otherwise, lower-level components not built using React Native,
     // will fail to recognize gestures.
-    self.cancelsTouchesInView = NO;
-    self.delaysTouchesBegan = NO; // This is default value.
-    self.delaysTouchesEnded = NO;
+//    self.cancelsTouchesInView = NO;
+//    self.delaysTouchesBegan = NO; // This is default value.
+//    self.delaysTouchesEnded = NO;
 
     self.delegate = self;
   }
@@ -317,56 +317,56 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithTarget : (id)target action : (SEL)act
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-  [super touchesBegan:touches withEvent:event];
+//  [super touchesBegan:touches withEvent:event];
 
   [self _registerTouches:touches];
   [self _dispatchActiveTouches:[self _activeTouchesFromTouches:touches] eventType:RCTTouchEventTypeTouchStart];
 
-  if (self.state == UIGestureRecognizerStatePossible) {
-    self.state = UIGestureRecognizerStateBegan;
-  } else if (self.state == UIGestureRecognizerStateBegan) {
-    self.state = UIGestureRecognizerStateChanged;
-  }
+//  if (self.state == UIGestureRecognizerStatePossible) {
+//    self.state = UIGestureRecognizerStateBegan;
+//  } else if (self.state == UIGestureRecognizerStateBegan) {
+//    self.state = UIGestureRecognizerStateChanged;
+//  }
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-  [super touchesMoved:touches withEvent:event];
-
-  [self _updateTouches:touches];
-  [self _dispatchActiveTouches:[self _activeTouchesFromTouches:touches] eventType:RCTTouchEventTypeTouchMove];
-
-  self.state = UIGestureRecognizerStateChanged;
+//  [super touchesMoved:touches withEvent:event];
+//
+//  [self _updateTouches:touches];
+//  [self _dispatchActiveTouches:[self _activeTouchesFromTouches:touches] eventType:RCTTouchEventTypeTouchMove];
+//
+//  self.state = UIGestureRecognizerStateChanged;
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-  [super touchesEnded:touches withEvent:event];
-
-  [self _updateTouches:touches];
-  [self _dispatchActiveTouches:[self _activeTouchesFromTouches:touches] eventType:RCTTouchEventTypeTouchEnd];
-  [self _unregisterTouches:touches];
-
-  if (AllTouchesAreCancelledOrEnded(event.allTouches)) {
-    self.state = UIGestureRecognizerStateEnded;
-  } else if (AnyTouchesChanged(event.allTouches)) {
-    self.state = UIGestureRecognizerStateChanged;
-  }
+//  [super touchesEnded:touches withEvent:event];
+//
+//  [self _updateTouches:touches];
+//  [self _dispatchActiveTouches:[self _activeTouchesFromTouches:touches] eventType:RCTTouchEventTypeTouchEnd];
+//  [self _unregisterTouches:touches];
+//
+//  if (AllTouchesAreCancelledOrEnded(event.allTouches)) {
+//    self.state = UIGestureRecognizerStateEnded;
+//  } else if (AnyTouchesChanged(event.allTouches)) {
+//    self.state = UIGestureRecognizerStateChanged;
+//  }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-  [super touchesCancelled:touches withEvent:event];
+//  [super touchesCancelled:touches withEvent:event];
 
   [self _updateTouches:touches];
   [self _dispatchActiveTouches:[self _activeTouchesFromTouches:touches] eventType:RCTTouchEventTypeTouchCancel];
   [self _unregisterTouches:touches];
 
-  if (AllTouchesAreCancelledOrEnded(event.allTouches)) {
-    self.state = UIGestureRecognizerStateCancelled;
-  } else if (AnyTouchesChanged(event.allTouches)) {
-    self.state = UIGestureRecognizerStateChanged;
-  }
+//  if (AllTouchesAreCancelledOrEnded(event.allTouches)) {
+//    self.state = UIGestureRecognizerStateCancelled;
+//  } else if (AnyTouchesChanged(event.allTouches)) {
+//    self.state = UIGestureRecognizerStateChanged;
+//  }
 }
 
 - (void)reset
@@ -398,7 +398,8 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithTarget : (id)target action : (SEL)act
 {
   // We fail in favour of other external gesture recognizers.
   // iOS will ask `delegate`'s opinion about this gesture recognizer little bit later.
-  return ![preventingGestureRecognizer.view isDescendantOfView:self.view];
+//  return ![preventingGestureRecognizer.view isDescendantOfView:self.view];
+    return NO;
 }
 
 #pragma mark - UIGestureRecognizerDelegate

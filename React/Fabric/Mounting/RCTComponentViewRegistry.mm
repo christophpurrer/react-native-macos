@@ -31,15 +31,15 @@ const NSInteger RCTComponentViewRegistryRecyclePoolMaxSize = 1024;
   if (self = [super init]) {
     _componentViewFactory = [RCTComponentViewFactory currentComponentViewFactory];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleApplicationDidReceiveMemoryWarningNotification)
-                                                 name:UIApplicationDidReceiveMemoryWarningNotification
-                                               object:nil];
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-      // Calling this a bit later, when the main thread is probably idle while JavaScript thread is busy.
-      [self preallocateViewComponents];
-    });
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(handleApplicationDidReceiveMemoryWarningNotification)
+//                                                 name:UIApplicationDidReceiveMemoryWarningNotification
+//                                               object:nil];
+//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//      // Calling this a bit later, when the main thread is probably idle while JavaScript thread is busy.
+//      [self preallocateViewComponents];
+//    });
   }
 
   return self;
@@ -81,7 +81,7 @@ const NSInteger RCTComponentViewRegistryRecyclePoolMaxSize = 1024;
       @"RCTComponentViewRegistry: Attempt to dequeue already registered component.");
 
   auto componentViewDescriptor = [self _dequeueComponentViewWithComponentHandle:componentHandle];
-  componentViewDescriptor.view.tag = tag;
+//  componentViewDescriptor.view.tag = tag;
   auto it = _registry.insert({tag, componentViewDescriptor});
   return it.first->second;
 }
@@ -96,7 +96,7 @@ const NSInteger RCTComponentViewRegistryRecyclePoolMaxSize = 1024;
       _registry.find(tag) != _registry.end(), @"RCTComponentViewRegistry: Attempt to enqueue unregistered component.");
 
   _registry.erase(tag);
-  componentViewDescriptor.view.tag = 0;
+//  componentViewDescriptor.view.tag = 0;
   [self _enqueueComponentViewWithComponentHandle:componentHandle componentViewDescriptor:componentViewDescriptor];
 }
 
@@ -116,7 +116,7 @@ const NSInteger RCTComponentViewRegistryRecyclePoolMaxSize = 1024;
   return iterator->second;
 }
 
-- (nullable UIView<RCTComponentViewProtocol> *)findComponentViewWithTag:(Tag)tag
+- (nullable RCTUIView<RCTComponentViewProtocol> *)findComponentViewWithTag:(Tag)tag
 {
   RCTAssertMainQueue();
   auto iterator = _registry.find(tag);

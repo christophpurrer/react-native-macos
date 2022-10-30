@@ -20,12 +20,12 @@
 using namespace facebook::react;
 
 @implementation RCTViewComponentView {
-  UIColor *_backgroundColor;
+  RCTUIColor *_backgroundColor;
   CALayer *_borderLayer;
   BOOL _needsInvalidateLayer;
   BOOL _isJSResponder;
   BOOL _removeClippedSubviews;
-  NSMutableArray<UIView *> *_reactSubviews;
+  NSMutableArray<RCTUIView *> *_reactSubviews;
   NSSet<NSString *> *_Nullable _propKeysManagedByAnimated_DO_NOT_USE_THIS_IS_BROKEN;
 }
 
@@ -47,7 +47,7 @@ using namespace facebook::react;
   return _props;
 }
 
-- (void)setContentView:(UIView *)contentView
+- (void)setContentView:(RCTUIView *)contentView
 {
   if (_contentView) {
     [_contentView removeFromSuperview];
@@ -70,12 +70,12 @@ using namespace facebook::react;
   return CGRectContainsPoint(hitFrame, point);
 }
 
-- (UIColor *)backgroundColor
+- (RCTUIColor *)backgroundColor
 {
   return _backgroundColor;
 }
 
-- (void)setBackgroundColor:(UIColor *)backgroundColor
+- (void)setBackgroundColor:(RCTUIColor *)backgroundColor
 {
   _backgroundColor = backgroundColor;
 }
@@ -91,7 +91,7 @@ using namespace facebook::react;
   return concreteComponentDescriptorProvider<ViewComponentDescriptor>();
 }
 
-- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+- (void)mountChildComponentView:(RCTUIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
   RCTAssert(
       childComponentView.superview == nil,
@@ -108,7 +108,7 @@ using namespace facebook::react;
   }
 }
 
-- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+- (void)unmountChildComponentView:(RCTUIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
   if (_removeClippedSubviews) {
     [_reactSubviews removeObjectAtIndex:index];
@@ -132,7 +132,7 @@ using namespace facebook::react;
   [childComponentView removeFromSuperview];
 }
 
-- (void)updateClippedSubviewsWithClipRect:(CGRect)clipRect relativeToView:(UIView *)clipView
+- (void)updateClippedSubviewsWithClipRect:(CGRect)clipRect relativeToView:(RCTUIView *)clipView
 {
   if (!_removeClippedSubviews) {
     // Use default behavior if unmounting is disabled
@@ -153,7 +153,7 @@ using namespace facebook::react;
   clipRect = [clipView convertRect:clipRect toView:self];
 
   // Mount / unmount views
-  for (UIView *view in _reactSubviews) {
+  for (RCTUIView *view in _reactSubviews) {
     if (CGRectIntersectsRect(clipRect, view.frame)) {
       // View is at least partially visible, so remount it if unmounted
       [self addSubview:view];
@@ -245,7 +245,7 @@ using namespace facebook::react;
   // `shouldRasterize`
   if (oldViewProps.shouldRasterize != newViewProps.shouldRasterize) {
     self.layer.shouldRasterize = newViewProps.shouldRasterize;
-    self.layer.rasterizationScale = newViewProps.shouldRasterize ? [UIScreen mainScreen].scale : 1.0;
+    self.layer.rasterizationScale = newViewProps.shouldRasterize ? 1.0 : 1.0;
   }
 
   // `pointerEvents`
@@ -437,7 +437,7 @@ using namespace facebook::react;
   return _propKeysManagedByAnimated_DO_NOT_USE_THIS_IS_BROKEN;
 }
 
-- (UIView *)betterHitTest:(CGPoint)point withEvent:(UIEvent *)event
+- (RCTUIView *)betterHitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
   // This is a classic textbook implementation of `hitTest:` with a couple of improvements:
   //   * It does not stop algorithm if some touch is outside the view
@@ -460,8 +460,8 @@ using namespace facebook::react;
     return nil;
   }
 
-  for (UIView *subview in [self.subviews reverseObjectEnumerator]) {
-    UIView *hitView = [subview hitTest:[subview convertPoint:point fromView:self] withEvent:event];
+  for (RCTUIView *subview in [self.subviews reverseObjectEnumerator]) {
+    RCTUIView *hitView = [subview hitTest:[subview convertPoint:point fromView:self] withEvent:event];
     if (hitView) {
       return hitView;
     }
@@ -470,7 +470,7 @@ using namespace facebook::react;
   return isPointInside ? self : nil;
 }
 
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+- (RCTUIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
   switch (_props->pointerEvents) {
     case PointerEventsMode::Auto:
@@ -480,7 +480,7 @@ using namespace facebook::react;
     case PointerEventsMode::BoxOnly:
       return [self pointInside:point withEvent:event] ? self : nil;
     case PointerEventsMode::BoxNone:
-      UIView *view = [self betterHitTest:point withEvent:event];
+      RCTUIView *view = [self betterHitTest:point withEvent:event];
       return view != self ? view : nil;
   }
 }
@@ -668,10 +668,10 @@ static RCTBorderStyle RCTBorderStyleFromBorderStyle(BorderStyle borderStyle)
   return self;
 }
 
-static NSString *RCTRecursiveAccessibilityLabel(UIView *view)
+static NSString *RCTRecursiveAccessibilityLabel(RCTUIView *view)
 {
   NSMutableString *result = [NSMutableString stringWithString:@""];
-  for (UIView *subview in view.subviews) {
+  for (RCTUIView *subview in view.subviews) {
     NSString *label = subview.accessibilityLabel;
     if (!label) {
       label = RCTRecursiveAccessibilityLabel(subview);

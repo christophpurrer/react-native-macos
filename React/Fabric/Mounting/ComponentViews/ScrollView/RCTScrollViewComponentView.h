@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <UIKit/UIKit.h>
+#import <React/RCTUIKit.h> // TODO(macOS GH#774)
 
 #import <React/RCTDefines.h>
 #import <React/RCTGenericDelegateSplitter.h>
@@ -16,9 +16,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*
- * UIView class for <ScrollView> component.
+ * RCTUIView class for <ScrollView> component.
  *
- * By design, the class does not implement any logic that contradicts to the normal behavior of UIScrollView and does
+ * By design, the class does not implement any logic that contradicts to the normal behavior of RCTUIScrollView and does
  * not contain any special/custom support for things like floating headers, pull-to-refresh components,
  * keyboard-avoiding functionality and so on. All that complexity must be implemented inside those components in order
  * to keep the complexity of this component manageable.
@@ -28,25 +28,25 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * Finds and returns the closet RCTScrollViewComponentView component to the given view
  */
-+ (nullable RCTScrollViewComponentView *)findScrollViewComponentViewForView:(UIView *)view;
++ (nullable RCTScrollViewComponentView *)findScrollViewComponentViewForView:(RCTUIView *)view;
 
 /*
- * Returns an actual UIScrollView that this component uses under the hood.
+ * Returns an actual RCTUIScrollView that this component uses under the hood.
  */
-@property (nonatomic, strong, readonly) UIScrollView *scrollView;
+@property (nonatomic, strong, readonly) RCTUIScrollView *scrollView;
 
 /*
  * Returns the subview of the scroll view that the component uses to mount all subcomponents into. That's useful to
  * separate component views from auxiliary views to be able to reliably implement pull-to-refresh- and RTL-related
  * functionality.
  */
-@property (nonatomic, strong, readonly) UIView *containerView;
+@property (nonatomic, strong, readonly) RCTUIView *containerView;
 
 /*
- * Returns a delegate splitter that can be used to subscribe for UIScrollView delegate.
+ * Returns a delegate splitter that can be used to subscribe for RCTUIScrollView delegate.
  */
 @property (nonatomic, strong, readonly)
-    RCTGenericDelegateSplitter<id<UIScrollViewDelegate>> *scrollViewDelegateSplitter;
+RCTGenericDelegateSplitter<id<NSObject>> *scrollViewDelegateSplitter;
 
 @end
 

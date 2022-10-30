@@ -10,7 +10,7 @@
 #import <React/RCTComponent.h>
 
 #if !TARGET_OS_OSX // TODO(macOS GH#774)
-@interface RCTSwitch : UISwitch
+@interface RCTSwitch : RCTSwitch
 #else // [TODO(macOS GH#774)
 @interface RCTSwitch : NSSwitch
 #endif // ]TODO(macOS GH#774)

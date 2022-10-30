@@ -11,12 +11,13 @@
 
 - (CGRect)accessibilityFrame
 {
-  UIView *container = (UIView *)self.accessibilityContainer;
-  if (CGRectEqualToRect(_frame, CGRectZero)) {
-    return UIAccessibilityConvertFrameToScreenCoordinates(container.bounds, container);
-  } else {
-    return UIAccessibilityConvertFrameToScreenCoordinates(_frame, container);
-  }
+//  RCTUIView *container = (RCTUIView *)self.accessibilityContainer;
+//  if (CGRectEqualToRect(_frame, CGRectZero)) {
+//    return UIAccessibilityConvertFrameToScreenCoordinates(container.bounds, container);
+//  } else {
+//    return UIAccessibilityConvertFrameToScreenCoordinates(_frame, container);
+//  }
+    return CGRectMake(0,0,0,0);
 }
 
 @end

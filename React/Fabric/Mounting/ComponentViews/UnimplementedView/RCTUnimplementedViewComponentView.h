@@ -5,14 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <UIKit/UIKit.h>
+#import <React/RCTUIKit.h> // TODO(macOS GH#774)
 
 #import <React/RCTViewComponentView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /*
- * UIView class for all kinds of <UnimplementedView> components.
+ * RCTUIView class for all kinds of <UnimplementedView> components.
  */
 @interface RCTUnimplementedViewComponentView : RCTViewComponentView
 

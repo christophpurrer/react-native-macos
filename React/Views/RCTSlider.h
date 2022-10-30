@@ -14,7 +14,7 @@
 #endif
 
 #if !TARGET_OS_OSX // ]TODO(macOS GH#774)
-@interface RCTSlider : UISlider
+@interface RCTSlider : RCTSlider
 #else // [TODO(macOS GH#774)
 @interface RCTSlider : NSSlider
 #endif

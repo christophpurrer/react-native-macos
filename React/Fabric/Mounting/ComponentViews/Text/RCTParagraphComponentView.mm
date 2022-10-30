@@ -8,7 +8,9 @@
 #import "RCTParagraphComponentView.h"
 #import "RCTParagraphComponentAccessibilityProvider.h"
 
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
 #import <MobileCoreServices/UTCoreTypes.h>
+#endif
 #import <react/renderer/components/text/ParagraphComponentDescriptor.h>
 #import <react/renderer/components/text/ParagraphProps.h>
 #import <react/renderer/components/text/ParagraphState.h>
@@ -29,7 +31,7 @@ using namespace facebook::react;
   ParagraphShadowNode::ConcreteState::Shared _state;
   ParagraphAttributes _paragraphAttributes;
   RCTParagraphComponentAccessibilityProvider *_accessibilityProvider;
-  UILongPressGestureRecognizer *_longPressGestureRecognizer;
+//  UILongPressGestureRecognizer *_longPressGestureRecognizer;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -39,7 +41,7 @@ using namespace facebook::react;
     _props = defaultProps;
 
     self.opaque = NO;
-    self.contentMode = UIViewContentModeRedraw;
+//    self.contentMode = UIViewContentModeRedraw;
   }
 
   return self;
@@ -175,14 +177,14 @@ using namespace facebook::react;
                                                                         view:self];
     }
   }
-
-  return _accessibilityProvider.accessibilityElements;
+    return @[];
+//  return _accessibilityProvider.accessibilityElements;
 }
 
-- (UIAccessibilityTraits)accessibilityTraits
-{
-  return [super accessibilityTraits] | UIAccessibilityTraitStaticText;
-}
+//- (UIAccessibilityTraits)accessibilityTraits
+//{
+//  return [super accessibilityTraits] | UIAccessibilityTraitStaticText;
+//}
 
 #pragma mark - RCTTouchableComponentViewProtocol
 
@@ -219,35 +221,35 @@ using namespace facebook::react;
 
 - (void)enableContextMenu
 {
-  _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                              action:@selector(handleLongPress:)];
-  [self addGestureRecognizer:_longPressGestureRecognizer];
+//  _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+//                                                                              action:@selector(handleLongPress:)];
+//  [self addGestureRecognizer:_longPressGestureRecognizer];
 }
 
 - (void)disableContextMenu
 {
-  [self removeGestureRecognizer:_longPressGestureRecognizer];
-  _longPressGestureRecognizer = nil;
+//  [self removeGestureRecognizer:_longPressGestureRecognizer];
+//  _longPressGestureRecognizer = nil;
 }
 
-- (void)handleLongPress:(UILongPressGestureRecognizer *)gesture
-{
-  // TODO: Adopt showMenuFromRect (necessary for UIKitForMac)
-#if !TARGET_OS_UIKITFORMAC
-  UIMenuController *menuController = [UIMenuController sharedMenuController];
-
-  if (menuController.isMenuVisible) {
-    return;
-  }
-
-  if (!self.isFirstResponder) {
-    [self becomeFirstResponder];
-  }
-
-  [menuController setTargetRect:self.bounds inView:self];
-  [menuController setMenuVisible:YES animated:YES];
-#endif
-}
+//- (void)handleLongPress:(UILongPressGestureRecognizer *)gesture
+//{
+//  // TODO: Adopt showMenuFromRect (necessary for UIKitForMac)
+//#if !TARGET_OS_UIKITFORMAC
+////  UIMenuController *menuController = [UIMenuController sharedMenuController];
+////
+////  if (menuController.isMenuVisible) {
+////    return;
+////  }
+////
+////  if (!self.isFirstResponder) {
+////    [self becomeFirstResponder];
+////  }
+////
+////  [menuController setTargetRect:self.bounds inView:self];
+////  [menuController setMenuVisible:YES animated:YES];
+//#endif
+//}
 
 - (BOOL)canBecomeFirstResponder
 {
@@ -263,7 +265,8 @@ using namespace facebook::react;
     return YES;
   }
 
-  return [self.nextResponder canPerformAction:action withSender:sender];
+    return NO;
+//  return [self.nextResponder canPerformAction:action withSender:sender];
 }
 
 - (void)copy:(id)sender
@@ -282,8 +285,8 @@ using namespace facebook::react;
 
   [item setObject:attributedText.string forKey:(id)kUTTypeUTF8PlainText];
 
-  UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-  pasteboard.items = @[ item ];
+//  UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//  pasteboard.items = @[ item ];
 }
 
 @end

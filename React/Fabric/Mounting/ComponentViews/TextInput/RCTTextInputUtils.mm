@@ -19,8 +19,8 @@ static NSAttributedString *RCTSanitizeAttributedString(NSAttributedString *attri
 }
 
 void RCTCopyBackedTextInput(
-    UIView<RCTBackedTextInputViewProtocol> *fromTextInput,
-    UIView<RCTBackedTextInputViewProtocol> *toTextInput)
+    RCTUIView<RCTBackedTextInputViewProtocol> *fromTextInput,
+    RCTUIView<RCTBackedTextInputViewProtocol> *toTextInput)
 {
   toTextInput.attributedText = RCTSanitizeAttributedString(fromTextInput.attributedText);
   toTextInput.placeholder = fromTextInput.placeholder;
@@ -51,14 +51,14 @@ void RCTCopyBackedTextInput(
 //  [toTextInput setSelectedTextRange:fromTextInput.selectedTextRange notifyDelegate:NO];
 }
 
-UITextAutocorrectionType RCTUITextAutocorrectionTypeFromOptionalBool(facebook::butter::optional<bool> autoCorrect)
+NSInteger RCTUITextAutocorrectionTypeFromOptionalBool(facebook::butter::optional<bool> autoCorrect)
 {
 //  return autoCorrect.has_value() ? (*autoCorrect ? UITextAutocorrectionTypeYes : UITextAutocorrectionTypeNo)
 //                                 : UITextAutocorrectionTypeDefault;
     return 0;
 }
 
-UITextAutocapitalizationType RCTUITextAutocapitalizationTypeFromAutocapitalizationType(
+NSInteger RCTUITextAutocapitalizationTypeFromAutocapitalizationType(
     AutocapitalizationType autocapitalizationType)
 {
 //  switch (autocapitalizationType) {
@@ -74,7 +74,7 @@ UITextAutocapitalizationType RCTUITextAutocapitalizationTypeFromAutocapitalizati
     return 0;
 }
 
-UIKeyboardAppearance RCTUIKeyboardAppearanceFromKeyboardAppearance(KeyboardAppearance keyboardAppearance)
+NSInteger RCTUIKeyboardAppearanceFromKeyboardAppearance(KeyboardAppearance keyboardAppearance)
 {
 //  switch (keyboardAppearance) {
 //    case KeyboardAppearance::Default:
@@ -87,14 +87,14 @@ UIKeyboardAppearance RCTUIKeyboardAppearanceFromKeyboardAppearance(KeyboardAppea
     return 0;
 }
 
-UITextSpellCheckingType RCTUITextSpellCheckingTypeFromOptionalBool(facebook::butter::optional<bool> spellCheck)
+NSInteger RCTUITextSpellCheckingTypeFromOptionalBool(facebook::butter::optional<bool> spellCheck)
 {
 //  return spellCheck.has_value() ? (*spellCheck ? UITextSpellCheckingTypeYes : UITextSpellCheckingTypeNo)
 //                                : UITextSpellCheckingTypeDefault;
     return 0;
 }
 
-UITextFieldViewMode RCTUITextFieldViewModeFromTextInputAccessoryVisibilityMode(
+NSInteger RCTUITextFieldViewModeFromTextInputAccessoryVisibilityMode(
     facebook::react::TextInputAccessoryVisibilityMode mode)
 {
 //  switch (mode) {
@@ -110,7 +110,7 @@ UITextFieldViewMode RCTUITextFieldViewModeFromTextInputAccessoryVisibilityMode(
     return 0;
 }
 
-UIKeyboardType RCTUIKeyboardTypeFromKeyboardType(KeyboardType keyboardType)
+NSInteger RCTUIKeyboardTypeFromKeyboardType(KeyboardType keyboardType)
 {
 //  switch (keyboardType) {
 //    // Universal
@@ -148,7 +148,7 @@ UIKeyboardType RCTUIKeyboardTypeFromKeyboardType(KeyboardType keyboardType)
     return 0;
 }
 
-UIReturnKeyType RCTUIReturnKeyTypeFromReturnKeyType(ReturnKeyType returnKeyType)
+NSInteger RCTUIReturnKeyTypeFromReturnKeyType(ReturnKeyType returnKeyType)
 {
 //  switch (returnKeyType) {
 //    case ReturnKeyType::Default:
@@ -185,7 +185,7 @@ UIReturnKeyType RCTUIReturnKeyTypeFromReturnKeyType(ReturnKeyType returnKeyType)
 }
 
 //API_AVAILABLE(ios(10.0))
-//UITextContentType RCTUITextContentTypeFromString(std::string const &contentType)
+//NSInteger RCTUITextContentTypeFromString(std::string const &contentType)
 //{
 //  static dispatch_once_t onceToken;
 //  static NSDictionary<NSString *, NSString *> *contentTypeMap;
@@ -235,7 +235,7 @@ UIReturnKeyType RCTUIReturnKeyTypeFromReturnKeyType(ReturnKeyType returnKeyType)
 //}
 //
 //API_AVAILABLE(ios(12.0))
-//UITextInputPasswordRules *RCTUITextInputPasswordRulesFromString(std::string const &passwordRules)
+//NSInteger *RCTUITextInputPasswordRulesFromString(std::string const &passwordRules)
 //{
-//  return [UITextInputPasswordRules passwordRulesWithDescriptor:RCTNSStringFromStringNilIfEmpty(passwordRules)];
+//  return [NSInteger passwordRulesWithDescriptor:RCTNSStringFromStringNilIfEmpty(passwordRules)];
 //}

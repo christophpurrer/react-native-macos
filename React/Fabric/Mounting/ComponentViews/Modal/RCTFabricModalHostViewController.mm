@@ -22,19 +22,19 @@
   }
   _touchHandler = [RCTSurfaceTouchHandler new];
 
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && \
-    __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
-  if (@available(iOS 13.0, *)) {
-    self.modalInPresentation = YES;
-  }
-#endif
+//#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && defined(__IPHONE_13_0) && \
+//    __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0
+//  if (@available(iOS 13.0, *)) {
+//    self.modalInPresentation = YES;
+//  }
+//#endif
 
   return self;
 }
 
 - (void)viewDidLayoutSubviews
 {
-  [super viewDidLayoutSubviews];
+//  [super viewDidLayoutSubviews];
   if (!CGRectEqualToRect(_lastViewBounds, self.view.bounds)) {
     [_delegate boundsDidChange:self.view.bounds];
     _lastViewBounds = self.view.bounds;
@@ -47,39 +47,40 @@
   [_touchHandler attachToView:self.view];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-  return [RCTSharedApplication() statusBarStyle];
-}
+//- (UIStatusBarStyle)preferredStatusBarStyle
+//{
+//  return [RCTSharedApplication() statusBarStyle];
+//}
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-  [super viewDidDisappear:animated];
+//  [super viewDidDisappear:animated];
   _lastViewBounds = CGRectZero;
 }
 
 - (BOOL)prefersStatusBarHidden
 {
-  return [RCTSharedApplication() isStatusBarHidden];
+//  return [RCTSharedApplication() isStatusBarHidden];
+    return NO;
 }
 
 #if RCT_DEV
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-  UIInterfaceOrientationMask appSupportedOrientationsMask =
-      [RCTSharedApplication() supportedInterfaceOrientationsForWindow:[RCTSharedApplication() keyWindow]];
-  if (!(_supportedInterfaceOrientations & appSupportedOrientationsMask)) {
-    RCTLogError(
-        @"Modal was presented with 0x%x orientations mask but the application only supports 0x%x."
-        @"Add more interface orientations to your app's Info.plist to fix this."
-        @"NOTE: This will crash in non-dev mode.",
-        (unsigned)_supportedInterfaceOrientations,
-        (unsigned)appSupportedOrientationsMask);
-    return UIInterfaceOrientationMaskAll;
-  }
-
-  return _supportedInterfaceOrientations;
-}
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+//{
+//  UIInterfaceOrientationMask appSupportedOrientationsMask =
+//      [RCTSharedApplication() supportedInterfaceOrientationsForWindow:[RCTSharedApplication() keyWindow]];
+//  if (!(_supportedInterfaceOrientations & appSupportedOrientationsMask)) {
+//    RCTLogError(
+//        @"Modal was presented with 0x%x orientations mask but the application only supports 0x%x."
+//        @"Add more interface orientations to your app's Info.plist to fix this."
+//        @"NOTE: This will crash in non-dev mode.",
+//        (unsigned)_supportedInterfaceOrientations,
+//        (unsigned)appSupportedOrientationsMask);
+//    return UIInterfaceOrientationMaskAll;
+//  }
+//
+//  return _supportedInterfaceOrientations;
+//}
 #endif // RCT_DEV
 
 @end

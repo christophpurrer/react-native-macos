@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <UIKit/UIKit.h>
+#import <React/RCTUIKit.h> // TODO(macOS GH#774)
 
 #import <React/RCTComponentViewProtocol.h>
 #import <React/RCTConstants.h>
@@ -20,9 +20,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * UIView class for <View> component.
+ * RCTUIView class for <View> component.
  */
-@interface RCTViewComponentView : UIView <RCTComponentViewProtocol, RCTTouchableComponentViewProtocol> {
+@interface RCTViewComponentView : RCTUIView <RCTComponentViewProtocol, RCTTouchableComponentViewProtocol> {
  @protected
   facebook::react::LayoutMetrics _layoutMetrics;
   facebook::react::SharedViewProps _props;
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
  * to embed/bridge pure native views as component views.
  * Defaults to `nil`. Assign `nil` to remove view as subview.
  */
-@property (nonatomic, strong, nullable) UIView *contentView;
+@property (nonatomic, strong, nullable) RCTUIView *contentView;
 
 /**
  * Provides access to `nativeId` prop of the component.
@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Provides access to `foregroundColor` prop of the component.
  * Must be used by subclasses only.
  */
-@property (nonatomic, strong, nullable) UIColor *foregroundColor;
+@property (nonatomic, strong, nullable) RCTUIColor *foregroundColor;
 
 /**
  * Returns the object - usually (sub)view - which represents this

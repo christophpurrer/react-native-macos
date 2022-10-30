@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <UIKit/UIKit.h>
+#import <React/RCTUIKit.h> // TODO(macOS GH#774)
 
 @protocol RCTFabricModalHostViewControllerDelegate <NSObject>
 - (void)boundsDidChange:(CGRect)newBounds;
@@ -15,6 +15,6 @@
 
 @property (nonatomic, weak) id<RCTFabricModalHostViewControllerDelegate> delegate;
 
-@property (nonatomic, assign) UIInterfaceOrientationMask supportedInterfaceOrientations;
+//@property (nonatomic, assign) UIInterfaceOrientationMask supportedInterfaceOrientations;
 
 @end

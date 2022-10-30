@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
+#import "React/RCTSwitch.h"
 #import "RCTSwitchComponentView.h"
 
 #import <React/RCTConversions.h>
@@ -22,7 +22,7 @@ using namespace facebook::react;
 @end
 
 @implementation RCTSwitchComponentView {
-  UISwitch *_switchView;
+  RCTSwitch *_switchView;
   BOOL _isInitialValueSet;
 }
 
@@ -32,11 +32,13 @@ using namespace facebook::react;
     static const auto defaultProps = std::make_shared<const SwitchProps>();
     _props = defaultProps;
 
-    _switchView = [[UISwitch alloc] initWithFrame:self.bounds];
+    _switchView = [[RCTSwitch alloc] initWithFrame:self.bounds];
 
 //    [_switchView addTarget:self action:@selector(onChange:) forControlEvents:UIControlEventValueChanged];
 
-    self.contentView = _switchView;
+    RCTUIView* contentView = [RCTUIView init];
+[contentView.superview addSubview:_switchView];
+self.contentView = contentView;
   }
 
   return self;
@@ -90,7 +92,7 @@ using namespace facebook::react;
 //  [super updateProps:props oldProps:oldProps];
 }
 
-- (void)onChange:(UISwitch *)sender
+- (void)onChange:(RCTSwitch *)sender
 {
   const auto &props = *std::static_pointer_cast<const SwitchProps>(_props);
   if (props.value == sender.on) {

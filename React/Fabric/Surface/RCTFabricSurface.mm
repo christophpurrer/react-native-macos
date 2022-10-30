@@ -62,14 +62,14 @@ using namespace facebook::react;
 
     [_surfacePresenter registerSurface:self];
 
-    [self setMinimumSize:CGSizeZero maximumSize:RCTViewportSize()];
+//    [self setMinimumSize:CGSizeZero maximumSize:RCTViewportSize()];
 
     [self _updateLayoutContext];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleContentSizeCategoryDidChangeNotification:)
-                                                 name:UIContentSizeCategoryDidChangeNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(handleContentSizeCategoryDidChangeNotification:)
+//                                                 name:UIContentSizeCategoryDidChangeNotification
+//                                               object:nil];
   }
 
   return self;
@@ -175,10 +175,10 @@ using namespace facebook::react;
 
   auto layoutContext = _surfaceHandler->getLayoutContext();
 
-  layoutContext.pointScaleFactor = RCTScreenScale();
+    layoutContext.pointScaleFactor = 1.0;
   layoutContext.swapLeftAndRightInRTL =
       [[RCTI18nUtil sharedInstance] isRTL] && [[RCTI18nUtil sharedInstance] doLeftAndRightSwapInRTL];
-  layoutContext.fontSizeMultiplier = RCTFontSizeMultiplier();
+//  layoutContext.fontSizeMultiplier = RCTFontSizeMultiplier();
 
   _surfaceHandler->constraintLayout(layoutConstraints, layoutContext);
 }

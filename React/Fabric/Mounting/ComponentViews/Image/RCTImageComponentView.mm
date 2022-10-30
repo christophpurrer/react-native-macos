@@ -31,14 +31,16 @@ using namespace facebook::react;
     _props = defaultProps;
 
     _imageView = [RCTUIImageViewAnimated new];
-    _imageView.clipsToBounds = YES;
-    _imageView.contentMode = RCTContentModeFromImageResizeMode(defaultProps->resizeMode);
+//    _imageView.clipsToBounds = YES;
+//    _imageView.contentMode = RCTContentModeFromImageResizeMode(defaultProps->resizeMode);
     _imageView.layer.minificationFilter = kCAFilterTrilinear;
     _imageView.layer.magnificationFilter = kCAFilterTrilinear;
 
     _imageResponseObserverProxy = RCTImageResponseObserverProxy(self);
 
-    self.contentView = _imageView;
+      RCTUIView* contentView =  [RCTUIView init];
+      [contentView.superview addSubview:_imageView];
+      self.contentView = contentView;
   }
 
   return self;
@@ -57,14 +59,14 @@ using namespace facebook::react;
   auto const &newImageProps = *std::static_pointer_cast<ImageProps const>(props);
 
   // `resizeMode`
-  if (oldImageProps.resizeMode != newImageProps.resizeMode) {
-    _imageView.contentMode = RCTContentModeFromImageResizeMode(newImageProps.resizeMode);
-  }
-
-  // `tintColor`
-  if (oldImageProps.tintColor != newImageProps.tintColor) {
-    _imageView.tintColor = RCTUIColorFromSharedColor(newImageProps.tintColor);
-  }
+//  if (oldImageProps.resizeMode != newImageProps.resizeMode) {
+//    _imageView.contentMode = RCTContentModeFromImageResizeMode(newImageProps.resizeMode);
+//  }
+//
+//  // `tintColor`
+//  if (oldImageProps.tintColor != newImageProps.tintColor) {
+//    _imageView.tintColor = RCTUIColorFromSharedColor(newImageProps.tintColor);
+//  }
 
   [super updateProps:props oldProps:oldProps];
 }
@@ -132,18 +134,18 @@ using namespace facebook::react;
 
   const auto &imageProps = *std::static_pointer_cast<ImageProps const>(_props);
 
-  if (imageProps.tintColor) {
-    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-  }
-
-  if (imageProps.resizeMode == ImageResizeMode::Repeat) {
-    image = [image resizableImageWithCapInsets:RCTUIEdgeInsetsFromEdgeInsets(imageProps.capInsets)
-                                  resizingMode:UIImageResizingModeTile];
-  } else if (imageProps.capInsets != EdgeInsets()) {
-    // Applying capInsets of 0 will switch the "resizingMode" of the image to "tile" which is undesired.
-    image = [image resizableImageWithCapInsets:RCTUIEdgeInsetsFromEdgeInsets(imageProps.capInsets)
-                                  resizingMode:UIImageResizingModeStretch];
-  }
+//  if (imageProps.tintColor) {
+//    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//  }
+//
+//  if (imageProps.resizeMode == ImageResizeMode::Repeat) {
+//    image = [image resizableImageWithCapInsets:RCTUIEdgeInsetsFromEdgeInsets(imageProps.capInsets)
+//                                  resizingMode:UIImageResizingModeTile];
+//  } else if (imageProps.capInsets != EdgeInsets()) {
+//    // Applying capInsets of 0 will switch the "resizingMode" of the image to "tile" which is undesired.
+//    image = [image resizableImageWithCapInsets:RCTUIEdgeInsetsFromEdgeInsets(imageProps.capInsets)
+//                                  resizingMode:UIImageResizingModeStretch];
+//  }
 
   if (imageProps.blurRadius > __FLT_EPSILON__) {
     // Blur on a background thread to avoid blocking interaction.

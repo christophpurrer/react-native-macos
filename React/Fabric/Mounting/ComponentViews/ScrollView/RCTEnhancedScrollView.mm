@@ -8,11 +8,11 @@
 #import "RCTEnhancedScrollView.h"
 #import <React/RCTUtils.h>
 
-@interface RCTEnhancedScrollView () <UIScrollViewDelegate>
+@interface RCTEnhancedScrollView () <NSObject>
 @end
 
 @implementation RCTEnhancedScrollView {
-  __weak id<UIScrollViewDelegate> _publicDelegate;
+  __weak id<NSObject> _publicDelegate;
   BOOL _isSetContentOffsetDisabled;
 }
 
@@ -31,20 +31,20 @@
 {
   if (self = [super initWithFrame:frame]) {
     // We set the default behavior to "never" so that iOS
-    // doesn't do weird things to UIScrollView insets automatically
+    // doesn't do weird things to RCTUIScrollView insets automatically
     // and keeps it as an opt-in behavior.
-    self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-
-    // We intentionally force `UIScrollView`s `semanticContentAttribute` to `LTR` here
-    // because this attribute affects a position of vertical scrollbar; we don't want this
-    // scrollbar flip because we also flip it with whole `UIScrollView` flip.
-    self.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
-
-    __weak __typeof(self) weakSelf = self;
-    _delegateSplitter = [[RCTGenericDelegateSplitter alloc] initWithDelegateUpdateBlock:^(id delegate) {
-      [weakSelf setPrivateDelegate:delegate];
-    }];
-    [_delegateSplitter addDelegate:self];
+//    self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//
+//    // We intentionally force `UIScrollView`s `semanticContentAttribute` to `LTR` here
+//    // because this attribute affects a position of vertical scrollbar; we don't want this
+//    // scrollbar flip because we also flip it with whole `UIScrollView` flip.
+//    self.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
+//
+//    __weak __typeof(self) weakSelf = self;
+//    _delegateSplitter = [[RCTGenericDelegateSplitter alloc] initWithDelegateUpdateBlock:^(id delegate) {
+//      [weakSelf setPrivateDelegate:delegate];
+//    }];
+//    [_delegateSplitter addDelegate:self];
   }
 
   return self;
@@ -88,49 +88,49 @@
       RCTSanitizeNaNValue(contentOffset.y, @"scrollView.contentOffset.y"));
 }
 
-- (BOOL)touchesShouldCancelInContentView:(UIView *)view
+- (BOOL)touchesShouldCancelInContentView:(RCTUIView *)view
 {
   if ([_overridingDelegate respondsToSelector:@selector(touchesShouldCancelInContentView:)]) {
     return [_overridingDelegate touchesShouldCancelInContentView:view];
   }
 
-  return [super touchesShouldCancelInContentView:view];
+    return NO;
 }
 
 #pragma mark - RCTGenericDelegateSplitter
 
-- (void)setPrivateDelegate:(id<UIScrollViewDelegate>)delegate
-{
-  [super setDelegate:delegate];
-}
-
-- (id<UIScrollViewDelegate>)delegate
-{
-  return _publicDelegate;
-}
-
-- (void)setDelegate:(id<UIScrollViewDelegate>)delegate
-{
-  if (_publicDelegate == delegate) {
-    return;
-  }
-
-  if (_publicDelegate) {
-    [_delegateSplitter removeDelegate:_publicDelegate];
-  }
-
-  [self willChangeValueForKey:@"delegate"];
-  _publicDelegate = delegate;
-  [self didChangeValueForKey:@"delegate"];
-
-  if (_publicDelegate) {
-    [_delegateSplitter addDelegate:_publicDelegate];
-  }
-}
+//- (void)setPrivateDelegate:(id<UIScrollViewDelegate>)delegate
+//{
+//  [super setDelegate:delegate];
+//}
+//
+//- (id<UIScrollViewDelegate>)delegate
+//{
+//  return _publicDelegate;
+//}
+//
+//- (void)setDelegate:(id<UIScrollViewDelegate>)delegate
+//{
+//  if (_publicDelegate == delegate) {
+//    return;
+//  }
+//
+//  if (_publicDelegate) {
+//    [_delegateSplitter removeDelegate:_publicDelegate];
+//  }
+//
+//  [self willChangeValueForKey:@"delegate"];
+//  _publicDelegate = delegate;
+//  [self didChangeValueForKey:@"delegate"];
+//
+//  if (_publicDelegate) {
+//    [_delegateSplitter addDelegate:_publicDelegate];
+//  }
+//}
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
+- (void)scrollViewWillEndDragging:(RCTUIScrollView *)scrollView
                      withVelocity:(CGPoint)velocity
               targetContentOffset:(inout CGPoint *)targetContentOffset
 {
@@ -259,7 +259,7 @@
 
 #pragma mark -
 
-- (BOOL)isHorizontal:(UIScrollView *)scrollView
+- (BOOL)isHorizontal:(RCTUIScrollView *)scrollView
 {
   return scrollView.contentSize.width > self.frame.size.width;
 }

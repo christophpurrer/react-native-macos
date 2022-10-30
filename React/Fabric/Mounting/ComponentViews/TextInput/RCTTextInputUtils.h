@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <UIKit/UIKit.h>
+#import <React/RCTUIKit.h> // TODO(macOS GH#774)
 
 #import <React/RCTBackedTextInputViewProtocol.h>
 #import <butter/optional.h>
@@ -14,30 +14,30 @@
 NS_ASSUME_NONNULL_BEGIN
 
 void RCTCopyBackedTextInput(
-    UIView<RCTBackedTextInputViewProtocol> *fromTextInput,
-    UIView<RCTBackedTextInputViewProtocol> *toTextInput);
+    RCTUIView<RCTBackedTextInputViewProtocol> *fromTextInput,
+    RCTUIView<RCTBackedTextInputViewProtocol> *toTextInput);
 
-UITextAutocorrectionType RCTUITextAutocorrectionTypeFromOptionalBool(facebook::butter::optional<bool> autoCorrect);
+NSInteger RCTUITextAutocorrectionTypeFromOptionalBool(facebook::butter::optional<bool> autoCorrect);
 
-UITextAutocapitalizationType RCTUITextAutocapitalizationTypeFromAutocapitalizationType(
+NSInteger RCTUITextAutocapitalizationTypeFromAutocapitalizationType(
     facebook::react::AutocapitalizationType autocapitalizationType);
 
-UIKeyboardAppearance RCTUIKeyboardAppearanceFromKeyboardAppearance(
+NSInteger RCTUIKeyboardAppearanceFromKeyboardAppearance(
     facebook::react::KeyboardAppearance keyboardAppearance);
 
-UITextSpellCheckingType RCTUITextSpellCheckingTypeFromOptionalBool(facebook::butter::optional<bool> spellCheck);
+NSInteger RCTUITextSpellCheckingTypeFromOptionalBool(facebook::butter::optional<bool> spellCheck);
 
-UITextFieldViewMode RCTUITextFieldViewModeFromTextInputAccessoryVisibilityMode(
+NSInteger RCTUITextFieldViewModeFromTextInputAccessoryVisibilityMode(
     facebook::react::TextInputAccessoryVisibilityMode mode);
 
-UIKeyboardType RCTUIKeyboardTypeFromKeyboardType(facebook::react::KeyboardType keyboardType);
+NSInteger RCTUIKeyboardTypeFromKeyboardType(facebook::react::KeyboardType keyboardType);
 
-UIReturnKeyType RCTUIReturnKeyTypeFromReturnKeyType(facebook::react::ReturnKeyType returnKeyType);
+NSInteger RCTUIReturnKeyTypeFromReturnKeyType(facebook::react::ReturnKeyType returnKeyType);
 
 API_AVAILABLE(ios(10.0))
-UITextContentType RCTUITextContentTypeFromString(std::string const &contentType);
+NSInteger RCTUITextContentTypeFromString(std::string const &contentType);
 
 API_AVAILABLE(ios(12.0))
-UITextInputPasswordRules *RCTUITextInputPasswordRulesFromString(std::string const &passwordRules);
+NSInteger *RCTUITextInputPasswordRulesFromString(std::string const &passwordRules);
 
 NS_ASSUME_NONNULL_END

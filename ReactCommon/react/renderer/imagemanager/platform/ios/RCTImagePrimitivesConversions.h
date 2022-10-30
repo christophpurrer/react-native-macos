@@ -5,14 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <UIKit/UIKit.h>
+#import <React/RCTUIKit.h> // TODO(macOS GH#774)
 
 #import <React/RCTImageLoader.h>
 #import <react/renderer/imagemanager/primitives.h>
 
 using namespace facebook::react;
 
-inline static UIViewContentMode RCTContentModeFromImageResizeMode(ImageResizeMode imageResizeMode)
+inline static NSInteger RCTContentModeFromImageResizeMode(ImageResizeMode imageResizeMode)
 {
   switch (imageResizeMode) {
     case ImageResizeMode::Cover:

@@ -144,7 +144,7 @@ using namespace facebook::react;
   }
 
   // iOS requires to end refreshing before unmounting.
-  [_refreshControl endRefreshing];
+//  [_refreshControl endRefreshing];
 
 //  if (@available(macOS 13.0, *)) {
 //    _scrollViewComponentView.scrollView.refreshControl = nil;

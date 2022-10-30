@@ -21,69 +21,69 @@
 
 using namespace facebook::react;
 
-static UIInterfaceOrientationMask supportedOrientationsMask(ModalHostViewSupportedOrientationsMask mask)
-{
-  UIInterfaceOrientationMask supportedOrientations = 0;
+//static UIInterfaceOrientationMask supportedOrientationsMask(ModalHostViewSupportedOrientationsMask mask)
+//{
+//  UIInterfaceOrientationMask supportedOrientations = 0;
+//
+//  if (mask & ModalHostViewSupportedOrientations::Portrait) {
+//    supportedOrientations |= UIInterfaceOrientationMaskPortrait;
+//  }
+//
+//  if (mask & ModalHostViewSupportedOrientations::PortraitUpsideDown) {
+//    supportedOrientations |= UIInterfaceOrientationMaskPortraitUpsideDown;
+//  }
+//
+//  if (mask & ModalHostViewSupportedOrientations::Landscape) {
+//    supportedOrientations |= UIInterfaceOrientationMaskLandscape;
+//  }
+//
+//  if (mask & ModalHostViewSupportedOrientations::LandscapeLeft) {
+//    supportedOrientations |= UIInterfaceOrientationMaskLandscapeLeft;
+//  }
+//
+//  if (mask & ModalHostViewSupportedOrientations::LandscapeRight) {
+//    supportedOrientations |= UIInterfaceOrientationMaskLandscapeRight;
+//  }
+//
+//  if (supportedOrientations == 0) {
+//    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+//      return UIInterfaceOrientationMaskAll;
+//    } else {
+//      return UIInterfaceOrientationMaskPortrait;
+//    }
+//  }
+//
+//  return supportedOrientations;
+//}
 
-  if (mask & ModalHostViewSupportedOrientations::Portrait) {
-    supportedOrientations |= UIInterfaceOrientationMaskPortrait;
-  }
-
-  if (mask & ModalHostViewSupportedOrientations::PortraitUpsideDown) {
-    supportedOrientations |= UIInterfaceOrientationMaskPortraitUpsideDown;
-  }
-
-  if (mask & ModalHostViewSupportedOrientations::Landscape) {
-    supportedOrientations |= UIInterfaceOrientationMaskLandscape;
-  }
-
-  if (mask & ModalHostViewSupportedOrientations::LandscapeLeft) {
-    supportedOrientations |= UIInterfaceOrientationMaskLandscapeLeft;
-  }
-
-  if (mask & ModalHostViewSupportedOrientations::LandscapeRight) {
-    supportedOrientations |= UIInterfaceOrientationMaskLandscapeRight;
-  }
-
-  if (supportedOrientations == 0) {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-      return UIInterfaceOrientationMaskAll;
-    } else {
-      return UIInterfaceOrientationMaskPortrait;
-    }
-  }
-
-  return supportedOrientations;
-}
-
-static std::tuple<BOOL, UIModalTransitionStyle> animationConfiguration(ModalHostViewAnimationType const animation)
-{
-  switch (animation) {
-    case ModalHostViewAnimationType::None:
-      return std::make_tuple(NO, UIModalTransitionStyleCoverVertical);
-    case ModalHostViewAnimationType::Slide:
-      return std::make_tuple(YES, UIModalTransitionStyleCoverVertical);
-    case ModalHostViewAnimationType::Fade:
-      return std::make_tuple(YES, UIModalTransitionStyleCrossDissolve);
-  }
-}
-
-static UIModalPresentationStyle presentationConfiguration(ModalHostViewProps const &props)
-{
-  if (props.transparent) {
-    return UIModalPresentationOverFullScreen;
-  }
-  switch (props.presentationStyle) {
-    case ModalHostViewPresentationStyle::FullScreen:
-      return UIModalPresentationFullScreen;
-    case ModalHostViewPresentationStyle::PageSheet:
-      return UIModalPresentationPageSheet;
-    case ModalHostViewPresentationStyle::FormSheet:
-      return UIModalPresentationFormSheet;
-    case ModalHostViewPresentationStyle::OverFullScreen:
-      return UIModalPresentationOverFullScreen;
-  }
-}
+//static std::tuple<BOOL, UIModalTransitionStyle> animationConfiguration(ModalHostViewAnimationType const animation)
+//{
+//  switch (animation) {
+//    case ModalHostViewAnimationType::None:
+//      return std::make_tuple(NO, UIModalTransitionStyleCoverVertical);
+//    case ModalHostViewAnimationType::Slide:
+//      return std::make_tuple(YES, UIModalTransitionStyleCoverVertical);
+//    case ModalHostViewAnimationType::Fade:
+//      return std::make_tuple(YES, UIModalTransitionStyleCrossDissolve);
+//  }
+//}
+//
+//static UIModalPresentationStyle presentationConfiguration(ModalHostViewProps const &props)
+//{
+//  if (props.transparent) {
+//    return UIModalPresentationOverFullScreen;
+//  }
+//  switch (props.presentationStyle) {
+//    case ModalHostViewPresentationStyle::FullScreen:
+//      return UIModalPresentationFullScreen;
+//    case ModalHostViewPresentationStyle::PageSheet:
+//      return UIModalPresentationPageSheet;
+//    case ModalHostViewPresentationStyle::FormSheet:
+//      return UIModalPresentationFormSheet;
+//    case ModalHostViewPresentationStyle::OverFullScreen:
+//      return UIModalPresentationOverFullScreen;
+//  }
+//}
 
 static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(CGRect rect)
 {
@@ -104,7 +104,7 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
   BOOL _shouldAnimatePresentation;
   BOOL _shouldPresent;
   BOOL _isPresented;
-  UIView *_modalContentsSnapshot;
+  RCTUIView *_modalContentsSnapshot;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -124,7 +124,7 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
 {
   if (!_viewController) {
     _viewController = [RCTFabricModalHostViewController new];
-    _viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+//    _viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     _viewController.delegate = self;
   }
   return _viewController;
@@ -134,15 +134,15 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
                      animated:(BOOL)animated
                    completion:(void (^)(void))completion
 {
-  UIViewController *controller = [self reactViewController];
-  [controller presentViewController:modalViewController animated:animated completion:completion];
+//  UIViewController *controller = [self reactViewController];
+//  [controller presentViewController:modalViewController animated:animated completion:completion];
 }
 
 - (void)dismissViewController:(UIViewController *)modalViewController
                      animated:(BOOL)animated
                    completion:(void (^)(void))completion
 {
-  [modalViewController dismissViewControllerAnimated:animated completion:completion];
+//  [modalViewController dismissViewControllerAnimated:animated completion:completion];
 }
 
 - (void)ensurePresentedOnlyIfNeeded
@@ -165,7 +165,7 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
     _isPresented = NO;
     // To animate dismissal of view controller, snapshot of
     // view hierarchy needs to be added to the UIViewController.
-    UIView *snapshot = _modalContentsSnapshot;
+    RCTUIView *snapshot = _modalContentsSnapshot;
     [self.viewController.view addSubview:snapshot];
 
     [self dismissViewController:self.viewController
@@ -194,10 +194,10 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
 
 - (void)mountingTransactionWillMountWithMetadata:(MountingTransactionMetadata const &)metadata
 {
-  _modalContentsSnapshot = [self.viewController.view snapshotViewAfterScreenUpdates:NO];
+//  _modalContentsSnapshot = [self.viewController.view snapshotViewAfterScreenUpdates:NO];
 }
 
-#pragma mark - UIView methods
+#pragma mark - RCTUIView methods
 
 - (void)didMoveToWindow
 {
@@ -207,7 +207,7 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
 
 - (void)didMoveToSuperview
 {
-  [super didMoveToSuperview];
+//  [super didMoveToSuperview];
   [self ensurePresentedOnlyIfNeeded];
 }
 
@@ -244,20 +244,20 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
 
 - (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps
 {
-  const auto &newProps = *std::static_pointer_cast<const ModalHostViewProps>(props);
-
-#if !TARGET_OS_TV
-  self.viewController.supportedInterfaceOrientations = supportedOrientationsMask(newProps.supportedOrientations);
-#endif
-
-  auto const [shouldAnimate, transitionStyle] = animationConfiguration(newProps.animationType);
-  _shouldAnimatePresentation = shouldAnimate;
-  self.viewController.modalTransitionStyle = transitionStyle;
-
-  self.viewController.modalPresentationStyle = presentationConfiguration(newProps);
-
-  _shouldPresent = newProps.visible;
-  [self ensurePresentedOnlyIfNeeded];
+//  const auto &newProps = *std::static_pointer_cast<const ModalHostViewProps>(props);
+//
+//#if !TARGET_OS_TV
+//  self.viewController.supportedInterfaceOrientations = supportedOrientationsMask(newProps.supportedOrientations);
+//#endif
+//
+//  auto const [shouldAnimate, transitionStyle] = animationConfiguration(newProps.animationType);
+//  _shouldAnimatePresentation = shouldAnimate;
+//  self.viewController.modalTransitionStyle = transitionStyle;
+//
+//  self.viewController.modalPresentationStyle = presentationConfiguration(newProps);
+//
+//  _shouldPresent = newProps.visible;
+//  [self ensurePresentedOnlyIfNeeded];
 
   [super updateProps:props oldProps:oldProps];
 }
@@ -268,12 +268,12 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
   _state = std::static_pointer_cast<const ModalHostViewShadowNode::ConcreteState>(state);
 }
 
-- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+- (void)mountChildComponentView:(RCTUIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
-  [self.viewController.view insertSubview:childComponentView atIndex:index];
+//  [self.viewController.view insertSubview:childComponentView atIndex:index];
 }
 
-- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+- (void)unmountChildComponentView:(RCTUIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
   [childComponentView removeFromSuperview];
 }

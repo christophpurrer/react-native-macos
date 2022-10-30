@@ -28,31 +28,31 @@ using namespace facebook::react;
 
 static CGFloat const kClippingLeeway = 44.0;
 
-static UIScrollViewKeyboardDismissMode RCTUIKeyboardDismissModeFromProps(ScrollViewProps const &props)
-{
-  switch (props.keyboardDismissMode) {
-    case ScrollViewKeyboardDismissMode::None:
-      return UIScrollViewKeyboardDismissModeNone;
-    case ScrollViewKeyboardDismissMode::OnDrag:
-      return UIScrollViewKeyboardDismissModeOnDrag;
-    case ScrollViewKeyboardDismissMode::Interactive:
-      return UIScrollViewKeyboardDismissModeInteractive;
-  }
-}
+//static UIScrollViewKeyboardDismissMode RCTUIKeyboardDismissModeFromProps(ScrollViewProps const &props)
+//{
+//  switch (props.keyboardDismissMode) {
+//    case ScrollViewKeyboardDismissMode::None:
+//      return UIScrollViewKeyboardDismissModeNone;
+//    case ScrollViewKeyboardDismissMode::OnDrag:
+//      return UIScrollViewKeyboardDismissModeOnDrag;
+//    case ScrollViewKeyboardDismissMode::Interactive:
+//      return UIScrollViewKeyboardDismissModeInteractive;
+//  }
+//}
+//
+//static UIScrollViewIndicatorStyle RCTUIScrollViewIndicatorStyleFromProps(ScrollViewProps const &props)
+//{
+//  switch (props.indicatorStyle) {
+//    case ScrollViewIndicatorStyle::Default:
+//      return UIScrollViewIndicatorStyleDefault;
+//    case ScrollViewIndicatorStyle::Black:
+//      return UIScrollViewIndicatorStyleBlack;
+//    case ScrollViewIndicatorStyle::White:
+//      return UIScrollViewIndicatorStyleWhite;
+//  }
+//}
 
-static UIScrollViewIndicatorStyle RCTUIScrollViewIndicatorStyleFromProps(ScrollViewProps const &props)
-{
-  switch (props.indicatorStyle) {
-    case ScrollViewIndicatorStyle::Default:
-      return UIScrollViewIndicatorStyleDefault;
-    case ScrollViewIndicatorStyle::Black:
-      return UIScrollViewIndicatorStyleBlack;
-    case ScrollViewIndicatorStyle::White:
-      return UIScrollViewIndicatorStyleWhite;
-  }
-}
-
-static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteger tag)
+static void RCTSendPaperScrollEvent_DEPRECATED(RCTUIScrollView *scrollView, NSInteger tag)
 {
   static uint16_t coalescingKey = 0;
   RCTScrollEvent *scrollEvent = [[RCTScrollEvent alloc] initWithEventName:@"onScroll"
@@ -68,7 +68,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
 }
 
 @interface RCTScrollViewComponentView () <
-    UIScrollViewDelegate,
+//    UIScrollViewDelegate,
     RCTScrollViewProtocol,
     RCTScrollableProtocol,
     RCTEnhancedScrollViewOverridingDelegate>
@@ -89,7 +89,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   CGPoint _contentOffsetWhenClipped;
 }
 
-+ (RCTScrollViewComponentView *_Nullable)findScrollViewComponentViewForView:(UIView *)view
++ (RCTScrollViewComponentView *_Nullable)findScrollViewComponentViewForView:(RCTUIView *)view
 {
   do {
     view = view.superview;
@@ -105,15 +105,15 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
 
     _scrollView = [[RCTEnhancedScrollView alloc] initWithFrame:self.bounds];
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _scrollView.delaysContentTouches = NO;
+//    _scrollView.delaysContentTouches = NO;
     ((RCTEnhancedScrollView *)_scrollView).overridingDelegate = self;
     _isUserTriggeredScrolling = NO;
     [self addSubview:_scrollView];
 
-    _containerView = [[UIView alloc] initWithFrame:CGRectZero];
+    _containerView = [[RCTUIView alloc] initWithFrame:CGRectZero];
     [_scrollView addSubview:_containerView];
 
-    [self.scrollViewDelegateSplitter addDelegate:self];
+//    [self.scrollViewDelegateSplitter addDelegate:self];
 
     _scrollEventThrottle = INFINITY;
   }
@@ -123,15 +123,15 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
 
 - (void)dealloc
 {
-  // Removing all delegates from the splitter nils the actual delegate which prevents a crash on UIScrollView
+  // Removing all delegates from the splitter nils the actual delegate which prevents a crash on RCTUIScrollView
   // deallocation.
-  [self.scrollViewDelegateSplitter removeAllDelegates];
+//  [self.scrollViewDelegateSplitter removeAllDelegates];
 }
 
-- (RCTGenericDelegateSplitter<id<UIScrollViewDelegate>> *)scrollViewDelegateSplitter
-{
-  return ((RCTEnhancedScrollView *)_scrollView).delegateSplitter;
-}
+//- (RCTGenericDelegateSplitter<id<UIScrollViewDelegate>> *)scrollViewDelegateSplitter
+//{
+//  return ((RCTEnhancedScrollView *)_scrollView).delegateSplitter;
+//}
 
 #pragma mark - RCTMountingTransactionObserving
 
@@ -157,7 +157,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
         : CGAffineTransformMakeScale(-1, 1);
 
     _containerView.transform = transform;
-    _scrollView.transform = transform;
+//    _scrollView.transform = transform;
   }
 }
 
@@ -180,19 +180,19 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   // FIXME: Commented props are not supported yet.
   MAP_SCROLL_VIEW_PROP(alwaysBounceHorizontal);
   MAP_SCROLL_VIEW_PROP(alwaysBounceVertical);
-  MAP_SCROLL_VIEW_PROP(bounces);
-  MAP_SCROLL_VIEW_PROP(bouncesZoom);
-  MAP_SCROLL_VIEW_PROP(canCancelContentTouches);
-  MAP_SCROLL_VIEW_PROP(centerContent);
-  // MAP_SCROLL_VIEW_PROP(automaticallyAdjustContentInsets);
-  MAP_SCROLL_VIEW_PROP(decelerationRate);
-  MAP_SCROLL_VIEW_PROP(directionalLockEnabled);
-  MAP_SCROLL_VIEW_PROP(maximumZoomScale);
-  MAP_SCROLL_VIEW_PROP(minimumZoomScale);
-  MAP_SCROLL_VIEW_PROP(scrollEnabled);
-  MAP_SCROLL_VIEW_PROP(pagingEnabled);
-  MAP_SCROLL_VIEW_PROP(pinchGestureEnabled);
-  MAP_SCROLL_VIEW_PROP(scrollsToTop);
+//  MAP_SCROLL_VIEW_PROP(bounces);
+//  MAP_SCROLL_VIEW_PROP(bouncesZoom);
+//  MAP_SCROLL_VIEW_PROP(canCancelContentTouches);
+//  MAP_SCROLL_VIEW_PROP(centerContent);
+//  // MAP_SCROLL_VIEW_PROP(automaticallyAdjustContentInsets);
+//  MAP_SCROLL_VIEW_PROP(decelerationRate);
+//  MAP_SCROLL_VIEW_PROP(directionalLockEnabled);
+//  MAP_SCROLL_VIEW_PROP(maximumZoomScale);
+//  MAP_SCROLL_VIEW_PROP(minimumZoomScale);
+//  MAP_SCROLL_VIEW_PROP(scrollEnabled);
+//  MAP_SCROLL_VIEW_PROP(pagingEnabled);
+//  MAP_SCROLL_VIEW_PROP(pinchGestureEnabled);
+//  MAP_SCROLL_VIEW_PROP(scrollsToTop);
   MAP_SCROLL_VIEW_PROP(showsHorizontalScrollIndicator);
   MAP_SCROLL_VIEW_PROP(showsVerticalScrollIndicator);
 
@@ -201,7 +201,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   }
 
   if (oldScrollViewProps.indicatorStyle != newScrollViewProps.indicatorStyle) {
-    _scrollView.indicatorStyle = RCTUIScrollViewIndicatorStyleFromProps(newScrollViewProps);
+//    _scrollView.indicatorStyle = RCTUIScrollViewIndicatorStyleFromProps(newScrollViewProps);
   }
 
   if (oldScrollViewProps.scrollEventThrottle != newScrollViewProps.scrollEventThrottle) {
@@ -245,32 +245,32 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
     scrollView.snapToOffsets = snapToOffsets;
   }
 
-  if (@available(iOS 13.0, *)) {
-    if (oldScrollViewProps.automaticallyAdjustsScrollIndicatorInsets !=
-        newScrollViewProps.automaticallyAdjustsScrollIndicatorInsets) {
-      scrollView.automaticallyAdjustsScrollIndicatorInsets =
-          newScrollViewProps.automaticallyAdjustsScrollIndicatorInsets;
-    }
-  }
-
-  if (oldScrollViewProps.contentInsetAdjustmentBehavior != newScrollViewProps.contentInsetAdjustmentBehavior) {
-    auto const contentInsetAdjustmentBehavior = newScrollViewProps.contentInsetAdjustmentBehavior;
-    if (contentInsetAdjustmentBehavior == ContentInsetAdjustmentBehavior::Never) {
-      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else if (contentInsetAdjustmentBehavior == ContentInsetAdjustmentBehavior::Automatic) {
-      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
-    } else if (contentInsetAdjustmentBehavior == ContentInsetAdjustmentBehavior::ScrollableAxes) {
-      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
-    } else if (contentInsetAdjustmentBehavior == ContentInsetAdjustmentBehavior::Always) {
-      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
-    }
-  }
+//  if (@available(iOS 13.0, *)) {
+//    if (oldScrollViewProps.automaticallyAdjustsScrollIndicatorInsets !=
+//        newScrollViewProps.automaticallyAdjustsScrollIndicatorInsets) {
+//      scrollView.automaticallyAdjustsScrollIndicatorInsets =
+//          newScrollViewProps.automaticallyAdjustsScrollIndicatorInsets;
+//    }
+//  }
+//
+//  if (oldScrollViewProps.contentInsetAdjustmentBehavior != newScrollViewProps.contentInsetAdjustmentBehavior) {
+//    auto const contentInsetAdjustmentBehavior = newScrollViewProps.contentInsetAdjustmentBehavior;
+//    if (contentInsetAdjustmentBehavior == ContentInsetAdjustmentBehavior::Never) {
+//      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//    } else if (contentInsetAdjustmentBehavior == ContentInsetAdjustmentBehavior::Automatic) {
+//      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+//    } else if (contentInsetAdjustmentBehavior == ContentInsetAdjustmentBehavior::ScrollableAxes) {
+//      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic;
+//    } else if (contentInsetAdjustmentBehavior == ContentInsetAdjustmentBehavior::Always) {
+//      scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
+//    }
+//  }
 
   MAP_SCROLL_VIEW_PROP(disableIntervalMomentum);
   MAP_SCROLL_VIEW_PROP(snapToInterval);
 
   if (oldScrollViewProps.keyboardDismissMode != newScrollViewProps.keyboardDismissMode) {
-    scrollView.keyboardDismissMode = RCTUIKeyboardDismissModeFromProps(newScrollViewProps);
+//    scrollView.keyboardDismissMode = RCTUIKeyboardDismissModeFromProps(newScrollViewProps);
   }
 
   [super updateProps:props oldProps:oldProps];
@@ -317,12 +317,12 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   [((RCTEnhancedScrollView *)_scrollView) preserveContentOffsetWithBlock:block];
 }
 
-- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+- (void)mountChildComponentView:(RCTUIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
   [_containerView insertSubview:childComponentView atIndex:index];
 }
 
-- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+- (void)unmountChildComponentView:(RCTUIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
   [childComponentView removeFromSuperview];
 }
@@ -333,11 +333,11 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
  */
 - (BOOL)_shouldDisableScrollInteraction
 {
-  UIView *ancestorView = self.superview;
+  RCTUIView *ancestorView = self.superview;
 
   while (ancestorView) {
     if ([ancestorView respondsToSelector:@selector(isJSResponder)]) {
-      BOOL isJSResponder = ((UIView<RCTComponentViewProtocol> *)ancestorView).isJSResponder;
+      BOOL isJSResponder = ((RCTUIView<RCTComponentViewProtocol> *)ancestorView).isJSResponder;
       if (isJSResponder) {
         return YES;
       }
@@ -384,14 +384,14 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
 
 #pragma mark - UIScrollViewDelegate
 
-- (BOOL)touchesShouldCancelInContentView:(__unused UIView *)view
+- (BOOL)touchesShouldCancelInContentView:(__unused RCTUIView *)view
 {
   // Historically, `UIScrollView`s in React Native do not cancel touches
   // started on `UIControl`-based views (as normal iOS `UIScrollView`s do).
   return ![self _shouldDisableScrollInteraction];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(RCTUIScrollView *)scrollView
 {
   if (!_isUserTriggeredScrolling) {
     [self _updateStateWithContentOffset];
@@ -411,24 +411,24 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   [self _remountChildrenIfNeeded];
 }
 
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView
+- (void)scrollViewDidZoom:(RCTUIScrollView *)scrollView
 {
   [self scrollViewDidScroll:scrollView];
 }
 
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+- (BOOL)scrollViewShouldScrollToTop:(RCTUIScrollView *)scrollView
 {
   _isUserTriggeredScrolling = YES;
   return YES;
 }
 
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+- (void)scrollViewDidScrollToTop:(RCTUIScrollView *)scrollView
 {
   _isUserTriggeredScrolling = NO;
   [self _updateStateWithContentOffset];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+- (void)scrollViewWillBeginDragging:(RCTUIScrollView *)scrollView
 {
   [self _forceDispatchNextScrollEvent];
 
@@ -440,7 +440,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   _isUserTriggeredScrolling = YES;
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+- (void)scrollViewDidEndDragging:(RCTUIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
   [self _forceDispatchNextScrollEvent];
 
@@ -452,7 +452,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   [self _updateStateWithContentOffset];
 }
 
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+- (void)scrollViewWillBeginDecelerating:(RCTUIScrollView *)scrollView
 {
   [self _forceDispatchNextScrollEvent];
 
@@ -464,7 +464,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
       ->onMomentumScrollBegin([self _scrollViewMetrics]);
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+- (void)scrollViewDidEndDecelerating:(RCTUIScrollView *)scrollView
 {
   [self _forceDispatchNextScrollEvent];
 
@@ -477,12 +477,12 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   _isUserTriggeredScrolling = NO;
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+- (void)scrollViewDidEndScrollingAnimation:(RCTUIScrollView *)scrollView
 {
   [self _handleFinishedScrolling:scrollView];
 }
 
-- (void)_handleFinishedScrolling:(UIScrollView *)scrollView
+- (void)_handleFinishedScrolling:(RCTUIScrollView *)scrollView
 {
   [self _forceDispatchNextScrollEvent];
   [self scrollViewDidScroll:scrollView];
@@ -495,7 +495,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   [self _updateStateWithContentOffset];
 }
 
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view
+- (void)scrollViewWillBeginZooming:(RCTUIScrollView *)scrollView withView:(nullable RCTUIView *)view
 {
   [self _forceDispatchNextScrollEvent];
 
@@ -506,7 +506,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   std::static_pointer_cast<ScrollViewEventEmitter const>(_eventEmitter)->onScrollBeginDrag([self _scrollViewMetrics]);
 }
 
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale
+- (void)scrollViewDidEndZooming:(RCTUIScrollView *)scrollView withView:(nullable RCTUIView *)view atScale:(CGFloat)scale
 {
   [self _forceDispatchNextScrollEvent];
 
@@ -518,7 +518,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
   [self _updateStateWithContentOffset];
 }
 
-- (UIView *)viewForZoomingInScrollView:(__unused UIScrollView *)scrollView
+- (RCTUIView *)viewForZoomingInScrollView:(__unused RCTUIScrollView *)scrollView
 {
   return _containerView;
 }
@@ -539,7 +539,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
 
 - (void)flashScrollIndicators
 {
-  [_scrollView flashScrollIndicators];
+//  [_scrollView flashScrollIndicators];
 }
 
 - (void)scrollTo:(double)x y:(double)y animated:(BOOL)animated
@@ -587,7 +587,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
 
 #pragma mark - Child views mounting
 
-- (void)updateClippedSubviewsWithClipRect:(CGRect)clipRect relativeToView:(UIView *)clipView
+- (void)updateClippedSubviewsWithClipRect:(CGRect)clipRect relativeToView:(RCTUIView *)clipView
 {
   // Do nothing. ScrollView manages its subview clipping individually in `_remountChildren`.
 }
@@ -608,8 +608,8 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
 
 - (void)_remountChildren
 {
-  [_scrollView updateClippedSubviewsWithClipRect:CGRectInset(_scrollView.bounds, -kClippingLeeway, -kClippingLeeway)
-                                  relativeToView:_scrollView];
+//  [_scrollView updateClippedSubviewsWithClipRect:CGRectInset(_scrollView.bounds, -kClippingLeeway, -kClippingLeeway)
+//                                  relativeToView:_scrollView];
 }
 
 #pragma mark - RCTScrollableProtocol
@@ -634,7 +634,7 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
     offset.x = self.contentSize.width - _scrollView.frame.size.width - offset.x;
   }
 
-  [_scrollView setContentOffset:offset animated:animated];
+//  [_scrollView setContentOffset:offset animated:animated];
 
   if (!animated) {
     // When not animated, the expected workflow in ``scrollViewDidEndScrollingAnimation`` after scrolling is not going
@@ -645,18 +645,18 @@ static void RCTSendPaperScrollEvent_DEPRECATED(UIScrollView *scrollView, NSInteg
 
 - (void)zoomToRect:(CGRect)rect animated:(BOOL)animated
 {
-  [_scrollView zoomToRect:rect animated:animated];
+//  [_scrollView zoomToRect:rect animated:animated];
 }
-
-- (void)addScrollListener:(NSObject<UIScrollViewDelegate> *)scrollListener
-{
-  [self.scrollViewDelegateSplitter addDelegate:scrollListener];
-}
-
-- (void)removeScrollListener:(NSObject<UIScrollViewDelegate> *)scrollListener
-{
-  [self.scrollViewDelegateSplitter removeDelegate:scrollListener];
-}
+//
+//- (void)addScrollListener:(NSObject<UIScrollViewDelegate> *)scrollListener
+//{
+//  [self.scrollViewDelegateSplitter addDelegate:scrollListener];
+//}
+//
+//- (void)removeScrollListener:(NSObject<UIScrollViewDelegate> *)scrollListener
+//{
+//  [self.scrollViewDelegateSplitter removeDelegate:scrollListener];
+//}
 
 @end
 

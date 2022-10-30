@@ -27,7 +27,7 @@ using namespace facebook::react;
   __weak RCTBridge *_bridge;
   /*
    Each instance of `RCTLegacyViewManagerInteropComponentView` registers a block to which events are dispatched.
-   This is the container that maps unretained UIView pointer to a block to which the event is dispatched.
+   This is the container that maps unretained RCTUIView pointer to a block to which the event is dispatched.
    */
   NSMutableDictionary<NSNumber *, InterceptorBlock> *_eventInterceptors;
 
@@ -71,9 +71,9 @@ using namespace facebook::react;
   [_eventInterceptors removeObjectForKey:[NSNumber numberWithInteger:tag]];
 }
 
-- (UIView *)createPaperViewWithTag:(NSInteger)tag;
+- (RCTUIView *)createPaperViewWithTag:(NSInteger)tag;
 {
-  UIView *view = [_componentData createViewWithTag:[NSNumber numberWithInteger:tag] rootTag:NULL];
+  RCTUIView *view = [_componentData createViewWithTag:[NSNumber numberWithInteger:tag] rootTag:NULL];
   if ([_componentData.bridgelessViewManager conformsToProtocol:@protocol(RCTWeakViewHolder)]) {
     id<RCTWeakViewHolder> weakViewHolder = (id<RCTWeakViewHolder>)_componentData.bridgelessViewManager;
     if (!weakViewHolder.weakViews) {
@@ -84,7 +84,7 @@ using namespace facebook::react;
   return view;
 }
 
-- (void)setProps:(folly::dynamic const &)props forView:(UIView *)view
+- (void)setProps:(folly::dynamic const &)props forView:(RCTUIView *)view
 {
   NSDictionary<NSString *, id> *convertedProps = convertFollyDynamicToId(props);
   [_componentData setProps:convertedProps forView:view];

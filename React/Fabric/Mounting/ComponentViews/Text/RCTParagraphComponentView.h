@@ -5,14 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <UIKit/UIKit.h>
+#import <React/RCTUIKit.h> // TODO(macOS GH#774)
 
 #import <React/RCTViewComponentView.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /*
- * UIView class for <Paragraph> component.
+ * RCTUIView class for <Paragraph> component.
  */
 @interface RCTParagraphComponentView : RCTViewComponentView
 

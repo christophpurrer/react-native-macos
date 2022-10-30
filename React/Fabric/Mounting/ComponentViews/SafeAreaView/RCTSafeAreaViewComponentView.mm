@@ -53,13 +53,13 @@ using namespace facebook::react;
   }
 
   UIEdgeInsets insets = [self _safeAreaInsets];
-  insets.left = RCTRoundPixelValue(insets.left);
-  insets.top = RCTRoundPixelValue(insets.top);
-  insets.right = RCTRoundPixelValue(insets.right);
-  insets.bottom = RCTRoundPixelValue(insets.bottom);
+  insets.left = RCTRoundPixelValue(insets.left, 1.0);
+  insets.top = RCTRoundPixelValue(insets.top, 1.0);
+  insets.right = RCTRoundPixelValue(insets.right, 1.0);
+  insets.bottom = RCTRoundPixelValue(insets.bottom, 1.0);
 
   auto newPadding = RCTEdgeInsetsFromUIEdgeInsets(insets);
-  auto threshold = 1.0 / RCTScreenScale() + 0.01; // Size of a pixel plus some small threshold.
+  auto threshold = 1.0 / 1.0 + 0.01; // Size of a pixel plus some small threshold.
 
   _state->updateState(
       [=](SafeAreaViewShadowNode::ConcreteState::Data const &oldData)

@@ -30,7 +30,7 @@ using namespace facebook::react;
 
 @implementation RCTTextInputComponentView {
   TextInputShadowNode::ConcreteState::Shared _state;
-  UIView<RCTBackedTextInputViewProtocol> *_backedTextInputView;
+  RCTUIView<RCTBackedTextInputViewProtocol> *_backedTextInputView;
   NSUInteger _mostRecentEventCount;
   NSAttributedString *_lastStringStateWasUpdatedWith;
 
@@ -58,7 +58,7 @@ using namespace facebook::react;
   BOOL _didMoveToWindow;
 }
 
-#pragma mark - UIView overrides
+#pragma mark - RCTUIView overrides
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -197,10 +197,10 @@ using namespace facebook::react;
     _backedTextInputView.placeholderColor = RCTUIColorFromSharedColor(newTextInputProps.placeholderTextColor);
   }
 
-  if (newTextInputProps.textAttributes != oldTextInputProps.textAttributes) {
-    _backedTextInputView.defaultTextAttributes =
-        RCTNSTextAttributesFromTextAttributes(newTextInputProps.getEffectiveTextAttributes(RCTFontSizeMultiplier()));
-  }
+//  if (newTextInputProps.textAttributes != oldTextInputProps.textAttributes) {
+//    _backedTextInputView.defaultTextAttributes =
+//        RCTNSTextAttributesFromTextAttributes(newTextInputProps.getEffectiveTextAttributes(RCTFontSizeMultiplier()));
+//  }
 
   if (newTextInputProps.selectionColor != oldTextInputProps.selectionColor) {
 //    _backedTextInputView.tintColor = RCTUIColorFromSharedColor(newTextInputProps.selectionColor);
@@ -409,7 +409,7 @@ using namespace facebook::react;
 
 #pragma mark - RCTBackedTextInputDelegate (UIScrollViewDelegate)
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewDidScroll:(RCTUIScrollView *)scrollView
 {
   if (_eventEmitter) {
     std::static_pointer_cast<TextInputEventEmitter const>(_eventEmitter)->onScroll([self _textInputMetrics]);
@@ -473,7 +473,7 @@ using namespace facebook::react;
     return;
   }
 
-//  UIKeyboardType keyboardType = _backedTextInputView.keyboardType;
+//  NSInteger keyboardType = _backedTextInputView.keyboardType;
 //
 //  // These keyboard types (all are number pads) don't have a "Done" button by default,
 //  // so we create an `inputAccessoryView` with this button for them.
@@ -604,7 +604,7 @@ using namespace facebook::react;
 - (void)_setMultiline:(BOOL)multiline
 {
 //  [_backedTextInputView removeFromSuperview];
-//  UIView<RCTBackedTextInputViewProtocol> *backedTextInputView = multiline ? [RCTUITextView new] : [RCTUITextField new];
+//  RCTUIView<RCTBackedTextInputViewProtocol> *backedTextInputView = multiline ? [RCTUITextView new] : [RCTUITextField new];
 //  backedTextInputView.frame = _backedTextInputView.frame;
 //  RCTCopyBackedTextInput(_backedTextInputView, backedTextInputView);
 //  _backedTextInputView = backedTextInputView;

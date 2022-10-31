@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * RCTUIView class for <ScrollView> component.
  *
- * By design, the class does not implement any logic that contradicts to the normal behavior of UIScrollView and does
+ * By design, the class does not implement any logic that contradicts to the normal behavior of RCTUIScrollView and does
  * not contain any special/custom support for things like floating headers, pull-to-refresh components,
  * keyboard-avoiding functionality and so on. All that complexity must be implemented inside those components in order
  * to keep the complexity of this component manageable.
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable RCTScrollViewComponentView *)findScrollViewComponentViewForView:(RCTUIView *)view;
 
 /*
- * Returns an actual UIScrollView that this component uses under the hood.
+ * Returns an actual RCTUIScrollView that this component uses under the hood.
  */
 @property (nonatomic, strong, readonly) RCTUIScrollView *scrollView; // TODO(macOS GH#774)
 
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) RCTUIView *containerView;
 
 /*
- * Returns a delegate splitter that can be used to subscribe for UIScrollView delegate.
+ * Returns a delegate splitter that can be used to subscribe for RCTUIScrollView delegate.
  */
 @property (nonatomic, strong, readonly)
     RCTGenericDelegateSplitter<id<UIScrollViewDelegate>> *scrollViewDelegateSplitter;

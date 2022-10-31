@@ -137,7 +137,7 @@ static void RCTSendScrollEventForNativeAnimations_DEPRECATED(RCTUIScrollView *sc
 
 - (void)dealloc
 {
-  // Removing all delegates from the splitter nils the actual delegate which prevents a crash on UIScrollView
+  // Removing all delegates from the splitter nils the actual delegate which prevents a crash on RCTUIScrollView
   // deallocation.
   [self.scrollViewDelegateSplitter removeAllDelegates];
 }

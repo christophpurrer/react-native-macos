@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * UIView class for root <ActivityIndicator> component.
+ * RCTUIView class for root <ActivityIndicator> component.
  */
 @interface RCTActivityIndicatorViewComponentView : RCTViewComponentView
 

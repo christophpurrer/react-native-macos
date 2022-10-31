@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * UIView class for root <Switch> component.
+ * RCTUIView class for root <Switch> component.
  */
 @interface RCTSwitchComponentView : RCTViewComponentView
 

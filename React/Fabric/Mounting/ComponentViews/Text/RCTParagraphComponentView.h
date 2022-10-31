@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*
- * UIView class for <Paragraph> component.
+ * RCTUIView class for <Paragraph> component.
  */
 @interface RCTParagraphComponentView : RCTViewComponentView
 

@@ -88,7 +88,7 @@
       RCTSanitizeNaNValue(contentOffset.y, @"scrollView.contentOffset.y"));
 }
 
-- (BOOL)touchesShouldCancelInContentView:(UIView *)view
+- (BOOL)touchesShouldCancelInContentView:(RCTUIView *)view
 {
   if ([_overridingDelegate respondsToSelector:@selector(touchesShouldCancelInContentView:)]) {
     return [_overridingDelegate touchesShouldCancelInContentView:view];

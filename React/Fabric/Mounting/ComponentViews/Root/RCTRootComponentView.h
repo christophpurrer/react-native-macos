@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * UIView class for root <View> component.
+ * RCTUIView class for root <View> component.
  */
 @interface RCTRootComponentView : RCTViewComponentView
 

@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * UIView class for root <SafeAreaView> component.
+ * RCTUIView class for root <SafeAreaView> component.
  */
 @interface RCTSafeAreaViewComponentView : RCTViewComponentView
 

@@ -15,7 +15,7 @@
 
 using namespace facebook::react;
 
-@implementation UIView (ComponentViewProtocol)
+@implementation RCTUIView (ComponentViewProtocol)
 
 + (ComponentDescriptorProvider)componentDescriptorProvider
 {
@@ -28,7 +28,7 @@ using namespace facebook::react;
   return {};
 }
 
-- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+- (void)mountChildComponentView:(RCTUIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
   RCTAssert(
       childComponentView.superview == nil,
@@ -40,7 +40,7 @@ using namespace facebook::react;
   [self insertSubview:childComponentView atIndex:index];
 }
 
-- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+- (void)unmountChildComponentView:(RCTUIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
   RCTAssert(
       childComponentView.superview == self,
@@ -156,14 +156,14 @@ using namespace facebook::react;
   return nil;
 }
 
-- (void)updateClippedSubviewsWithClipRect:(CGRect)clipRect relativeToView:(UIView *)clipView
+- (void)updateClippedSubviewsWithClipRect:(CGRect)clipRect relativeToView:(RCTUIView *)clipView
 {
   clipRect = [clipView convertRect:clipRect toView:self];
 
   // Normal views don't support unmounting, so all
   // this does is forward message to our subviews,
   // in case any of those do support it
-  for (UIView *subview in self.subviews) {
+  for (RCTUIView *subview in self.subviews) {
     [subview updateClippedSubviewsWithClipRect:clipRect relativeToView:self];
   }
 }

@@ -11,6 +11,6 @@
 
 @interface RCTWrapperViewController : UIViewController
 
-- (instancetype)initWithContentView:(UIView *)contentView NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithContentView:(RCTUIView *)contentView NS_DESIGNATED_INITIALIZER;
 
 @end

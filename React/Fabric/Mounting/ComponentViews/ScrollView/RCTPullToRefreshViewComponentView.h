@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*
- * UIView class for root <PullToRefreshView> component.
+ * RCTUIView class for root <PullToRefreshView> component.
  * This view is designed to only serve ViewController-like purpose for the actual `UIRefreshControl` view which is being
  * attached to some `UIScrollView` (not to this view).
  */

@@ -104,7 +104,7 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
   BOOL _shouldAnimatePresentation;
   BOOL _shouldPresent;
   BOOL _isPresented;
-  UIView *_modalContentsSnapshot;
+  RCTUIView *_modalContentsSnapshot;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -165,7 +165,7 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
     _isPresented = NO;
     // To animate dismissal of view controller, snapshot of
     // view hierarchy needs to be added to the UIViewController.
-    UIView *snapshot = _modalContentsSnapshot;
+    RCTUIView *snapshot = _modalContentsSnapshot;
     [self.viewController.view addSubview:snapshot];
 
     [self dismissViewController:self.viewController
@@ -198,7 +198,7 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
   _modalContentsSnapshot = [self.viewController.view snapshotViewAfterScreenUpdates:NO];
 }
 
-#pragma mark - UIView methods
+#pragma mark - RCTUIView methods
 
 - (void)didMoveToWindow
 {
@@ -269,12 +269,12 @@ static ModalHostViewEventEmitter::OnOrientationChange onOrientationChangeStruct(
   _state = std::static_pointer_cast<const ModalHostViewShadowNode::ConcreteState>(state);
 }
 
-- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+- (void)mountChildComponentView:(RCTUIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
   [self.viewController.view insertSubview:childComponentView atIndex:index];
 }
 
-- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+- (void)unmountChildComponentView:(RCTUIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
   [childComponentView removeFromSuperview];
 }

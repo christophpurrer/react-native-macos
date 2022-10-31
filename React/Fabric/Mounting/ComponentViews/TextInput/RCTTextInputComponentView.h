@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * UIView class for <TextInput> component.
+ * RCTUIView class for <TextInput> component.
  */
 @interface RCTTextInputComponentView : RCTViewComponentView
 

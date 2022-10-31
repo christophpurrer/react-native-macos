@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  * The primary goals of the RCTSurface are:
  *  * ability to measure and layout the surface in a thread-safe
  *    and synchronous manner;
- *  * ability to create a UIView instance on demand (later);
+ *  * ability to create a RCTUIView instance on demand (later);
  *  * ability to communicate the current stage of the surface granularly.
  */
 @interface RCTFabricSurface : NSObject <RCTSurfaceProtocol>
@@ -47,12 +47,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)resetWithSurfacePresenter:(RCTSurfacePresenter *)surfacePresenter;
 
-#pragma mark - Dealing with UIView representation, the Main thread only access
+#pragma mark - Dealing with RCTUIView representation, the Main thread only access
 
 /**
  * Creates (if needed) and returns `UIView` instance which represents the Surface.
  * The Surface will cache and *retain* this object.
- * Returning the UIView instance does not mean that the Surface is ready
+ * Returning the RCTUIView instance does not mean that the Surface is ready
  * to execute and layout. It can be just a handler which Surface will use later
  * to mount the actual views.
  * RCTSurface does not control (or influence in any way) the size or origin

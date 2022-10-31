@@ -22,6 +22,14 @@
 #import <React/JSCExecutorFactory.h>
 #endif
 
+#ifdef RN_FABRIC_ENABLED
+#import <React/RCTFabricSurfaceHostingProxyRootView.h>
+#import <React/RCTSurfacePresenter.h>
+#import <React/RCTSurfacePresenterBridgeAdapter.h>
+
+#import <react/config/ReactNativeConfig.h>
+#endif
+
 #import <React/CoreModulesPlugins.h>
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -46,7 +54,6 @@
 NSString *kBundleNameJS = @"RNTesterApp";
 
 @interface AppDelegate () <RCTCxxBridgeDelegate, RCTTurboModuleManagerDelegate, NSUserNotificationCenterDelegate>
-
 @end
 
 @implementation AppDelegate {

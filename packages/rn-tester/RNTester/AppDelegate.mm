@@ -42,14 +42,6 @@
 #import <React/RCTPushNotificationManager.h>
 #endif
 
-#ifdef RN_FABRIC_ENABLED
-#import <React/RCTFabricSurfaceHostingProxyRootView.h>
-#import <React/RCTSurfacePresenter.h>
-#import <React/RCTSurfacePresenterBridgeAdapter.h>
-
-#import <react/config/ReactNativeConfig.h>
-#endif
-
 #if DEBUG
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>

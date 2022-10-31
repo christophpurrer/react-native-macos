@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Provides access to `foregroundColor` prop of the component.
  * Must be used by subclasses only.
  */
-@property (nonatomic, strong, nullable) UIColor *foregroundColor;
+@property (nonatomic, strong, nullable) RCTUIColor *foregroundColor;
 
 /**
  * Returns the object - usually (sub)view - which represents this

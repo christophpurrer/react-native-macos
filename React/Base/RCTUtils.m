@@ -358,6 +358,20 @@ CGSize RCTScreenSize()
 
   return size;
 }
+#else
+CGFloat RCTScreenScale()
+{
+  return [NSScreen mainScreen].backingScaleFactor;
+}
+
+CGFloat RCTFontSizeMultiplier() {
+    return 1.0;
+}
+
+CGSize RCTScreenSize()
+{
+  return [NSScreen mainScreen].frame.size;
+}
 #endif // TODO(macOS GH#774)
 
 #if !TARGET_OS_OSX // TODO(macOS GH#774)
@@ -385,6 +399,12 @@ CGFloat RCTFloorPixelValue(CGFloat value)
   return floor(value * scale) / scale;
 }
 #else // [TODO(macOS GH#774)
+CGSize RCTViewportSize()
+{
+  NSScreen* screen = [NSScreen mainScreen];
+  return screen ? screen.frame.size : RCTScreenSize();
+}
+
 CGFloat RCTRoundPixelValue(CGFloat value, CGFloat scale)
 {
   return round(value * scale) / scale;

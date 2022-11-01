@@ -554,7 +554,6 @@ static RCTUIView *RCTUIViewCommonInit(RCTUIView *self)
 @end
 
 // RCTUILabel
-#if !TARGET_OS_OSX // TODO(macOS GH#774)
 @implementation RCTUILabel {
     NSRect _drawingRect;
 }
@@ -787,7 +786,6 @@ static RCTUIView *RCTUIViewCommonInit(RCTUIView *self)
 
 
 @end
-#endif
 
 BOOL RCTUIViewSetClipsToBounds(RCTPlatformView *view)
 {

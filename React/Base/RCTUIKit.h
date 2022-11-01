@@ -63,6 +63,7 @@ UIKIT_STATIC_INLINE CGPathRef UIBezierPathCreateCGPathRef(UIBezierPath *path)
 #define RCTUIView UIView // TODO(macOS ISS#3536887)
 #define RCTUILabel UILabel // TODO(macOS GH#774)
 #define RCTUIScrollView UIScrollView // TODO(macOS ISS#3536887)
+#define RCTUITouch UITouch // TODO(macOS GH#774)
 
 #define RCTPlatformWindow UIWindow
 
@@ -313,6 +314,7 @@ NS_INLINE NSEdgeInsets UIEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat botto
 // These types have the same purpose but may differ semantically. Use with care!
 
 #define UIEvent NSEvent
+#define RCTUITouch NSEvent
 
 // UIGestureRecognizer
 #define UIGestureRecognizer NSGestureRecognizer

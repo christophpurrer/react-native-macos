@@ -103,16 +103,20 @@ using namespace facebook::react;
     } else {
       // Note: Changing `frame` when `layer.transform` is not the `identity transform` is undefined behavior.
       // Therefore, we must use `center` and `bounds`.
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
       self.center = CGPoint{CGRectGetMidX(frame), CGRectGetMidY(frame)};
+#endif
       self.bounds = CGRect{CGPointZero, frame.size};
     }
   }
 
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
   if (forceUpdate || (layoutMetrics.layoutDirection != oldLayoutMetrics.layoutDirection)) {
     self.semanticContentAttribute = layoutMetrics.layoutDirection == LayoutDirection::RightToLeft
         ? UISemanticContentAttributeForceRightToLeft
         : UISemanticContentAttributeForceLeftToRight;
   }
+#endif
 
   if (forceUpdate || (layoutMetrics.displayType != oldLayoutMetrics.displayType)) {
     self.hidden = layoutMetrics.displayType == DisplayType::None;

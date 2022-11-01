@@ -432,6 +432,24 @@ CGPathRef UIBezierPathCreateCGPathRef(UIBezierPath *path);
 
 @end // ]TODO(macOS GH#774)
 
+// RCTUILabel
+
+@interface RCTUILabel : RCTUIView
+
+@property(nonatomic, copy)   NSString*           text;
+@property(nonatomic, copy)   NSAttributedString* attributedText;
+@property(nonatomic, retain) NSFont*             font;
+@property(nonatomic, retain) NSColor*            textColor;
+@property(nonatomic, assign) NSInteger           numberOfLines;
+@property(nonatomic, assign) NSTextAlignment     textAlignment;
+@property(nonatomic, assign) NSLineBreakMode     lineBreakMode;
+@property(nonatomic, assign) CGFloat             preferredMaxLayoutWidth;
+
+- (instancetype)init;
+- (instancetype)initWithFrame:(NSRect)frameRect NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCoder:(NSCoder*)coder NS_DESIGNATED_INITIALIZER;
+
+@end
 
 NS_INLINE RCTPlatformView *RCTUIViewHitTestWithEvent(RCTPlatformView *view, CGPoint point, __unused UIEvent *event)
 {

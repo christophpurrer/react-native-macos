@@ -297,8 +297,16 @@ using namespace facebook::react;
 
   [item setObject:attributedText.string forKey:(id)kUTTypeUTF8PlainText];
 
+   
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
   UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
   pasteboard.items = @[ item ];
+#else
+  // [_textView copy:sender];
+  NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+  [pasteboard clearContents];
+  [pasteboard writeObjects:[NSArray arrayWithObjects:attributedText.string, rtf, nil]];
+#endif // TODO(macOS GH#774)
 }
 
 @end

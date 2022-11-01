@@ -22,6 +22,7 @@ class RCTComponentViewDescriptor final {
    * Associated (and owned) native view instance.
    */
   __strong RCTUIView<RCTComponentViewProtocol> *view = nil;
+  NSInteger tag = 0; // default is 0
 
   /*
    * Indicates a requirement to call on the view methods from

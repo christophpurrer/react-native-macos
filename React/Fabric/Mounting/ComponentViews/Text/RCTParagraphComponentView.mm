@@ -41,7 +41,9 @@ using namespace facebook::react;
     _props = defaultProps;
 
     self.opaque = NO;
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
     self.contentMode = UIViewContentModeRedraw;
+#endif
   }
 
   return self;

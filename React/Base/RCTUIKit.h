@@ -207,6 +207,7 @@ enum : NSUInteger
 };
 
 // UIView/NSView.h
+#define UIViewContentMode NSInteger
 enum : NSInteger
 {
   UIViewContentModeScaleAspectFill = NSViewLayerContentsPlacementScaleProportionallyToFill,

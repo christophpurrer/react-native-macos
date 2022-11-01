@@ -6,6 +6,7 @@
  */
 
 #import "RCTMountingManager.h"
+#import <QuartzCore/QuartzCore.h> // TODO(macOS GH#774) - import needed on macOS to prevent compiler error on invocation of CATransaction further down
 
 #import <QuartzCore/QuartzCore.h>
 #import <butter/map.h>

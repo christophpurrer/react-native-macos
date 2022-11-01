@@ -31,7 +31,9 @@ using namespace facebook::react;
   ParagraphShadowNode::ConcreteState::Shared _state;
   ParagraphAttributes _paragraphAttributes;
   RCTParagraphComponentAccessibilityProvider *_accessibilityProvider;
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
   UILongPressGestureRecognizer *_longPressGestureRecognizer;
+#endif
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -92,11 +94,13 @@ using namespace facebook::react;
   _paragraphAttributes = newParagraphProps.paragraphAttributes;
 
   if (newParagraphProps.isSelectable != oldParagraphProps.isSelectable) {
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
     if (newParagraphProps.isSelectable) {
       [self enableContextMenu];
     } else {
       [self disableContextMenu];
     }
+#endif
   }
 
   [super updateProps:props oldProps:oldProps];
@@ -223,6 +227,7 @@ using namespace facebook::react;
 
 #pragma mark - Context Menu
 
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
 - (void)enableContextMenu
 {
   _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
@@ -254,6 +259,7 @@ using namespace facebook::react;
   [menuController setMenuVisible:YES animated:YES];
 #endif
 }
+#endif
 
 - (BOOL)canBecomeFirstResponder
 {
@@ -268,8 +274,11 @@ using namespace facebook::react;
   if (paragraphProps.isSelectable && action == @selector(copy:)) {
     return YES;
   }
-
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
   return [self.nextResponder canPerformAction:action withSender:sender];
+#else
+  return NO;
+#endif
 }
 
 - (void)copy:(id)sender

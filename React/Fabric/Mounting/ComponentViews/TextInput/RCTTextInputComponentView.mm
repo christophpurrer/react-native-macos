@@ -31,7 +31,11 @@ using namespace facebook::react;
 
 @implementation RCTTextInputComponentView {
   TextInputShadowNode::ConcreteState::Shared _state;
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
   RCTUIView<RCTBackedTextInputViewProtocol> *_backedTextInputView;
+#else
+  RCTUITextView<RCTBackedTextInputViewProtocol> *_backedTextInputView;
+#endif
   NSUInteger _mostRecentEventCount;
   NSAttributedString *_lastStringStateWasUpdatedWith;
 
@@ -67,8 +71,11 @@ using namespace facebook::react;
     static const auto defaultProps = std::make_shared<TextInputProps const>();
     _props = defaultProps;
     auto &props = *defaultProps;
-
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
     _backedTextInputView = props.traits.multiline ? [RCTUITextView new] : [RCTUITextField new];
+#else
+    _backedTextInputView = [RCTUITextView new];
+#endif
     _backedTextInputView.textInputDelegate = self;
     _ignoreNextTextInputCall = NO;
     _comingFromJS = NO;
@@ -480,11 +487,11 @@ using namespace facebook::react;
 {
   // InputAccessoryView component sets the inputAccessoryView when inputAccessoryViewID exists
   if (_backedTextInputView.inputAccessoryViewID) {
-    if (_backedTextInputView.isFirstResponder) {
 #if !TARGET_OS_OSX // TODO(macOS GH#774)
+    if (_backedTextInputView.isFirstResponder) {
       [_backedTextInputView reloadInputViews];
-#endif
     }
+#endif
     return;
   }
 
@@ -516,23 +523,22 @@ using namespace facebook::react;
   } else {
     _backedTextInputView.inputAccessoryView = nil;
   }
-#endif
 
   if (_backedTextInputView.isFirstResponder) {
-#if !TARGET_OS_OSX // TODO(macOS GH#774)
     [_backedTextInputView reloadInputViews];
-#endif
   }
+#endif
 }
 
 - (void)handleInputAccessoryDoneButton
 {
-  if ([self textInputShouldReturn]) {
 #if !TARGET_OS_OSX // TODO(macOS GH#774)
+  if ([self textInputShouldReturn]) {
     [_backedTextInputView endEditing:YES];
-#endif
   }
+#endif
 }
+
 
 #pragma mark - Other
 
@@ -632,7 +638,12 @@ using namespace facebook::react;
 - (void)_setMultiline:(BOOL)multiline
 {
   [_backedTextInputView removeFromSuperview];
-  RCTUIView<RCTBackedTextInputViewProtocol> *backedTextInputView = multiline ? [RCTUITextView new] : [RCTUITextField new];
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
+    RCTUIView<RCTBackedTextInputViewProtocol> *backedTextInputView = multiline ? [RCTUITextView new] : [RCTUITextField new];
+#else
+    RCTUITextView<RCTBackedTextInputViewProtocol> *backedTextInputView = [RCTUITextView new];
+#endif
+  
   backedTextInputView.frame = _backedTextInputView.frame;
   RCTCopyBackedTextInput(_backedTextInputView, backedTextInputView);
   _backedTextInputView = backedTextInputView;

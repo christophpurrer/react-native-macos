@@ -10,13 +10,21 @@
 #import <optional>
 
 #import <React/RCTBackedTextInputViewProtocol.h>
+#import <React/RCTUITextField.h>
+#import <React/RCTUITextView.h>
 #import <react/renderer/components/iostextinput/primitives.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 void RCTCopyBackedTextInput(
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
     RCTUIView<RCTBackedTextInputViewProtocol> *fromTextInput,
-    RCTUIView<RCTBackedTextInputViewProtocol> *toTextInput);
+    RCTUIView<RCTBackedTextInputViewProtocol> *toTextInput
+#else
+    RCTUITextView<RCTBackedTextInputViewProtocol> *fromTextInput,
+    RCTUITextView<RCTBackedTextInputViewProtocol> *toTextInput
+#endif
+);
 
 #if !TARGET_OS_OSX // TODO(macOS GH#774)
 UITextAutocorrectionType RCTUITextAutocorrectionTypeFromOptionalBool(std::optional<bool> autoCorrect);

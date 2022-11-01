@@ -44,7 +44,7 @@ void RCTCopyBackedTextInput(
 #endif
   toTextInput.contextMenuHidden = fromTextInput.contextMenuHidden;
   toTextInput.editable = fromTextInput.editable;
-  toTextInput.enablesReturnKeyAutomatically = fromTextInput.enablesReturnKeyAutomatically;
+//  toTextInput.enablesReturnKeyAutomatically = fromTextInput.enablesReturnKeyAutomatically;
 #if !TARGET_OS_OSX // TODO(macOS GH#774)
   toTextInput.keyboardAppearance = fromTextInput.keyboardAppearance;
   toTextInput.spellCheckingType = fromTextInput.spellCheckingType;

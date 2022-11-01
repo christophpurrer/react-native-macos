@@ -31,14 +31,21 @@ using namespace facebook::react;
     _props = defaultProps;
 
     _imageView = [RCTUIImageViewAnimated new];
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
     _imageView.clipsToBounds = YES;
     _imageView.contentMode = RCTContentModeFromImageResizeMode(defaultProps->resizeMode);
+#endif
     _imageView.layer.minificationFilter = kCAFilterTrilinear;
     _imageView.layer.magnificationFilter = kCAFilterTrilinear;
 
     _imageResponseObserverProxy = RCTImageResponseObserverProxy(self);
 
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
     self.contentView = _imageView;
+#else
+    self.contentView = [RCTUIView new];
+    [self.contentView addSubview:_imageView];
+#endif
   }
 
   return self;
@@ -56,6 +63,7 @@ using namespace facebook::react;
   auto const &oldImageProps = *std::static_pointer_cast<ImageProps const>(_props);
   auto const &newImageProps = *std::static_pointer_cast<ImageProps const>(props);
 
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
   // `resizeMode`
   if (oldImageProps.resizeMode != newImageProps.resizeMode) {
     _imageView.contentMode = RCTContentModeFromImageResizeMode(newImageProps.resizeMode);
@@ -65,6 +73,7 @@ using namespace facebook::react;
   if (oldImageProps.tintColor != newImageProps.tintColor) {
     _imageView.tintColor = RCTUIColorFromSharedColor(newImageProps.tintColor);
   }
+#endif
 
   [super updateProps:props oldProps:oldProps];
 }
@@ -132,6 +141,7 @@ using namespace facebook::react;
 
   const auto &imageProps = *std::static_pointer_cast<ImageProps const>(_props);
 
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
   if (imageProps.tintColor) {
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
   }
@@ -144,6 +154,7 @@ using namespace facebook::react;
     image = [image resizableImageWithCapInsets:RCTUIEdgeInsetsFromEdgeInsets(imageProps.capInsets)
                                   resizingMode:UIImageResizingModeStretch];
   }
+#endif
 
   if (imageProps.blurRadius > __FLT_EPSILON__) {
     // Blur on a background thread to avoid blocking interaction.

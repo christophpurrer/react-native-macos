@@ -6,6 +6,7 @@
  */
 
 #import "RCTViewComponentView.h"
+#import <QuartzCore/QuartzCore.h> // TODO(macOS GH#774) - import needed on macOS to prevent compiler error on invocation of CAShapeLayer further down
 
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/QuartzCore.h>
@@ -626,9 +627,14 @@ static RCTBorderStyle RCTBorderStyleFromBorderStyle(BorderStyle borderStyle)
       CGRect contentsCenter = CGRect{
           CGPoint{imageCapInsets.left / imageSize.width, imageCapInsets.top / imageSize.height},
           CGSize{(CGFloat)1.0 / imageSize.width, (CGFloat)1.0 / imageSize.height}};
-
-      _borderLayer.contents = (id)image.CGImage;
-      _borderLayer.contentsScale = image.scale;
+        
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
+        _borderLayer.contents = (id)image.CGImage;
+        _borderLayer.contentsScale = image.scale;
+#else // [TODO(macOS GH#774)
+        _borderLayer.contents = [image layerContentsForContentsScale:scaleFactor];
+        _borderLayer.contentsScale = [[NSScreen mainScreen] backingScaleFactor];
+#endif // ]TODO(macOS GH#774)
 
       BOOL isResizable = !UIEdgeInsetsEqualToEdgeInsets(image.capInsets, UIEdgeInsetsZero);
       if (isResizable) {

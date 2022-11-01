@@ -61,6 +61,7 @@ UIKIT_STATIC_INLINE CGPathRef UIBezierPathCreateCGPathRef(UIBezierPath *path)
 // UIView
 #define RCTPlatformView         UIView
 #define RCTUIView UIView // TODO(macOS ISS#3536887)
+#define RCTUILabel UILabel // TODO(macOS GH#774)
 #define RCTUIScrollView UIScrollView // TODO(macOS ISS#3536887)
 
 #define RCTPlatformWindow UIWindow
@@ -433,7 +434,6 @@ CGPathRef UIBezierPathCreateCGPathRef(UIBezierPath *path);
 @end // ]TODO(macOS GH#774)
 
 // RCTUILabel
-
 @interface RCTUILabel : RCTUIView
 
 @property(nonatomic, copy)   NSString*           text;

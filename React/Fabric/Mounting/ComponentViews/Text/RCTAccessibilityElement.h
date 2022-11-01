@@ -9,7 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
 @interface RCTAccessibilityElement : UIAccessibilityElement
+#else
+@interface RCTAccessibilityElement : NSAccessibilityElement
+#endif
 
 /*
  * Frame of the accessibility element in parent coordinate system.
@@ -17,7 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * Default value: `CGRectZero`.
  */
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
 @property (nonatomic, assign) CGRect frame;
+#endif
 @end
 
 NS_ASSUME_NONNULL_END

@@ -75,6 +75,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly) BOOL removeClippedSubviews;
 
+#if TARGET_OS_OSX // TODO(macOS GH#774)
+// Can be useful with the appearance proxy on custom UIView subclasses.
+@property(nonatomic) CGFloat alpha; // animatable. default is 1.0
+#endif
+
 /**
  * Enforcing `call super` semantic for overridden methods from `RCTComponentViewProtocol`.
  * The methods update the instance variables.

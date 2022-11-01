@@ -21,10 +21,12 @@
                          frame:(CGRect)frame
                           view:(RCTUIView *)view;
 
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
 /*
  * Returns an array of `UIAccessibilityElement`s to be used for `UIAccessibilityContainer` implementation.
  */
 - (NSArray<UIAccessibilityElement *> *)accessibilityElements;
+#endif
 
 /**
  @abstract To make sure the provider is up to date.

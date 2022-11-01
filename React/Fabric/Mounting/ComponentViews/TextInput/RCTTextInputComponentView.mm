@@ -26,6 +26,7 @@
 using namespace facebook::react;
 
 @interface RCTTextInputComponentView () <RCTBackedTextInputDelegate, RCTTextInputViewProtocol>
+@property (nonatomic, assign) BOOL isAccessibilityElement;
 @end
 
 @implementation RCTTextInputComponentView {

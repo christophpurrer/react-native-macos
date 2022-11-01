@@ -340,7 +340,9 @@ static void RCTPerformMountInstructions(
 {
   if ([@"focus" isEqualToString:eventType]) {
     RCTUIView<RCTComponentViewProtocol> *componentView = [_componentViewRegistry findComponentViewWithTag:reactTag];
+#if !TARGET_OS_OSX // TODO(macOS GH#774)
     UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, componentView);
+#endif
   }
 }
 

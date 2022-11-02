@@ -105,6 +105,8 @@ using namespace facebook::react;
       // Therefore, we must use `center` and `bounds`.
 #if !TARGET_OS_OSX // TODO(macOS GH#774)
       self.center = CGPoint{CGRectGetMidX(frame), CGRectGetMidY(frame)};
+#else
+      self.frame = frame;
 #endif
       self.bounds = CGRect{CGPointZero, frame.size};
     }

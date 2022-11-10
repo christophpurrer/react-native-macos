@@ -197,9 +197,9 @@ static NSString *const kRCTLegacyInteropChildIndexKey = @"index";
 
   for (NSDictionary *mountInstruction in _viewsToBeMounted) {
     NSNumber *index = mountInstruction[kRCTLegacyInteropChildIndexKey];
-    UIView *childView = mountInstruction[kRCTLegacyInteropChildComponentKey];
+    RCTUIView *childView = mountInstruction[kRCTLegacyInteropChildComponentKey];
     if ([childView isKindOfClass:[RCTLegacyViewManagerInteropComponentView class]]) {
-      UIView *target = ((RCTLegacyViewManagerInteropComponentView *)childView).contentView;
+      RCTUIView *target = ((RCTLegacyViewManagerInteropComponentView *)childView).contentView;
       [_adapter.paperView insertReactSubview:target atIndex:index.integerValue];
     } else {
       [_adapter.paperView insertReactSubview:childView atIndex:index.integerValue];

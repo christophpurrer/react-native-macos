@@ -126,3 +126,8 @@ package-lock.json
 
 # Android memory profiler files
 *.hprof
+packages/rn-tester/bin
+packages/rn-tester/cache
+packages/rn-tester/extensions
+packages/rn-tester/gems
+packages/rn-tester/specifications

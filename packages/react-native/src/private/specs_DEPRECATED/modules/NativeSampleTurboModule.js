@@ -43,8 +43,9 @@ export interface Spec extends TurboModule {
   };
   readonly voidFunc: () => void;
   readonly getBool: (arg: boolean) => boolean;
-  readonly getEnum?: (arg: EnumInt) => EnumInt;
+  readonly getEnum: (arg: EnumInt) => EnumInt;
   readonly getNumber: (arg: number) => number;
+  readonly getBigInt: (arg: bigint) => bigint;
   readonly getString: (arg: string) => string;
   readonly getArray: (arg: Array<any>) => Array<any>;
   readonly getObject: (arg: Object) => Object;

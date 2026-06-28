@@ -51,6 +51,7 @@ type ReturnJSType =
   | 'ObjectKind'
   | 'ArrayKind'
   | 'NumberKind'
+  | 'BigIntKind'
   | 'StringKind'
   | 'ArrayBufferKind';
 
@@ -276,6 +277,8 @@ function getParamObjCType(
       return notStruct(isRequired ? 'double' : 'NSNumber *');
     case 'Int32TypeAnnotation':
       return notStruct(isRequired ? 'NSInteger' : 'NSNumber *');
+    case 'BigIntTypeAnnotation':
+      return notStruct(wrapOptional('NSNumber *', !nullable));
     case 'BooleanTypeAnnotation':
       return notStruct(isRequired ? 'BOOL' : 'NSNumber *');
     case 'BooleanLiteralTypeAnnotation':
@@ -357,6 +360,8 @@ function getReturnObjCType(
       return wrapOptional('NSNumber *', isRequired);
     case 'Int32TypeAnnotation':
       return wrapOptional('NSNumber *', isRequired);
+    case 'BigIntTypeAnnotation':
+      return wrapOptional('NSNumber *', isRequired);
     case 'BooleanTypeAnnotation':
       return wrapOptional('NSNumber *', isRequired);
     case 'BooleanLiteralTypeAnnotation':
@@ -433,6 +438,8 @@ function getReturnJSType(
       return 'NumberKind';
     case 'Int32TypeAnnotation':
       return 'NumberKind';
+    case 'BigIntTypeAnnotation':
+      return 'BigIntKind';
     case 'BooleanTypeAnnotation':
       return 'BooleanKind';
     case 'BooleanLiteralTypeAnnotation':

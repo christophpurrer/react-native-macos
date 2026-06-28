@@ -582,6 +582,10 @@ jsi::Value ObjCTurboModule::convertReturnIdToJSIValue(
       throw jsi::JSError(runtime, "convertReturnIdToJSIValue: FunctionKind is not supported yet.");
     case PromiseKind:
       throw jsi::JSError(runtime, "convertReturnIdToJSIValue: PromiseKind wasn't handled properly.");
+    case BigIntKind: {
+      returnValue = jsi::BigInt::fromInt64(runtime, [(NSNumber *)result longLongValue]);
+      break;
+    }
   }
 
   return returnValue;
@@ -870,7 +874,9 @@ jsi::Value ObjCTurboModule::invokeObjCMethod(
     case ObjectKind:
     case ArrayKind:
     case FunctionKind:
-    case ArrayBufferKind: {
+    case ArrayBufferKind:
+    case FunctionKind:
+    case BigIntKind: {
       id result = performMethodInvocation(runtime, true, methodName, inv, retainedObjectsForInvocation);
       TurboModulePerfLogger::syncMethodCallReturnConversionStart(moduleName, methodName);
       returnValue = convertReturnIdToJSIValue(runtime, methodName, returnType, result);

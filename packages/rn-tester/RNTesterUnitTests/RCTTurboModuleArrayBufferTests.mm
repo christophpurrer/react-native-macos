@@ -571,4 +571,23 @@ RCT_EXPORT_MODULE()
   XCTAssertEqual(resolvedBytes[3], 3);
 }
 
+// +arrayBufferWithOwnedBytes:length:cleanup: takes ownership of `bytes` via `cleanup`, so raising
+// without running the block leaks the caller's allocation.
+- (void)testOwnedBytesCleanupRunsBeforeRaisingOnNullBytes
+{
+  __block BOOL cleanupRan = NO;
+
+  XCTAssertThrowsSpecificNamed(
+      [RCTArrayBuffer arrayBufferWithOwnedBytes:NULL
+                                         length:4
+                                        cleanup:^{
+                                          cleanupRan = YES;
+                                        }],
+      // NOLINTNEXTLINE(misc-throw-by-value-catch-by-reference) - XCTest catches this class as a pointer
+      NSException,
+      NSInvalidArgumentException,
+      @"NULL bytes with a non-zero length must raise");
+  XCTAssertTrue(cleanupRan, @"The cleanup block must run before the initializer raises, or its bytes leak");
+}
+
 @end

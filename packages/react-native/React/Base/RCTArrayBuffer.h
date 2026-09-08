@@ -26,7 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RCTArrayBuffer : NSObject
 
 /**
- * NULL when `length` is 0, non-NULL otherwise, matching `NSData.bytes`.
+ * NULL when `length` is 0, non-NULL otherwise, matching `NSData.bytes`. Holds for every factory: a
+ * zero-length buffer normalizes its pointer to NULL.
  */
 @property (nonatomic, readonly, nullable) void *mutableBytes NS_RETURNS_INNER_POINTER;
 

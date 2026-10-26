@@ -22,7 +22,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
@@ -38,9 +37,7 @@ public class BaseViewManagerDelegateTest {
     // (non-JNI) accessor so Robolectric doesn't try to load react_featureflagsjni.
     ReactNativeFeatureFlagsForTests.INSTANCE.setUp();
     viewManager = mock(ReactViewManager.class);
-    ReactApplicationContext context =
-        ReactTestHelper.INSTANCE.createTestReactApplicationContext(
-            RuntimeEnvironment.getApplication());
+    ReactApplicationContext context = ReactTestHelper.createTestReactApplicationContext();
     ThemedReactContext themedReactContext = new ThemedReactContext(context, context, null, -1);
     view = new ReactViewGroup(themedReactContext);
     delegate = new BaseViewManagerDelegate<>(viewManager) {};

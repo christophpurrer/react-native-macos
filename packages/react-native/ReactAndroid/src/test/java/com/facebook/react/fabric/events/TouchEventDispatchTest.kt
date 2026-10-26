@@ -40,7 +40,6 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
@@ -520,8 +519,7 @@ class TouchEventDispatchTest {
     metrics.density = 1f
     DisplayMetricsHolder.setScreenDisplayMetrics(metrics)
 
-    val reactContext =
-        ReactTestHelper.createTestReactApplicationContext(RuntimeEnvironment.getApplication())
+    val reactContext = ReactTestHelper.createTestReactApplicationContext()
     val uiQueueThread: MessageQueueThread = mock()
     whenever(uiQueueThread.isOnThread()).thenReturn(true)
     val queueConfig: ReactQueueConfiguration = mock()

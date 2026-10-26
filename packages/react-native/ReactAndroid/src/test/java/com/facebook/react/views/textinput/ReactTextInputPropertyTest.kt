@@ -70,7 +70,7 @@ class ReactTextInputPropertyTest {
   fun setup() {
     ReactNativeFeatureFlagsForTests.setUp()
     val application = RuntimeEnvironment.getApplication()
-    context = createTestReactApplicationContext(application)
+    context = createTestReactApplicationContext()
     themedContext = ThemedReactContext(context, application, null, ID_NULL)
     manager = ReactTextInputManager()
     DisplayMetricsHolder.setScreenDisplayMetrics(DisplayMetrics())

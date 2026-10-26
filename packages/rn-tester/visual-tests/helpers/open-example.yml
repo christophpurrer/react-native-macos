@@ -2,6 +2,11 @@ appId: ${APP_ID} # iOS: com.meta.RNTester.localDevelopment | Android: com.facebo
 ---
 - launchApp:
     stopApp: true
+- waitForAnimationToEnd:
+    timeout: 30000
+- openLink: ${EXAMPLE_URL}
+- waitForAnimationToEnd:
+    timeout: 15000
 - openLink: ${EXAMPLE_URL}
 - runFlow:
     when:

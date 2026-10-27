@@ -56,10 +56,16 @@ typedef void (^RCTLoadSourceForBridgeBlock)(RCTBridge *bridge, RCTSourceLoadBloc
  * pointing to a path inside the app resources, e.g. `file://.../main.jsbundle`.
  *
  */
-- (instancetype)initWithBundleURLBlock:(RCTBundleURLBlock)bundleURLBlock
-                        newArchEnabled:(BOOL)newArchEnabled NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithBundleURLBlock:(RCTBundleURLBlock)bundleURLBlock NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithBundleURL:(NSURL *)bundleURL newArchEnabled:(BOOL)newArchEnabled;
+- (instancetype)initWithBundleURL:(NSURL *)bundleURL;
+
+- (instancetype)initWithBundleURLBlock:(RCTBundleURLBlock)bundleURLBlock
+                        newArchEnabled:(BOOL)newArchEnabled
+    __deprecated_msg("The flag is ignored; use initWithBundleURLBlock:.");
+
+- (instancetype)initWithBundleURL:(NSURL *)bundleURL
+                   newArchEnabled:(BOOL)newArchEnabled __deprecated_msg("The flag is ignored; use initWithBundleURL:.");
 
 /**
  * Block that allows to override logic of creating root view instance.

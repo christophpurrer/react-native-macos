@@ -41,7 +41,8 @@ NSString *RCTBridgeModuleNameForClass(Class bridgeModuleClass);
 /**
  * This function returns the list of modules that have been registered using the Old Architecture mechanism.
  */
-NSMutableArray<NSString *> *getModulesLoadedWithOldArch(void);
+NSMutableArray<NSString *> *getModulesLoadedWithOldArch(void)
+    __deprecated_msg("This API will be removed along with the legacy architecture.");
 
 #ifndef RCT_REMOVE_LEGACY_MODULE_INTEROP
 // Turn on TurboModule interop
@@ -128,7 +129,9 @@ RCT_EXTERN_C_END
  *
  * @experimental
  */
-- (void)registerSegmentWithId:(NSUInteger)segmentId path:(NSString *)path;
+- (void)registerSegmentWithId:(NSUInteger)segmentId
+                         path:(NSString *)path
+    __deprecated_msg("This API will be removed along with the legacy architecture.");
 
 /**
  * Retrieve a bridge module instance by name or class. Note that modules are
@@ -184,7 +187,8 @@ RCT_EXTERN_C_END
  * The class of the executor currently being used. Changes to this value will
  * take effect after the bridge is reloaded.
  */
-@property (nonatomic, strong) Class executorClass;
+@property (nonatomic, strong)
+    Class executorClass __deprecated_msg("This API will be removed along with the legacy architecture.");
 
 /**
  * The delegate provided during the bridge initialization
@@ -194,22 +198,26 @@ RCT_EXTERN_C_END
 /**
  * The launch options that were used to initialize the bridge.
  */
-@property (nonatomic, copy, readonly) NSDictionary *launchOptions;
+@property (nonatomic, copy, readonly)
+    NSDictionary *launchOptions __deprecated_msg("This API will be removed along with the legacy architecture.");
 
 /**
  * Use this to check if the bridge is currently loading.
  */
-@property (nonatomic, readonly, getter=isLoading) BOOL loading;
+@property (nonatomic, readonly, getter=isLoading)
+    BOOL loading __deprecated_msg("This API will be removed along with the legacy architecture.");
 
 /**
  * Use this to check if the bridge has been invalidated.
  */
-@property (nonatomic, readonly, getter=isValid) BOOL valid;
+@property (nonatomic, readonly, getter=isValid)
+    BOOL valid __deprecated_msg("This API will be removed along with the legacy architecture.");
 
 /**
  * Link to the Performance Logger that logs React Native perf events.
  */
-@property (nonatomic, readonly, strong) RCTPerformanceLogger *performanceLogger;
+@property (nonatomic, readonly, strong) RCTPerformanceLogger *performanceLogger __deprecated_msg(
+    "This API will be removed along with the legacy architecture.");
 
 /**
  * Reload the bundle and reset executor & modules. Safe to call from any thread.
@@ -224,7 +232,7 @@ RCT_EXTERN_C_END
 /**
  * Handle notifications for a fast refresh. Safe to call from any thread.
  */
-- (void)onFastRefresh;
+- (void)onFastRefresh __deprecated_msg("This API will be removed along with the legacy architecture.");
 
 /**
  * Inform the bridge, and anything subscribing to it, that it should reload.
